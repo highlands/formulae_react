@@ -1,5 +1,5 @@
-export function increment(text) {
+export function increment() {
   return {
-    type: 'INCREMENT',
-  };
+    type: 'INCREMENT'
+  }
 }

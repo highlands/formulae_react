@@ -10,7 +10,7 @@ export const RespondToForm = connect(
   },
   function mapDispatchToProps(dispatch) {
     return {
-      increment
+      increment: () => dispatch(increment())
     }
   }
 )(components.RespondToForm)
