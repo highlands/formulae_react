@@ -3,8 +3,10 @@
 import { Record } from 'immutable'
 
 export default class SectionType extends Record({
-  title: ''
+  title: '',
+  order: 0
 }) {
   title: string
+  order: number
 }
 

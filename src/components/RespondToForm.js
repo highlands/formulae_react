@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Section from './RespondToForm/Section'
-import { Record } from 'immutable'
+import { Record, List } from 'immutable'
 import { SectionType, FormType } from '../types'
 
 type Props = {
@@ -11,11 +11,14 @@ type Props = {
   loadExampleForm: Function
 }
 
-function generateSections(sections: Array<SectionType>) : Array<Section>{
+function generateSections(sections: List<SectionType>) : Array<Section>{
   if(sections === undefined){
     return []
   } else {
-    return sections.map((section, i) => <Section key={i} section={section} />)
+    return sections
+      .sortBy(section => section.order)
+      .map((section, i) => <Section key={i} section={section} />)
+      .toJS()
   }
 }
 
