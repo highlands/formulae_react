@@ -2,6 +2,31 @@
 > A set of React components to interact with [the Formulae form builder
 > API](http://www.github.com/dailydrip/formulae)
 
+## Development
+
+### To run the tests
+
+```sh
+yarn run test
+```
+
+### To check types with flow
+
+```sh
+flow status
+```
+
+You should also set up your editor for [Flow](https://flow.org/) integration.
+
+### [Immutable.js](https://facebook.github.io/immutable-js/)
+
+We're using [Immutable.js](https://facebook.github.io/immutable-js) to keep our
+state reasonable.
+
+### [Redux](https://github.com/reactjs/react-redux)
+
+We're also using Redux via React-Redux, to keep sanity around state management.
+
 ---
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
