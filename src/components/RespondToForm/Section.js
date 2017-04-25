@@ -1,7 +1,14 @@
+// @flow
+
 import React from 'react'
+import { SectionType } from '../../types'
 
-export default function Section(props) {
-  const { title } = props
+type Props = {
+  section: SectionType
+}
 
-  return <h2>{title}</h2>
+export default function Section(props:Props) {
+  const { section } = props
+
+  return <h2>{section.get('title')}</h2>
 }

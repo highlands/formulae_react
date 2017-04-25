@@ -3,3 +3,9 @@ export function increment() {
     type: 'INCREMENT'
   }
 }
+
+export function loadExampleForm() {
+  return {
+    type: 'LOAD_EXAMPLE_FORM'
+  }
+}

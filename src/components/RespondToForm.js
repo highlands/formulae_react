@@ -7,7 +7,8 @@ import { SectionType, FormType } from '../types'
 
 type Props = {
   form: FormType,
-  increment: Function
+  increment: Function,
+  loadExampleForm: Function
 }
 
 function generateSections(sections: Array<SectionType>) : Array<Section>{
@@ -19,7 +20,7 @@ function generateSections(sections: Array<SectionType>) : Array<Section>{
 }
 
 export default function RespondToForm(props: Props) {
-  const { form, increment } = props
+  const { form, increment, loadExampleForm } = props
 
   const sections = generateSections(form.sections)
 
@@ -28,5 +29,6 @@ export default function RespondToForm(props: Props) {
     <br />
     <button onClick={increment}>+</button>
     {form.get('count')}
+    <button onClick={loadExampleForm}>Load Example Form</button>
   </div>
 }

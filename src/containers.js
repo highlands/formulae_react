@@ -1,16 +1,5 @@
-import { connect } from 'react-redux'
-import * as components from './components'
-import { increment } from './actions'
+import { RespondToForm } from './containers/RespondToForm'
 
-export const RespondToForm = connect(
-  function mapStateToProps(state) {
-    return {
-      form: state
-    }
-  },
-  function mapDispatchToProps(dispatch) {
-    return {
-      increment: () => dispatch(increment())
-    }
-  }
-)(components.RespondToForm)
+export {
+  RespondToForm
+}
