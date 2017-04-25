@@ -1,12 +1,18 @@
 // @flow
 
-import { Record } from 'immutable'
+import { Record, List } from "immutable";
+import QuestionType from "./QuestionType";
 
-export default class SectionType extends Record({
-  title: '',
-  order: 0
-}) {
-  title: string
-  order: number
+// FIXME: Flow isn't checking these record types sigh
+export default class SectionType
+  extends Record({
+    title: "",
+    content: "",
+    order: 0,
+    questions: List()
+  }) {
+  title: string;
+  content: string;
+  order: number;
+  questions: List<QuestionType>;
 }
-
