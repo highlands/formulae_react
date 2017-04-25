@@ -1,16 +1,29 @@
 // @flow
 
-import { FormType, SectionType } from "./types";
+import { FormType, SectionType, QuestionType } from "./types";
 import { List } from "immutable";
 
 const init = new FormType();
 
 // FIXME: Remove this eventually but for now it makes it easy to do some testing
-const firstSection = new SectionType({
+const firstSection: SectionType = new SectionType({
   title: "First",
-  order: 1
+  order: 1,
+  content: "This is the content",
+  questions: List([
+    new QuestionType({
+      key: "first",
+      label: "first",
+      type: "string",
+      order: 0
+    })
+  ])
 });
-const secondSection = new SectionType({ title: "Second", order: 2 });
+const secondSection = new SectionType({
+  title: "Second",
+  content: "This is the content",
+  order: 2
+});
 const exampleForm = new FormType({
   sections: List([secondSection, firstSection])
 });
