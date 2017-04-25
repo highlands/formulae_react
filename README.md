@@ -2,6 +2,8 @@
 > A set of React components to interact with [the Formulae form builder
 > API](http://www.github.com/dailydrip/formulae)
 
+[![Build Status](https://semaphoreci.com/api/v1/dailydrip/formulae_react/branches/master/badge.svg)](https://semaphoreci.com/dailydrip/formulae_react)
+
 ## Development
 
 ### To run the tests
