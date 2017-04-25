@@ -1,11 +1,13 @@
 // @flow
 
-import { Record } from 'immutable'
+import { Record, List } from 'immutable'
 import SectionType from './SectionType'
 
-class FormType extends Record({
-  sections: []
+export default class FormType extends Record({
+  sections: List(),
+  count: 0
 }) {
-  sections: Array<SectionType>
+  sections: List<SectionType>
+  count: number
 }
 

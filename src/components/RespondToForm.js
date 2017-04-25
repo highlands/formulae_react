@@ -6,9 +6,9 @@ import { Record } from 'immutable'
 import { SectionType, FormType } from '../types'
 
 type Props = {
-  form: FormType
+  form: FormType,
+  increment: Function
 }
-
 
 function generateSections(sections: Array<SectionType>) : Array<Section>{
   if(sections === undefined){
@@ -19,11 +19,14 @@ function generateSections(sections: Array<SectionType>) : Array<Section>{
 }
 
 export default function RespondToForm(props: Props) {
-  const { form } = props
+  const { form, increment } = props
 
   const sections = generateSections(form.sections)
 
   return <div>
     {sections}
+    <br />
+    <button onClick={increment}>+</button>
+    {form.get('count')}
   </div>
 }

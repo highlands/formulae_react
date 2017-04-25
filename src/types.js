@@ -1,7 +1,7 @@
 import SectionType from './types/SectionType'
-import FormType from './types/SectionType'
+import FormType from './types/FormType'
 
-export default {
+export {
   SectionType,
   FormType,
 }
