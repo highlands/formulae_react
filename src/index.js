@@ -1,9 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { createStore } from 'redux'
+import reducer from './reducer'
+import { RespondToForm } from './containers'
+import './index.css'
 
 ReactDOM.render(
-  <App />,
+  <RespondToForm />,
   document.getElementById('root')
-);
+)
