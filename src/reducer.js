@@ -19,7 +19,7 @@ const firstSection: SectionType = new SectionType({
     })
   ])
 });
-const secondSection = new SectionType({
+const secondSection: SectionType = new SectionType({
   title: "Second",
   content: "This is the content",
   order: 2
