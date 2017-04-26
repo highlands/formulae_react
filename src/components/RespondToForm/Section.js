@@ -11,9 +11,6 @@ type Props = {
 
 export default function Section(props: Props) {
   const { section } = props;
-
-  console.log(section);
-  console.log(section.get("questions"));
   const questions = generateQuestions(section.get("questions"));
 
   return (
@@ -26,7 +23,6 @@ export default function Section(props: Props) {
 }
 
 function generateQuestions(questions: List<QuestionType>): Array<Question> {
-  console.log(questions);
   if (questions === undefined) {
     return [];
   } else {

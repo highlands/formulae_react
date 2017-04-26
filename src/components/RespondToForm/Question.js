@@ -2,6 +2,7 @@
 
 import React from "react";
 import { QuestionType } from "../../types";
+import { String } from "./widgets";
 
 type Props = {
   question: QuestionType
@@ -9,13 +10,23 @@ type Props = {
 
 export default function Question(props: Props) {
   const { question } = props;
+  const questionWidget = getQuestionWidget(question.get("type"));
 
   return (
     <div>
       <label>
         {question.get("label")}
-        <input type="text" />
+        {questionWidget}
       </label>
     </div>
   );
+}
+
+function getQuestionWidget(type: string) {
+  switch (type) {
+    case "string":
+      return <String value={"foo"} onChange={() => {}} />;
+    default:
+      return <div />;
+  }
 }
