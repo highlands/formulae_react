@@ -16,6 +16,12 @@ const firstSection: SectionType = new SectionType({
       label: "first",
       type: "string",
       order: 0
+    }),
+    new QuestionType({
+      key: "second",
+      label: "second",
+      type: "text",
+      order: 1
     })
   ])
 });
