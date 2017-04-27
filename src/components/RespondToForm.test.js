@@ -7,12 +7,12 @@ import { FormType, SectionType, QuestionType } from "../types";
 import { shallow } from "enzyme";
 
 const section2 = new SectionType({
-  title: "Second",
+  name: "Second",
   order: 2,
   questions: List()
 });
 const section1 = new SectionType({
-  title: "First",
+  name: "First",
   order: 1,
   questions: List()
 });
@@ -42,7 +42,5 @@ it("renders sections in order", () => {
 
   const subject = shallow(<RespondToForm form={form} increment={() => {}} />);
 
-  expect(subject.find(Section).at(0).props().section.get("title")).toBe(
-    "First"
-  );
+  expect(subject.find(Section).at(0).props().section.get("name")).toBe("First");
 });

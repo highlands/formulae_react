@@ -6,7 +6,7 @@ import { SectionType, QuestionType } from "../../types";
 import { shallow } from "enzyme";
 
 const section = new SectionType({
-  title: "Second",
+  name: "Second",
   order: 1,
   content: "This is the content",
   questions: List([
@@ -23,7 +23,7 @@ it("renders without crashing", () => {
   ReactDOM.render(<Section section={new SectionType()} />, div);
 });
 
-it("renders the title in an h2", () => {
+it("renders the name in an h2", () => {
   const div = document.createElement("div");
 
   const subject = shallow(<Section section={section} increment={() => {}} />);

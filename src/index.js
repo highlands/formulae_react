@@ -1,16 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import reducer from './reducer'
-import { RespondToForm } from './containers'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { RespondToForm } from "./containers";
+import "./index.css";
+import { Form } from "./api";
+import store from "./store";
 
-const store = createStore(reducer)
+window.f = Form;
+console.log(Form);
 
 ReactDOM.render(
   <Provider store={store}>
     <RespondToForm />
   </Provider>,
-  document.getElementById('root')
-)
+  document.getElementById("root")
+);

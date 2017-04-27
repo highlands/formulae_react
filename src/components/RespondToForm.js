@@ -8,7 +8,8 @@ import { SectionType, FormType } from "../types";
 type Props = {
   form: FormType,
   increment: Function,
-  loadExampleForm: Function
+  loadExampleForm: Function,
+  getForm: Function
 };
 
 function generateSections(sections: List<SectionType>): Array<Section> {
@@ -23,7 +24,7 @@ function generateSections(sections: List<SectionType>): Array<Section> {
 }
 
 export default function RespondToForm(props: Props) {
-  const { form, increment, loadExampleForm } = props;
+  const { form, increment, loadExampleForm, getForm } = props;
 
   const sections = generateSections(form.get("sections"));
 
@@ -34,6 +35,7 @@ export default function RespondToForm(props: Props) {
       <button onClick={increment}>+</button>
       {form.get("count")}
       <button onClick={loadExampleForm}>Load Example Form</button>
+      <button onClick={getForm}>Get API Form</button>
     </div>
   );
 }

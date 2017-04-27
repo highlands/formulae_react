@@ -2,7 +2,7 @@
 
 import React from "react";
 import { QuestionType } from "../../types";
-import { String } from "./widgets";
+import { String, Text } from "./widgets";
 
 type Props = {
   question: QuestionType
@@ -26,6 +26,8 @@ function getQuestionWidget(type: string) {
   switch (type) {
     case "string":
       return <String value={"foo"} onChange={() => {}} />;
+    case "text":
+      return <Text value={"foo"} onChange={() => {}} />;
     default:
       return <div />;
   }
