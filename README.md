@@ -6,6 +6,17 @@
 
 ## Development
 
+### Environment Variables
+
+The following Environment Variables are a good start for development
+
+```
+# Where should the react app expect to find the API?
+REACT_APP_FORMULAE_API_BASE_URL=http://localhost:3000
+# What port should the webpack development server run on?
+PORT=3001
+```
+
 ### To run the tests
 
 ```sh
