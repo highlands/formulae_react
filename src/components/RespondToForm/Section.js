@@ -15,7 +15,7 @@ export default function Section(props: Props) {
 
   return (
     <div>
-      <h2>{section.get("title")}</h2>
+      <h2>{section.get("name")}</h2>
       <p>{section.get("content")}</p>
       {questions}
     </div>
