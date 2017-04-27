@@ -42,7 +42,7 @@ type ApiForm = {
 
 function decodeSection(
   section: ApiSection,
-  questions: Array<QuestionType>
+  questions: List<QuestionType>
 ): SectionType {
   return new SectionType({
     name: section.name,
@@ -68,7 +68,7 @@ function decodeQuestion(question: ApiQuestion): QuestionType {
 
 function decodeFormType(data: ApiForm): FormType {
   // Decode the questions on their own
-  const questions = data.questions.map(decodeQuestion);
+  const questions = List(data.questions.map(decodeQuestion));
   return new FormType({
     sections: List(
       data.sections.map(section => {
