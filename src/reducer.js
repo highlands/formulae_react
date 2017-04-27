@@ -2,6 +2,7 @@
 
 import { FormType, SectionType, QuestionType } from "./types";
 import { List } from "immutable";
+import { Form } from "./api";
 
 const init = new FormType();
 
@@ -35,7 +36,11 @@ const exampleForm = new FormType({
 });
 // END EXAMPLE FORM DATA
 
-type Action = "INCREMENT" | "LOAD_EXAMPLE_FORM";
+type Action =
+  | "INCREMENT"
+  | "LOAD_EXAMPLE_FORM"
+  | "GET_API_FORM"
+  | "GOT_API_FORM";
 
 export default function reducer(
   form: FormType = init,
@@ -44,6 +49,8 @@ export default function reducer(
   switch (action.type) {
     case "LOAD_EXAMPLE_FORM":
       return exampleForm;
+    case "GOT_FORM":
+      return action.payload.form;
     case "INCREMENT":
       return form.set("count", form.get("count") + 1);
     default:
