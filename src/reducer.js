@@ -2,7 +2,6 @@
 
 import { FormType, SectionType, QuestionType } from "./types";
 import { List } from "immutable";
-import { Form } from "./api";
 
 const init = new FormType();
 
