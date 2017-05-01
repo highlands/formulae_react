@@ -1,9 +1,9 @@
 // @flow
 
-import { FormType, SectionType, QuestionType } from "./types";
+import { Model, FormType, SectionType, QuestionType } from "./types";
 import { List } from "immutable";
 
-const init = new FormType();
+const init = new Model();
 
 // FIXME: Remove this eventually but for now it makes it easy to do some testing
 const firstSection: SectionType = new SectionType({
@@ -35,24 +35,20 @@ const exampleForm = new FormType({
 });
 // END EXAMPLE FORM DATA
 
-type Action =
-  | "INCREMENT"
-  | "LOAD_EXAMPLE_FORM"
-  | "GET_API_FORM"
-  | "GOT_API_FORM";
+type Action = "LOAD_EXAMPLE_FORM" | "GET_API_FORM" | "GOT_API_FORM";
 
-export default function reducer(
-  form: FormType = init,
-  action: { type: Action }
-) {
+export default function reducer(model: Model = init, action: { type: Action }) {
   switch (action.type) {
     case "LOAD_EXAMPLE_FORM":
-      return exampleForm;
+      return new Model({ form: exampleForm });
     case "GOT_FORM":
-      return action.payload.form;
-    case "INCREMENT":
-      return form.set("count", form.get("count") + 1);
+      return new Model({ form: action.payload.form });
+    case "SET_QUESTION_SUBMISSION":
+      return model.setIn(
+        ["submissions", action.payload.key, "value"],
+        action.payload.value
+      );
     default:
-      return form;
+      return model;
   }
 }

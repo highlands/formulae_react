@@ -26,7 +26,7 @@ it("renders without crashing", () => {
 it("renders the name in an h2", () => {
   const div = document.createElement("div");
 
-  const subject = shallow(<Section section={section} increment={() => {}} />);
+  const subject = shallow(<Section section={section} />);
 
   expect(subject.text()).toMatch(/Second/);
   expect(subject.text()).toMatch(/This is the content/);

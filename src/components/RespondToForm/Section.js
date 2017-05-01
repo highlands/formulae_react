@@ -1,17 +1,23 @@
 // @flow
 
 import React from "react";
-import { List } from "immutable";
-import { SectionType, QuestionType } from "../../types";
+import { List, Map } from "immutable";
+import { SectionType, QuestionType, QuestionSubmissionType } from "../../types";
 import Question from "./Question";
 
 type Props = {
-  section: SectionType
+  section: SectionType,
+  submissions: Map<string, QuestionSubmissionType>,
+  setSubmission: Function
 };
 
 export default function Section(props: Props) {
-  const { section } = props;
-  const questions = generateQuestions(section.get("questions"));
+  const { section, submissions, setSubmission } = props;
+  const questions = generateQuestions(
+    section.get("questions"),
+    submissions,
+    setSubmission
+  );
 
   return (
     <div>
@@ -22,13 +28,34 @@ export default function Section(props: Props) {
   );
 }
 
-function generateQuestions(questions: List<QuestionType>): Array<Question> {
+function generateQuestions(
+  questions: List<QuestionType>,
+  submissions: Map<string, QuestionSubmissionType>,
+  setSubmission: Function
+): Array<Question> {
   if (questions === undefined) {
     return [];
   } else {
     return questions
       .sortBy(question => question.order)
-      .map((question, i) => <Question key={i} question={question} />)
+      .map((question, i) => (
+        <Question
+          key={i}
+          question={question}
+          submission={getSubmission(question, submissions)}
+          setSubmission={setSubmission}
+        />
+      ))
       .toJS();
   }
+}
+
+function getSubmission(
+  question: QuestionType,
+  submissions: Map<string, QuestionSubmissionType>
+): QuestionSubmissionType {
+  return (
+    submissions.get(question.get("key")) ||
+    new QuestionSubmissionType({ key: question.get("key") })
+  );
 }
