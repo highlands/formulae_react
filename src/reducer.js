@@ -1,6 +1,12 @@
 // @flow
 
-import { Model, FormType, SectionType, QuestionType } from "./types";
+import {
+  Model,
+  FormType,
+  SectionType,
+  QuestionType,
+  QuestionSubmissionType
+} from "./types";
 import { List } from "immutable";
 
 const init = new Model();
@@ -45,8 +51,11 @@ export default function reducer(model: Model = init, action: { type: Action }) {
       return new Model({ form: action.payload.form });
     case "SET_QUESTION_SUBMISSION":
       return model.setIn(
-        ["submissions", action.payload.key, "value"],
-        action.payload.value
+        ["submissions", action.payload.key],
+        new QuestionSubmissionType({
+          id: action.payload.key,
+          value: action.payload.value
+        })
       );
     default:
       return model;

@@ -14,7 +14,7 @@ export default function Question(props: Props) {
   const { question, submission, setSubmission } = props;
   const questionWidget = getQuestionWidget(
     question.get("type"),
-    question.get("key"),
+    question.get("id"),
     submission,
     setSubmission
   );
@@ -31,25 +31,16 @@ export default function Question(props: Props) {
 
 function getQuestionWidget(
   type: string,
-  key: string,
+  id: number,
   submission: QuestionSubmissionType,
   setSubmission: Function
 ) {
+  const onChange = e => setSubmission(id, e.target.value);
   switch (type) {
     case "string":
-      return (
-        <String
-          value={submission.get("value")}
-          onChange={e => setSubmission(key, e.target.value)}
-        />
-      );
+      return <String value={submission.get("value")} onChange={onChange} />;
     case "text":
-      return (
-        <Text
-          value={submission.get("value")}
-          onChange={e => setSubmission(key, e.target.value)}
-        />
-      );
+      return <Text value={submission.get("value")} onChange={onChange} />;
     default:
       return <div />;
   }

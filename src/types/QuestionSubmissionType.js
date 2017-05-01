@@ -4,9 +4,9 @@ import { Record } from "immutable";
 
 export default class QuestionSubmissionType
   extends Record({
-    key: "",
+    id: 0,
     value: ""
   }) {
-  key: string;
+  id: number;
   value: string;
 }

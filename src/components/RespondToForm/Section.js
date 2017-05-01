@@ -55,7 +55,7 @@ function getSubmission(
   submissions: Map<string, QuestionSubmissionType>
 ): QuestionSubmissionType {
   return (
-    submissions.get(question.get("key")) ||
-    new QuestionSubmissionType({ key: question.get("key") })
+    submissions.get(question.get("id")) ||
+    new QuestionSubmissionType({ key: question.get("id") })
   );
 }
