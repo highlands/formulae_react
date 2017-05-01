@@ -20,13 +20,26 @@ const section = new SectionType({
 
 it("renders without crashing", () => {
   const div = document.createElement("div");
-  ReactDOM.render(<Section section={new SectionType()} />, div);
+  ReactDOM.render(
+    <Section
+      section={new SectionType()}
+      submissions={new Map()}
+      setSubmission={() => {}}
+    />,
+    div
+  );
 });
 
 it("renders the name in an h2", () => {
   const div = document.createElement("div");
 
-  const subject = shallow(<Section section={section} />);
+  const subject = shallow(
+    <Section
+      section={section}
+      submissions={new Map()}
+      setSubmission={() => {}}
+    />
+  );
 
   expect(subject.text()).toMatch(/Second/);
   expect(subject.text()).toMatch(/This is the content/);
