@@ -58,6 +58,7 @@ function decodeSection(
 
 function decodeQuestion(question: ApiQuestion): QuestionType {
   return new QuestionType({
+    id: question.id,
     key: question.key,
     label: question.label,
     type: question.question_type,

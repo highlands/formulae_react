@@ -1,18 +1,19 @@
 import { connect } from "react-redux";
 import * as components from "../components";
-import { increment, loadExampleForm, getForm } from "../actions";
+import { loadExampleForm, getForm, setQuestionSubmission } from "../actions";
 
 export const RespondToForm = connect(
   function mapStateToProps(state) {
     return {
-      form: state
+      form: state.get("form"),
+      submissions: state.get("submissions")
     };
   },
   function mapDispatchToProps(dispatch) {
     return {
-      increment: () => dispatch(increment()),
       loadExampleForm: () => dispatch(loadExampleForm()),
-      getForm: () => dispatch(getForm())
+      getForm: () => dispatch(getForm()),
+      setSubmission: (key, value) => dispatch(setQuestionSubmission(key, value))
     };
   }
 )(components.RespondToForm);

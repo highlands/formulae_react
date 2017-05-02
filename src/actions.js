@@ -1,9 +1,13 @@
 import { Form } from "./api";
 import { FormType } from "./types";
 
-export function increment() {
+export function setQuestionSubmission(key, value) {
   return {
-    type: "INCREMENT"
+    type: "SET_QUESTION_SUBMISSION",
+    payload: {
+      key: key,
+      value: value
+    }
   };
 }
 

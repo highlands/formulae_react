@@ -1,16 +1,23 @@
 // @flow
 
 import React from "react";
-import { QuestionType } from "../../types";
+import { QuestionType, QuestionSubmissionType } from "../../types";
 import { String, Text } from "./widgets";
 
 type Props = {
-  question: QuestionType
+  question: QuestionType,
+  submission: QuestionSubmissionType,
+  setSubmission: Function
 };
 
 export default function Question(props: Props) {
-  const { question } = props;
-  const questionWidget = getQuestionWidget(question.get("type"));
+  const { question, submission, setSubmission } = props;
+  const questionWidget = getQuestionWidget(
+    question.get("type"),
+    question.get("id"),
+    submission,
+    setSubmission
+  );
 
   return (
     <div>
@@ -22,12 +29,18 @@ export default function Question(props: Props) {
   );
 }
 
-function getQuestionWidget(type: string) {
+function getQuestionWidget(
+  type: string,
+  id: number,
+  submission: QuestionSubmissionType,
+  setSubmission: Function
+) {
+  const onChange = e => setSubmission(id, e.target.value);
   switch (type) {
     case "string":
-      return <String value={"foo"} onChange={() => {}} />;
+      return <String value={submission.get("value")} onChange={onChange} />;
     case "text":
-      return <Text value={"foo"} onChange={() => {}} />;
+      return <Text value={submission.get("value")} onChange={onChange} />;
     default:
       return <div />;
   }

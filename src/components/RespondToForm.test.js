@@ -23,16 +23,13 @@ const form = new FormType({
 
 it("renders without crashing", () => {
   const div = document.createElement("div");
-  ReactDOM.render(
-    <RespondToForm form={new FormType()} increment={() => {}} />,
-    div
-  );
+  ReactDOM.render(<RespondToForm form={new FormType()} />, div);
 });
 
 it("renders each section", () => {
   const div = document.createElement("div");
 
-  const subject = shallow(<RespondToForm form={form} increment={() => {}} />);
+  const subject = shallow(<RespondToForm form={form} />);
 
   expect(subject.find(Section).length).toBe(2);
 });
@@ -40,7 +37,7 @@ it("renders each section", () => {
 it("renders sections in order", () => {
   const div = document.createElement("div");
 
-  const subject = shallow(<RespondToForm form={form} increment={() => {}} />);
+  const subject = shallow(<RespondToForm form={form} />);
 
   expect(subject.find(Section).at(0).props().section.get("name")).toBe("First");
 });
