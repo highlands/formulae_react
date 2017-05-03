@@ -1,17 +1,13 @@
 import { Form, FormSubmission } from "./api";
-import {
-  FormType,
-  FormSubmissionType,
-  FormQuestionSubmissionType
-} from "./types";
-import { List } from "immutable";
+import { FormType } from "./types";
 
-export function setQuestionSubmission(key, value) {
+export function setQuestionSubmission(key, value, questionType) {
   return {
     type: "SET_QUESTION_SUBMISSION",
     payload: {
       key: key,
-      value: value
+      value: value,
+      questionType: questionType
     }
   };
 }

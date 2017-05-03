@@ -1,7 +1,6 @@
 // @flow
 
 import { FormSubmissionType, FormQuestionSubmissionType } from "./types";
-import { List } from "immutable";
 
 type ApiQuestionSubmission = {
   question_id: number,

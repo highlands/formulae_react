@@ -2,11 +2,15 @@
 
 import { Record } from "immutable";
 
+type QuestionType = "string" | "text" | "boolean";
+
 export default class QuestionSubmissionType
   extends Record({
     id: 0,
-    value: ""
+    value: "",
+    questionType: "string"
   }) {
   id: number;
   value: string;
+  questionType: QuestionType;
 }

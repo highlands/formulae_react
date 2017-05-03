@@ -54,7 +54,8 @@ export default function reducer(model: Model = init, action: { type: Action }) {
         ["submissions", action.payload.key],
         new QuestionSubmissionType({
           id: action.payload.key,
-          value: action.payload.value
+          value: action.payload.value,
+          questionType: action.payload.questionType
         })
       );
     default:
