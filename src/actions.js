@@ -1,5 +1,10 @@
-import { Form } from "./api";
-import { FormType } from "./types";
+import { Form, FormSubmission } from "./api";
+import {
+  FormType,
+  FormSubmissionType,
+  FormQuestionSubmissionType
+} from "./types";
+import { List } from "immutable";
 
 export function setQuestionSubmission(key, value) {
   return {
@@ -17,9 +22,15 @@ export function loadExampleForm() {
   };
 }
 
-export function getForm() {
+export function getForm(id) {
   return dispatch => {
-    Form.get(1).then(formType => dispatch(gotForm(formType)));
+    Form.get(id).then(formType => dispatch(gotForm(formType)));
+  };
+}
+
+export function submitForm(formSubmissionType) {
+  return dispatch => {
+    FormSubmission.post(formSubmissionType).then(console.log);
   };
 }
 

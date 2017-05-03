@@ -1,3 +1,6 @@
-import Form from "./api/Form";
+// @flow
 
-export { Form };
+import Form from "./api/Form";
+import FormSubmission from "./api/FormSubmission";
+
+export { Form, FormSubmission };
