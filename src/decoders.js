@@ -1,6 +1,12 @@
 // @flow
 
-import { FormType, SectionType, QuestionType } from "./types";
+import {
+  FormType,
+  FormResponseType,
+  SectionType,
+  QuestionType,
+  FormSubmissionResponseType
+} from "./types";
 import { List } from "immutable";
 
 type ApiApplication = {
@@ -40,6 +46,16 @@ type ApiForm = {
   questions: Array<ApiQuestion>
 };
 
+type ApiFormResponse = {
+  id: number,
+  application_id: number
+};
+
+type ApiFormSubmissionResponse = {
+  id: number,
+  form: ApiFormResponse
+};
+
 function decodeSection(
   section: ApiSection,
   questions: List<QuestionType>
@@ -67,10 +83,11 @@ function decodeQuestion(question: ApiQuestion): QuestionType {
   });
 }
 
-function decodeFormType(data: ApiForm): FormType {
+function decodeForm(data: ApiForm): FormType {
   // Decode the questions on their own
   const questions = List(data.questions.map(decodeQuestion));
   return new FormType({
+    id: data.id,
     sections: List(
       data.sections.map(section => {
         return decodeSection(section, questions);
@@ -79,4 +96,20 @@ function decodeFormType(data: ApiForm): FormType {
   });
 }
 
-export { decodeFormType };
+function decodeFormResponse(data: ApiFormResponse): FormResponseType {
+  return new FormResponseType({
+    id: data.id,
+    applicationId: data.application_id
+  });
+}
+
+function decodeFormSubmissionResponse(
+  data: ApiFormSubmissionResponse
+): FormSubmissionResponseType {
+  return new FormSubmissionResponseType({
+    id: data.id,
+    formResponse: decodeFormResponse(data.form)
+  });
+}
+
+export { decodeForm, decodeFormSubmissionResponse };

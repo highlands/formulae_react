@@ -3,15 +3,38 @@
 import React from "react";
 import Section from "./RespondToForm/Section";
 import { List, Map } from "immutable";
-import { SectionType, FormType, QuestionSubmissionType } from "../types";
+import {
+  SectionType,
+  FormType,
+  QuestionSubmissionType,
+  FormSubmissionType,
+  FormQuestionSubmissionType
+} from "../types";
 
 type Props = {
   form: FormType,
   loadExampleForm: Function,
   getForm: Function,
   submissions: Map<string, QuestionSubmissionType>,
-  setSubmission: Function
+  setSubmission: Function,
+  submitForm: Function
 };
+
+function generateFormSubmission(
+  form: FormType,
+  submissions: Map<string, QuestionSubmissionType>
+): FormSubmissionType {
+  console.log(form);
+  return new FormSubmissionType({
+    formId: form.id,
+    questionSubmissions: submissions.map(submission => {
+      return new FormQuestionSubmissionType({
+        questionId: submission.id,
+        string: submission.value
+      });
+    })
+  });
+}
 
 function generateSections(
   sections: List<SectionType>,
@@ -36,7 +59,14 @@ function generateSections(
 }
 
 export default function RespondToForm(props: Props) {
-  const { form, loadExampleForm, getForm, submissions, setSubmission } = props;
+  const {
+    form,
+    loadExampleForm,
+    getForm,
+    submissions,
+    setSubmission,
+    submitForm
+  } = props;
 
   const sections = generateSections(
     form.get("sections"),
@@ -47,9 +77,22 @@ export default function RespondToForm(props: Props) {
   return (
     <div>
       {sections}
-      <br />
+      <button
+        onClick={() => {
+          submitForm(generateFormSubmission(form, submissions));
+        }}
+      >
+        Submit
+      </button>
+      <hr />
       <button onClick={loadExampleForm}>Load Example Form</button>
-      <button onClick={getForm}>Get API Form</button>
+      <button
+        onClick={() => {
+          getForm(1);
+        }}
+      >
+        Get API Form
+      </button>
     </div>
   );
 }

@@ -2,12 +2,12 @@
 
 import { createApi } from "./base";
 import { FormType } from "../types";
-import { decodeFormType } from "../decoders";
+import { decodeForm } from "../decoders";
 const api = createApi("forms");
 
 const Form = {
   get: (id: number): Promise<FormType> => {
-    return api.get(`${id}`).then(resp => decodeFormType(resp.data));
+    return api.get(`${id}`).then(resp => decodeForm(resp.data));
   }
 };
 
