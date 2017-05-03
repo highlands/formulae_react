@@ -18,8 +18,8 @@ export const RespondToForm = connect(
     return {
       loadExampleForm: () => dispatch(loadExampleForm()),
       getForm: id => dispatch(getForm(id)),
-      setSubmission: (key, value) => {
-        return dispatch(setQuestionSubmission(key, value));
+      setSubmission: (key, value, questionType) => {
+        return dispatch(setQuestionSubmission(key, value, questionType));
       },
       submitForm: formSubmission => dispatch(submitForm(formSubmission))
     };

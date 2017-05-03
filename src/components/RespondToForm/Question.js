@@ -35,7 +35,7 @@ function getQuestionWidget(
   submission: QuestionSubmissionType,
   setSubmission: Function
 ) {
-  const onChange = e => setSubmission(id, e.target.value);
+  const onChange = e => setSubmission(id, e.target.value, type);
   switch (type) {
     case "string":
       return <String value={submission.get("value")} onChange={onChange} />;

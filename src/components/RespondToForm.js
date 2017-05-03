@@ -28,14 +28,26 @@ function generateFormSubmission(
   return new FormSubmissionType({
     formId: form.id,
     questionSubmissions: submissions.map(submission => {
-      return new FormQuestionSubmissionType({
-        questionId: submission.id,
-        string: submission.value
-      });
+      switch (submission.questionType) {
+        case "string":
+          return new FormQuestionSubmissionType({
+            questionId: submission.id,
+            string: submission.value
+          });
+        case "text":
+          return new FormQuestionSubmissionType({
+            questionId: submission.id,
+            text: submission.value
+          });
+        case "boolean":
+          return new FormQuestionSubmissionType({
+            questionId: submission.id,
+            boolean: submission.value
+          });
+      }
     })
   });
 }
-
 function generateSections(
   sections: List<SectionType>,
   submissions: Map<string, QuestionSubmissionType>,
