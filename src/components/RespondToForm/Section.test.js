@@ -42,5 +42,18 @@ it("renders the name in an h2", () => {
   );
 
   expect(subject.text()).toMatch(/Second/);
+});
+
+it("renders the content in an paragraph", () => {
+  const div = document.createElement("div");
+
+  const subject = shallow(
+    <Section
+      section={section}
+      submissions={new Map()}
+      setSubmission={() => {}}
+    />
+  );
+
   expect(subject.text()).toMatch(/This is the content/);
 });
