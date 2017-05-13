@@ -112,4 +112,4 @@ function decodeFormSubmissionResponse(
   });
 }
 
-export { decodeForm, decodeFormSubmissionResponse };
+export { decodeForm, decodeSection ,decodeFormSubmissionResponse };

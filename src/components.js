@@ -1,5 +1,4 @@
-import RespondToForm from './components/RespondToForm'
+import RespondToForm from "./components/RespondToForm";
+import AdministerForm from "./components/AdministerForm";
 
-export {
-  RespondToForm
-}
+export { RespondToForm, AdministerForm };

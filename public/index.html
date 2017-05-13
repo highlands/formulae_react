@@ -14,9 +14,30 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+    <style>
+      input {
+				padding: 10px;
+				border: solid 5px #c9c9c9;
+				box-shadow: inset 0 0 0 1px #707070;
+				transition: box-shadow 0.3s, border 0.3s;
+      }
+			.section {
+				background: #aeb7f5;
+			}
+      .section input {
+				border: solid 5px #aeb7f5;
+				box-shadow: inset 0 0 0 1px #707070;
+      }
+      .question{
+        background: #c9c9c9;
+        width: 100%;
+        height: 100%;
+      }
+    </style
   </head>
   <body>
-    <div id="root"></div>
+    <div id="respond-to-form"></div>
+    <div id="administer-form"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

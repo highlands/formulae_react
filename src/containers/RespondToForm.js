@@ -1,11 +1,6 @@
 import { connect } from "react-redux";
 import * as components from "../components";
-import {
-  loadExampleForm,
-  getForm,
-  setQuestionSubmission,
-  submitForm
-} from "../actions";
+import { RespondToFormActions } from "../actions";
 
 export const RespondToForm = connect(
   function mapStateToProps(state) {
@@ -16,12 +11,15 @@ export const RespondToForm = connect(
   },
   function mapDispatchToProps(dispatch) {
     return {
-      loadExampleForm: () => dispatch(loadExampleForm()),
-      getForm: id => dispatch(getForm(id)),
+      loadExampleForm: () => dispatch(RespondToFormActions.loadExampleForm()),
+      getForm: id => dispatch(RespondToFormActions.getForm(id)),
       setSubmission: (key, value, questionType) => {
-        return dispatch(setQuestionSubmission(key, value, questionType));
+        return dispatch(
+          RespondToFormActions.setQuestionSubmission(key, value, questionType)
+        );
       },
-      submitForm: formSubmission => dispatch(submitForm(formSubmission))
+      submitForm: formSubmission =>
+        dispatch(RespondToFormActions.submitForm(formSubmission))
     };
   }
 )(components.RespondToForm);

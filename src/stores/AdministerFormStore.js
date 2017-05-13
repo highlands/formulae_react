@@ -1,13 +1,14 @@
-import reducer from "./reducer";
+import reducers from "../reducers";
+import { AdministerFormReducer } from "../reducers";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 
-const store = createStore(
-  reducer,
+const AdministerFormStore = createStore(
+  AdministerFormReducer,
   compose(
     applyMiddleware(thunk),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
 
-export default store;
+export default AdministerFormStore;

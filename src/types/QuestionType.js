@@ -4,14 +4,14 @@ import { Record } from "immutable";
 
 export default class QuestionType
   extends Record({
-    id: 0,
+    id: "",
     key: "",
     label: "",
     type: "",
     order: 0,
     section_id: 0
   }) {
-  id: number;
+  id: string;
   key: string;
   label: string;
   type: string;
