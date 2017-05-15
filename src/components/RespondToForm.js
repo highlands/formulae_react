@@ -20,14 +20,13 @@ type Props = {
   submissions: Map<string, QuestionSubmissionType>,
   setSubmission: Function,
   submitForm: Function,
-  displaySectionAs: string
+  displaySectionsAs: string
 };
 
 function generateFormSubmission(
   form: FormType,
   submissions: Map<string, QuestionSubmissionType>
 ): FormSubmissionType {
-  console.log(form);
   return new FormSubmissionType({
     formId: form.id,
     questionSubmissions: submissions.map(submission => {
@@ -51,27 +50,6 @@ function generateFormSubmission(
     })
   });
 }
-function generateSections(
-  sections: List<SectionType>,
-  submissions: Map<string, QuestionSubmissionType>,
-  setSubmission: Function
-): Array<Section> {
-  if (sections === undefined) {
-    return [];
-  } else {
-    return sections
-      .sortBy(section => section.order)
-      .map((section, i) => (
-        <Section
-          key={i}
-          section={section}
-          submissions={submissions}
-          setSubmission={setSubmission}
-        />
-      ))
-      .toJS();
-  }
-}
 
 export default function RespondToForm(props: Props) {
   const {
@@ -81,18 +59,12 @@ export default function RespondToForm(props: Props) {
     submissions,
     setSubmission,
     submitForm,
-    displaySectionAs,
+    displaySectionsAs,
     setTotalSteps,
     setCurrentStep,
     totalSteps,
     currentStep
   } = props;
-
-  const generatedSections = generateSections(
-    form.get("sections"),
-    submissions,
-    setSubmission
-  );
 
   const sections = form.get("sections");
 
@@ -105,7 +77,7 @@ export default function RespondToForm(props: Props) {
   //   - This is what we are already doing
 
   let displaySections = null;
-  if (displaySectionAs === "HEADINGS") {
+  if (displaySectionsAs === "HEADINGS") {
     displaySections = (
       <SectionsWithHeadings
         sections={sections}
@@ -114,7 +86,7 @@ export default function RespondToForm(props: Props) {
       />
     );
   }
-  if (displaySectionAs === "STEPS") {
+  if (displaySectionsAs === "STEPS") {
     displaySections = (
       <SectionsWithSteps
         sections={sections}
