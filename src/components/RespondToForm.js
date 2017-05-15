@@ -2,6 +2,8 @@
 
 import React from "react";
 import Section from "./RespondToForm/Section";
+import SectionsWithSteps from "./RespondToForm/SectionsWithSteps";
+import SectionsWithHeadings from "./RespondToForm/SectionsWithHeadings";
 import { List, Map } from "immutable";
 import {
   SectionType,
@@ -17,7 +19,8 @@ type Props = {
   getForm: Function,
   submissions: Map<string, QuestionSubmissionType>,
   setSubmission: Function,
-  submitForm: Function
+  submitForm: Function,
+  displaySectionAs: string
 };
 
 function generateFormSubmission(
@@ -77,18 +80,50 @@ export default function RespondToForm(props: Props) {
     getForm,
     submissions,
     setSubmission,
-    submitForm
+    submitForm,
+    displaySectionAs
   } = props;
 
-  const sections = generateSections(
+  const generatedSections = generateSections(
     form.get("sections"),
     submissions,
     setSubmission
   );
 
+  const sections = form.get("sections");
+
+  // displaySectionsAs:
+  // This determines how we show sections.
+  // - RespondToForm.Section.STEPS
+  //   - If this is chosen, we will show a single section at a time, and
+  //     'next/prev' buttons to move between sections
+  // - RespondToForm.Section.HEADINGS
+  //   - This is what we are already doing
+
+  let displaySections = null;
+  if (displaySectionAs === "HEADINGS") {
+    displaySections = (
+      <SectionsWithHeadings
+        sections={sections}
+        submissions={submissions}
+        setSubmission={setSubmission}
+      />
+    );
+  }
+  if (displaySectionAs === "STEPS") {
+    displaySections = (
+      <SectionsWithSteps
+        sections={sections}
+        submissions={submissions}
+        setSubmission={setSubmission}
+      />
+    );
+  }
+
   return (
     <div>
-      {sections}
+      {displaySections}
+      <hr />
       <button
         onClick={() => {
           submitForm(generateFormSubmission(form, submissions));

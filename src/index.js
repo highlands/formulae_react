@@ -13,7 +13,9 @@ window.f = Form;
 // Example for RespondToForm
 ReactDOM.render(
   <Provider store={RespondToFormStore}>
-    <RespondToForm />
+    <div>
+      <RespondToForm displaySectionAs="STEPS" />
+    </div>
   </Provider>,
   document.getElementById("respond-to-form")
 );
