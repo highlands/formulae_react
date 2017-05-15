@@ -81,7 +81,11 @@ export default function RespondToForm(props: Props) {
     submissions,
     setSubmission,
     submitForm,
-    displaySectionAs
+    displaySectionAs,
+    setTotalSteps,
+    setCurrentStep,
+    totalSteps,
+    currentStep
   } = props;
 
   const generatedSections = generateSections(
@@ -116,6 +120,10 @@ export default function RespondToForm(props: Props) {
         sections={sections}
         submissions={submissions}
         setSubmission={setSubmission}
+        setTotalSteps={setTotalSteps}
+        setCurrentStep={setCurrentStep}
+        totalSteps={totalSteps}
+        currentStep={currentStep}
       />
     );
   }

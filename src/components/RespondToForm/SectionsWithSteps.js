@@ -9,8 +9,21 @@ import Section from "./Section";
 type Props = {
   sections: Object,
   submissions: Map<string, QuestionSubmissionType>,
-  setSubmission: Function
+  setSubmission: Function,
+  nextStep: Function,
+  prevStep: Function,
+  totalSteps: number,
+  currentStep: number
 };
+
+function Step(props) {
+  const {
+    section,
+    setSubmission,
+    submissions
+  } = props;
+  return <Section section submissions setSubmission />;
+}
 
 // - Add a 'currentStep' integer to the RespondToForm props that's passed down
 // - Add a 'nextStep/prevStep' action
@@ -21,18 +34,39 @@ type Props = {
 // - clicking next/prev fires nextStep/prevStep action
 // - only show current section
 export default function SectionsWithSteps(props: Props) {
-  const { sections, submissions, setSubmission } = props;
+  const {
+    sections,
+    submissions,
+    setSubmission,
+    totalSteps,
+    currentStep
+  } = props;
 
-  let renderingSections = sections.map((s, i) => {
+  let previous = "";
+  let next = "";
+  let listing = "";
+
+  if (currentStep != 0) {
+    previous = <div> Previous </div>;
+  }
+  if (currentStep != totalSteps) {
+    next = <div> Next </div>;
+  }
+  listing = `${previous} ${next}`;
+
+  if (!sections.isEmpty()) {
+    let section = sections.get(currentStep);
     return (
-      <Section
-        key={i}
-        section={s}
-        submissions={submissions}
-        setSubmission={setSubmission}
-      />
+      <div>
+        <Step
+          section={section}
+          submissions={submissions}
+          setSubmission={setSubmission}
+        />
+        {listing}
+      </div>
     );
-  });
-
-  return <div>{renderingSections}</div>;
+  } else {
+    return <div />;
+  }
 }

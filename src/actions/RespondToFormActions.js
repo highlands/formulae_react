@@ -39,10 +39,20 @@ function gotForm(form: FormType) {
   };
 }
 
+function setCurrentStep(currentStep: number) {
+  return {
+    type: "SET_CURRENT_STEP",
+    payload: {
+      currentStep: currentStep
+    }
+  };
+}
+
 export default {
   loadExampleForm,
   getForm,
   gotForm,
   submitForm,
+  setCurrentStep,
   setQuestionSubmission
 };
