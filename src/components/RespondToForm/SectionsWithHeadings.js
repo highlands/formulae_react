@@ -1,8 +1,7 @@
 // @flow
 import React from "react";
 import { List, Map } from "immutable";
-import { SectionType, QuestionType, QuestionSubmissionType } from "../../types";
-import Question from "./Question";
+import { SectionType, QuestionSubmissionType } from "../../types";
 import Section from "./Section";
 
 type Props = {

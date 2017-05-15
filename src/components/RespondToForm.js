@@ -1,12 +1,10 @@
 // @flow
 
 import React from "react";
-import Section from "./RespondToForm/Section";
 import SectionsWithSteps from "./RespondToForm/SectionsWithSteps";
 import SectionsWithHeadings from "./RespondToForm/SectionsWithHeadings";
-import { List, Map } from "immutable";
+import { Map } from "immutable";
 import {
-  SectionType,
   FormType,
   QuestionSubmissionType,
   FormSubmissionType,
@@ -49,6 +47,12 @@ function generateFormSubmission(
           return new FormQuestionSubmissionType({
             questionId: submission.id,
             boolean: submission.value
+          });
+        default:
+          // FIXME: This shouldn't happen and this isn't necessarily sensible
+          return new FormQuestionSubmissionType({
+            questionId: submission.id,
+            string: submission.value
           });
       }
     })

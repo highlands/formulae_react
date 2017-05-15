@@ -2,8 +2,7 @@
 
 import React from "react";
 import { List, Map } from "immutable";
-import { SectionType, QuestionType, QuestionSubmissionType } from "../../types";
-import Question from "./Question";
+import { SectionType, QuestionSubmissionType } from "../../types";
 import Section from "./Section";
 
 type Props = {
@@ -45,16 +44,14 @@ export default function SectionsWithSteps(props: Props) {
 
   const totalSteps = sections.size;
 
-  let previous = "";
-  let next = "";
-  let listing = "";
+  let previous, next;
 
-  if (currentStep != 0) {
+  if (currentStep !== 0) {
     previous = <div> Previous </div>;
   } else {
     previous = <div />;
   }
-  if (currentStep != totalSteps) {
+  if (currentStep !== totalSteps) {
     next = <div> Next </div>;
   } else {
     next = <div />;

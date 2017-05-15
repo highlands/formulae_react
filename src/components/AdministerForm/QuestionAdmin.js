@@ -12,12 +12,8 @@ type Props = {
 };
 
 function renderQuestionType(props) {
-  const {
-    section,
-    setQuestionType,
-    question
-  } = props;
-  if (question.type == "") {
+  const { section, setQuestionType, question } = props;
+  if (question.type === "") {
     return (
       <select
         onChange={e => setQuestionType(section.id, question.id, e.target.value)}
@@ -34,12 +30,7 @@ function renderQuestionType(props) {
 }
 
 function renderQuestionFields(props) {
-  const {
-    section,
-    question,
-    setQuestionKey,
-    setQuestionLabel
-  } = props;
+  const { section, question, setQuestionKey, setQuestionLabel } = props;
   return (
     <div>
       {question.type}:

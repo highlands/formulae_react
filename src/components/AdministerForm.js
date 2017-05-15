@@ -1,15 +1,8 @@
 // @flow
 
 import React from "react";
-import Section from "./RespondToForm/Section";
 import SectionAdmin from "./AdministerForm/SectionAdmin";
-import { List, Map } from "immutable";
-import {
-  SectionType,
-  FormType,
-  QuestionSubmissionType,
-  FormSubmissionType
-} from "../types";
+import { FormType } from "../types";
 
 type Props = {
   form: FormType,

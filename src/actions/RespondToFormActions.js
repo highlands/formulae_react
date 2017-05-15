@@ -1,4 +1,4 @@
-import { Form, Section, FormSubmission } from "../api";
+import { Form, FormSubmission } from "../api";
 import { FormType } from "../types";
 
 function setQuestionSubmission(key, value, questionType) {
@@ -67,5 +67,6 @@ export default {
   submitForm,
   setCurrentStep,
   setQuestionSubmission,
-  nextStep
+  nextStep,
+  prevStep
 };
