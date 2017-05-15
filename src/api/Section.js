@@ -1,7 +1,7 @@
 // @flow
 
 import { createApi } from "./base";
-import { FormType, SectionType } from "../types";
+import { SectionType } from "../types";
 import { decodeSection } from "../decoders";
 const api = createApi("forms");
 

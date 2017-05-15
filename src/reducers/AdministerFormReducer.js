@@ -1,7 +1,6 @@
 // @flow
 
-import { Model, FormType, SectionType, QuestionType } from "../types";
-import { List } from "immutable";
+import { Model, SectionType, QuestionType } from "../types";
 
 const init = new Model();
 const uuidV4 = require("uuid/v4");
@@ -28,7 +27,7 @@ export default function AdministerFormReducer(
         let { sectionId, name } = action.payload;
         return model.updateIn(["form", "sections"], sections => {
           return sections.map(s => {
-            if (s.id == sectionId) {
+            if (s.id === sectionId) {
               return s.set("name", name);
             } else {
               return s;
@@ -43,7 +42,7 @@ export default function AdministerFormReducer(
         let { sectionId, content } = action.payload;
         return model.updateIn(["form", "sections"], sections => {
           return sections.map(s => {
-            if (s.id == sectionId) {
+            if (s.id === sectionId) {
               return s.set("content", content);
             } else {
               return s;
@@ -58,7 +57,7 @@ export default function AdministerFormReducer(
         let { sectionId } = action.payload;
         return model.updateIn(["form", "sections"], sections => {
           return sections.map(s => {
-            if (s.id == sectionId) {
+            if (s.id === sectionId) {
               return s.set(
                 "questions",
                 s.questions.push(new QuestionType({ id: uuidV4() }))
@@ -76,8 +75,8 @@ export default function AdministerFormReducer(
         let { sectionId, questionId, type } = action.payload;
         return model.updateIn(["form", "sections"], sections => {
           return sections.map(s => {
-            if (s.id == sectionId) {
-              let index = s.questions.findIndex(q => q.id == questionId);
+            if (s.id === sectionId) {
+              let index = s.questions.findIndex(q => q.id === questionId);
               return s.setIn(["questions", index, "type"], type);
             } else {
               return s;
@@ -92,8 +91,8 @@ export default function AdministerFormReducer(
         let { sectionId, questionId, key } = action.payload;
         return model.updateIn(["form", "sections"], sections => {
           return sections.map(s => {
-            if (s.id == sectionId) {
-              let index = s.questions.findIndex(q => q.id == questionId);
+            if (s.id === sectionId) {
+              let index = s.questions.findIndex(q => q.id === questionId);
               return s.setIn(["questions", index, "key"], key);
             } else {
               return s;
@@ -108,8 +107,8 @@ export default function AdministerFormReducer(
         let { sectionId, questionId, label } = action.payload;
         return model.updateIn(["form", "sections"], sections => {
           return sections.map(s => {
-            if (s.id == sectionId) {
-              let index = s.questions.findIndex(q => q.id == questionId);
+            if (s.id === sectionId) {
+              let index = s.questions.findIndex(q => q.id === questionId);
               return s.setIn(["questions", index, "label"], label);
             } else {
               return s;

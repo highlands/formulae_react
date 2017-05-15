@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import RespondToForm from "./RespondToForm";
-import Section from "./RespondToForm/Section";
+import SectionsWithHeadings from "./RespondToForm/SectionsWithHeadings";
+import SectionsWithSteps from "./RespondToForm/SectionsWithSteps";
 import { List } from "immutable";
 import { FormType, SectionType, QuestionType } from "../types";
 import { shallow } from "enzyme";
@@ -26,18 +27,24 @@ it("renders without crashing", () => {
   ReactDOM.render(<RespondToForm form={new FormType()} />, div);
 });
 
-it("renders each section", () => {
+it("renders SectionsWithHeadings", () => {
   const div = document.createElement("div");
 
-  const subject = shallow(<RespondToForm form={form} />);
+  const subject = shallow(
+    <RespondToForm form={form} displaySectionsAs="HEADINGS" />
+  );
 
-  expect(subject.find(Section).length).toBe(2);
+  expect(subject.find(SectionsWithHeadings).length).toBe(1);
 });
 
-it("renders sections in order", () => {
+it("renders SectionsWithSteps", () => {
   const div = document.createElement("div");
 
-  const subject = shallow(<RespondToForm form={form} />);
+  const subject = shallow(
+    <RespondToForm form={form} displaySectionsAs="STEPS" />
+  );
 
-  expect(subject.find(Section).at(0).props().section.get("name")).toBe("First");
+  expect(subject.find(SectionsWithSteps).length).toBe(1);
 });
+// FIXME: Add the tests that used to be here to each of SectionsWithSteps,
+// SectionsWithHeadings

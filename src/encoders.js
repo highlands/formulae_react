@@ -2,7 +2,6 @@
 
 import {
   QuestionType,
-  SectionType,
   FormType,
   FormSubmissionType,
   FormQuestionSubmissionType

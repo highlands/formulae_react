@@ -54,6 +54,8 @@ export default function RespondToFormReducer(
   switch (action.type) {
     case "LOAD_EXAMPLE_FORM":
       return new Model({ form: exampleForm });
+    case "SET_CURRENT_STEP":
+      return model.setIn(["currentStep"], action.payload.currentStep);
     case "GOT_FORM":
       return new Model({ form: action.payload.form });
     case "SET_QUESTION_SUBMISSION":
@@ -65,6 +67,10 @@ export default function RespondToFormReducer(
           questionType: action.payload.questionType
         })
       );
+    case "NEXT_STEP":
+      return model.set("currentStep", model.get("currentStep") + 1);
+    case "PREV_STEP":
+      return model.set("currentStep", model.get("currentStep") - 1);
     default:
       return model;
   }

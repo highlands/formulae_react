@@ -1,5 +1,4 @@
-import { Form, Section, FormSubmission } from "../api";
-import { FormType } from "../types";
+import { Form } from "../api";
 
 function addSection(section: SectionType, form_id: number) {
   return {

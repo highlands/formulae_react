@@ -1,10 +1,10 @@
 // @flow
 
 import React from "react";
-import Section from "./RespondToForm/Section";
-import { List, Map } from "immutable";
+import SectionsWithSteps from "./RespondToForm/SectionsWithSteps";
+import SectionsWithHeadings from "./RespondToForm/SectionsWithHeadings";
+import { Map } from "immutable";
 import {
-  SectionType,
   FormType,
   QuestionSubmissionType,
   FormSubmissionType,
@@ -17,14 +17,18 @@ type Props = {
   getForm: Function,
   submissions: Map<string, QuestionSubmissionType>,
   setSubmission: Function,
-  submitForm: Function
+  setCurrentStep: Function,
+  currentStep: number,
+  submitForm: Function,
+  displaySectionsAs: string,
+  nextStep: Function,
+  prevStep: Function
 };
 
 function generateFormSubmission(
   form: FormType,
   submissions: Map<string, QuestionSubmissionType>
 ): FormSubmissionType {
-  console.log(form);
   return new FormSubmissionType({
     formId: form.id,
     questionSubmissions: submissions.map(submission => {
@@ -44,30 +48,15 @@ function generateFormSubmission(
             questionId: submission.id,
             boolean: submission.value
           });
+        default:
+          // FIXME: This shouldn't happen and this isn't necessarily sensible
+          return new FormQuestionSubmissionType({
+            questionId: submission.id,
+            string: submission.value
+          });
       }
     })
   });
-}
-function generateSections(
-  sections: List<SectionType>,
-  submissions: Map<string, QuestionSubmissionType>,
-  setSubmission: Function
-): Array<Section> {
-  if (sections === undefined) {
-    return [];
-  } else {
-    return sections
-      .sortBy(section => section.order)
-      .map((section, i) => (
-        <Section
-          key={i}
-          section={section}
-          submissions={submissions}
-          setSubmission={setSubmission}
-        />
-      ))
-      .toJS();
-  }
 }
 
 export default function RespondToForm(props: Props) {
@@ -77,18 +66,52 @@ export default function RespondToForm(props: Props) {
     getForm,
     submissions,
     setSubmission,
-    submitForm
+    submitForm,
+    displaySectionsAs,
+    setCurrentStep,
+    currentStep,
+    nextStep,
+    prevStep
   } = props;
 
-  const sections = generateSections(
-    form.get("sections"),
-    submissions,
-    setSubmission
-  );
+  const sections = form.get("sections");
+
+  // displaySectionsAs:
+  // This determines how we show sections.
+  // - RespondToForm.Section.STEPS
+  //   - If this is chosen, we will show a single section at a time, and
+  //     'next/prev' buttons to move between sections
+  // - RespondToForm.Section.HEADINGS
+  //   - This is what we are already doing
+
+  let displaySections = null;
+  if (displaySectionsAs === "HEADINGS") {
+    displaySections = (
+      <SectionsWithHeadings
+        sections={sections}
+        submissions={submissions}
+        setSubmission={setSubmission}
+      />
+    );
+  }
+  if (displaySectionsAs === "STEPS") {
+    displaySections = (
+      <SectionsWithSteps
+        sections={sections}
+        submissions={submissions}
+        setSubmission={setSubmission}
+        setCurrentStep={setCurrentStep}
+        currentStep={currentStep}
+        nextStep={nextStep}
+        prevStep={prevStep}
+      />
+    );
+  }
 
   return (
     <div>
-      {sections}
+      {displaySections}
+      <hr />
       <button
         onClick={() => {
           submitForm(generateFormSubmission(form, submissions));

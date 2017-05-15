@@ -1,4 +1,4 @@
-import { Form, Section, FormSubmission } from "../api";
+import { Form, FormSubmission } from "../api";
 import { FormType } from "../types";
 
 function setQuestionSubmission(key, value, questionType) {
@@ -39,10 +39,34 @@ function gotForm(form: FormType) {
   };
 }
 
+function setCurrentStep(currentStep: number) {
+  return {
+    type: "SET_CURRENT_STEP",
+    payload: {
+      currentStep: currentStep
+    }
+  };
+}
+
+function nextStep() {
+  return {
+    type: "NEXT_STEP"
+  };
+}
+
+function prevStep() {
+  return {
+    type: "PREV_STEP"
+  };
+}
+
 export default {
   loadExampleForm,
   getForm,
   gotForm,
   submitForm,
-  setQuestionSubmission
+  setCurrentStep,
+  setQuestionSubmission,
+  nextStep,
+  prevStep
 };
