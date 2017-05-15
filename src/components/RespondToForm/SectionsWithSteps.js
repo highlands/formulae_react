@@ -53,12 +53,12 @@ export default function SectionsWithSteps(props: Props) {
 
   let previous, next;
 
-  if (currentStep !== 0) {
+  if (currentStep > 0) {
     previous = <button onClick={prevStep}> Previous </button>;
   } else {
     previous = <div />;
   }
-  if (currentStep !== totalSteps) {
+  if (currentStep < totalSteps - 1) {
     next = <button onClick={nextStep}> Next </button>;
   } else {
     next = <div />;
