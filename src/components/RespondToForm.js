@@ -19,8 +19,12 @@ type Props = {
   getForm: Function,
   submissions: Map<string, QuestionSubmissionType>,
   setSubmission: Function,
+  setCurrentStep: Function,
+  currentStep: number,
   submitForm: Function,
-  displaySectionsAs: string
+  displaySectionsAs: string,
+  nextStep: Function,
+  prevStep: Function
 };
 
 function generateFormSubmission(
@@ -60,10 +64,10 @@ export default function RespondToForm(props: Props) {
     setSubmission,
     submitForm,
     displaySectionsAs,
-    setTotalSteps,
     setCurrentStep,
-    totalSteps,
-    currentStep
+    currentStep,
+    nextStep,
+    prevStep
   } = props;
 
   const sections = form.get("sections");
@@ -92,10 +96,10 @@ export default function RespondToForm(props: Props) {
         sections={sections}
         submissions={submissions}
         setSubmission={setSubmission}
-        setTotalSteps={setTotalSteps}
         setCurrentStep={setCurrentStep}
-        totalSteps={totalSteps}
         currentStep={currentStep}
+        nextStep={nextStep}
+        prevStep={prevStep}
       />
     );
   }

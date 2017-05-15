@@ -4,7 +4,6 @@ import { RespondToFormActions } from "../actions";
 
 export const RespondToForm = connect(
   function mapStateToProps(state) {
-    debugger;
     return {
       form: state.get("form"),
       submissions: state.get("submissions")
@@ -24,7 +23,9 @@ export const RespondToForm = connect(
         );
       },
       submitForm: formSubmission =>
-        dispatch(RespondToFormActions.submitForm(formSubmission))
+        dispatch(RespondToFormActions.submitForm(formSubmission)),
+      nextStep: () => dispatch(RespondToFormActions.nextStep()),
+      prevStep: () => dispatch(RespondToFormActions.prevStep())
     };
   }
 )(components.RespondToForm);

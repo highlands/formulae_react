@@ -67,6 +67,10 @@ export default function RespondToFormReducer(
           questionType: action.payload.questionType
         })
       );
+    case "NEXT_STEP":
+      return model.set("currentStep", model.get("currentStep") + 1);
+    case "PREV_STEP":
+      return model.set("currentStep", model.get("currentStep") - 1);
     default:
       return model;
   }

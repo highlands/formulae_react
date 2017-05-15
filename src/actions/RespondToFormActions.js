@@ -48,11 +48,24 @@ function setCurrentStep(currentStep: number) {
   };
 }
 
+function nextStep() {
+  return {
+    type: "NEXT_STEP"
+  };
+}
+
+function prevStep() {
+  return {
+    type: "PREV_STEP"
+  };
+}
+
 export default {
   loadExampleForm,
   getForm,
   gotForm,
   submitForm,
   setCurrentStep,
-  setQuestionSubmission
+  setQuestionSubmission,
+  nextStep
 };

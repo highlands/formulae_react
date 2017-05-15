@@ -15,7 +15,13 @@ type Props = {
   currentStep: number
 };
 
-export function Step(props) {
+type StepProps = {
+  section: SectionType,
+  setSubmission: Function,
+  submissions: Map<string, QuestionSubmissionType>
+};
+
+export function Step(props: StepProps) {
   const { section, setSubmission, submissions } = props;
   return (
     <Section
@@ -45,11 +51,14 @@ export default function SectionsWithSteps(props: Props) {
 
   if (currentStep != 0) {
     previous = <div> Previous </div>;
+  } else {
+    previous = <div />;
   }
   if (currentStep != totalSteps) {
     next = <div> Next </div>;
+  } else {
+    next = <div />;
   }
-  listing = `${previous} ${next}`;
 
   if (!sections.isEmpty()) {
     const section = sections.get(currentStep);
@@ -60,7 +69,8 @@ export default function SectionsWithSteps(props: Props) {
           submissions={submissions}
           setSubmission={setSubmission}
         />
-        {listing}
+        {previous}
+        {next}
       </div>
     );
   } else {
