@@ -6,7 +6,7 @@ import Question from "./Question";
 import Section from "./Section";
 
 type Props = {
-  sections: Object,
+  sections: List<SectionType>,
   submissions: Map<string, QuestionSubmissionType>,
   setSubmission: Function
 };
@@ -14,18 +14,19 @@ type Props = {
 export default function SectionsWithHeadings(props: Props) {
   const { sections, submissions, setSubmission } = props;
 
-  let renderingSections = sections.map((s, i) => {
-    return (
-      <div>
+  let renderingSections = sections
+    .sort(s => s.order)
+    .map((s, i) => {
+      return (
         <Section
           key={i}
           section={s}
           submissions={submissions}
           setSubmission={setSubmission}
         />
-      </div>
-    );
-  });
+      );
+    })
+    .toJS();
 
   return <div>{renderingSections}</div>;
 }
