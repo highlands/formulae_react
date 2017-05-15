@@ -6,7 +6,8 @@ export const RespondToForm = connect(
   function mapStateToProps(state) {
     return {
       form: state.get("form"),
-      submissions: state.get("submissions")
+      submissions: state.get("submissions"),
+      currentStep: state.get("currentStep")
     };
   },
   function mapDispatchToProps(dispatch) {

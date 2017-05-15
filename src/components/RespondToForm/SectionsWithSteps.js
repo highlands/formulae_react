@@ -40,19 +40,26 @@ export function Step(props: StepProps) {
 // - clicking next/prev fires nextStep/prevStep action
 // - only show current section
 export default function SectionsWithSteps(props: Props) {
-  const { sections, submissions, setSubmission, currentStep } = props;
+  const {
+    sections,
+    submissions,
+    setSubmission,
+    currentStep,
+    nextStep,
+    prevStep
+  } = props;
 
   const totalSteps = sections.size;
 
   let previous, next;
 
   if (currentStep !== 0) {
-    previous = <div> Previous </div>;
+    previous = <button onClick={prevStep}> Previous </button>;
   } else {
     previous = <div />;
   }
   if (currentStep !== totalSteps) {
-    next = <div> Next </div>;
+    next = <button onClick={nextStep}> Next </button>;
   } else {
     next = <div />;
   }

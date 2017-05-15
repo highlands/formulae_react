@@ -12,4 +12,5 @@ export default class Model
   }) {
   form: FormType;
   submissions: Map<string, QuestionSubmissionType>;
+  currentStep: number;
 }
