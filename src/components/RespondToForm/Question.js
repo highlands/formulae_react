@@ -2,7 +2,7 @@
 
 import React from "react";
 import { QuestionType, QuestionSubmissionType } from "../../types";
-import { String, Text } from "./widgets";
+import { String, Text, Boolean } from "./widgets";
 
 type Props = {
   question: QuestionType,
@@ -41,6 +41,8 @@ function getQuestionWidget(
       return <String value={submission.get("value")} onChange={onChange} />;
     case "text":
       return <Text value={submission.get("value")} onChange={onChange} />;
+    case "boolean":
+      return <Boolean value={submission.get("value")} onChange={onChange} />;
     default:
       return <div />;
   }
