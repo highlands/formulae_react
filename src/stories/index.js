@@ -2,6 +2,8 @@ import React from "react";
 import { storiesOf, action, linkTo } from "@kadira/storybook";
 import Welcome from "./Welcome";
 import { String, Boolean, Text } from "../components/RespondToForm/widgets";
+import Question from "../components/RespondToForm/Question";
+import Section from "../components/RespondToForm/Section";
 import RespondToForm from "../components/RespondToForm";
 import {
   FormType,
@@ -73,13 +75,46 @@ const form = new FormType({
   submissions: submissions
 });
 
-storiesOf("RespondToForm", module).add("with value", () => (
-  <RespondToForm
-    form={form}
-    submissions={submissions}
-    submitForm={() => {}}
-    getForm={() => form}
-    currentStep={0}
-    displaySectionsAs="STEPS"
+const question = new QuestionType({
+  key: "first",
+  label: "first",
+  type: "string"
+});
+
+storiesOf("Question", module).add("a String", () => (
+  <Question
+    question={question}
+    submission={new QuestionSubmissionType()}
+    setSubmission={() => {}}
   />
 ));
+
+storiesOf("Section", module).add("with name and content", () => (
+  <Section
+    section={section1}
+    submissions={new Map()}
+    setSubmission={() => {}}
+  />
+));
+
+storiesOf("RespondToForm", module)
+  .add("as steps", () => (
+    <RespondToForm
+      form={form}
+      submissions={submissions}
+      submitForm={() => {}}
+      getForm={() => form}
+      currentStep={0}
+      displaySectionsAs="STEPS"
+    />
+  ))
+  .add("as headings", () => (
+    <RespondToForm
+      form={form}
+      submissions={submissions}
+      submitForm={() => {}}
+      getForm={() => form}
+      currentStep={0}
+      displaySectionsAs="HEADINGS"
+    />
+  ));
