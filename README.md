@@ -40,6 +40,17 @@ state reasonable.
 
 We're also using Redux via React-Redux, to keep sanity around state management.
 
+### [Storybook](https://storybooks.js.org/)
+
+If you want to see each of our components standalone for faster development or
+to learn how to use one, run storybook with:
+
+```sh
+yarn storybook
+```
+
+Then visit <http://localhost:9009>
+
 ---
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
