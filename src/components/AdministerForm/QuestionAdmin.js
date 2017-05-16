@@ -8,7 +8,8 @@ type Props = {
   question: QuestionType,
   setQuestionType: Function,
   setQuestionKey: Function,
-  setQuestionLabel: Function
+  setQuestionLabel: Function,
+  setQuestionRequired: Function
 };
 
 function renderQuestionType(props) {
@@ -30,7 +31,13 @@ function renderQuestionType(props) {
 }
 
 function renderQuestionFields(props) {
-  const { section, question, setQuestionKey, setQuestionLabel } = props;
+  const {
+    section,
+    question,
+    setQuestionKey,
+    setQuestionLabel,
+    setQuestionRequired
+  } = props;
   return (
     <div>
       {question.type}:
@@ -46,6 +53,15 @@ function renderQuestionFields(props) {
         name="label"
         onChange={e =>
           setQuestionLabel(section.id, question.id, e.target.value)}
+      />
+      <input
+        type="checkbox"
+        value={question.required}
+        name="required"
+        onChange={e => {
+          let newValue = e.target.value === "false" ? true : false;
+          setQuestionRequired(section.id, question.id, newValue);
+        }}
       />
     </div>
   );

@@ -72,6 +72,21 @@ function setQuestionLabel(
   };
 }
 
+function setQuestionRequired(
+  sectionId: number,
+  questionId: number,
+  required: boolean
+) {
+  return {
+    type: "SET_QUESTION_REQUIRED",
+    payload: {
+      sectionId,
+      questionId,
+      required
+    }
+  };
+}
+
 function saveForm() {
   return (dispatch, getState) => {
     const { form } = getState();
@@ -87,5 +102,6 @@ export default {
   setQuestionKey,
   setQuestionType,
   setQuestionLabel,
+  setQuestionRequired,
   saveForm
 };

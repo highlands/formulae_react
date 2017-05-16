@@ -27,6 +27,14 @@ export const AdministerForm = connect(
           AdministerFormActions.setQuestionKey(sectionId, questionId, key)
         ),
       saveForm: () => dispatch(AdministerFormActions.saveForm()),
+      setQuestionRequired: (sectionId, questionId, required) =>
+        dispatch(
+          AdministerFormActions.setQuestionRequired(
+            sectionId,
+            questionId,
+            required
+          )
+        ),
       setQuestionLabel: (sectionId, questionId, label) =>
         dispatch(
           AdministerFormActions.setQuestionLabel(sectionId, questionId, label)
