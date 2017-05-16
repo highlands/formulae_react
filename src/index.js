@@ -1,10 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { RespondToForm, AdministerForm } from "./containers";
+import {
+  RespondToForm,
+  AdministerForm,
+  ViewFormSubmission
+} from "./containers";
 import "./index.css";
 import { Form } from "./api";
-import { RespondToFormStore, AdministerFormStore } from "./stores";
+import {
+  RespondToFormStore,
+  AdministerFormStore,
+  ViewFormSubmissionStore
+} from "./stores";
 
 // Just a thing to play with the form api
 // FIXME: Remove this eventually
@@ -26,4 +34,12 @@ ReactDOM.render(
     <AdministerForm />
   </Provider>,
   document.getElementById("administer-form")
+);
+
+// Example for ViewFormSubmission
+ReactDOM.render(
+  <Provider store={ViewFormSubmissionStore}>
+    <ViewFormSubmission apiKey={1} formSubmissionId={1} />
+  </Provider>,
+  document.getElementById("view-form-submission")
 );
