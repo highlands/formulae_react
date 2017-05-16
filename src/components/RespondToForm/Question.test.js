@@ -10,6 +10,13 @@ const question = new QuestionType({
   type: "string"
 });
 
+const requiredQuestion = new QuestionType({
+  key: "first",
+  label: "first",
+  type: "string",
+  required: true
+});
+
 it("renders without crashing", () => {
   const div = document.createElement("div");
   ReactDOM.render(
@@ -33,4 +40,34 @@ it("renders the label", () => {
   );
 
   expect(subject.find("label").text()).toMatch(/first/);
+});
+
+describe("Required Questions", () => {
+  it("renders the required text when the question is required", () => {
+    const div = document.createElement("div");
+    const subject = shallow(
+      <Question
+        question={requiredQuestion}
+        submission={new QuestionSubmissionType()}
+        setSubmission={() => {}}
+      />
+    );
+
+    expect(subject.find("label").text()).toMatch(/first/);
+    expect(subject.find("small").text()).toMatch(/required/);
+  });
+
+  it("does not render required when the question is not required", () => {
+    const div = document.createElement("div");
+    const subject = shallow(
+      <Question
+        question={question}
+        submission={new QuestionSubmissionType()}
+        setSubmission={() => {}}
+      />
+    );
+
+    expect(subject.find("label").text()).toMatch(/first/);
+    expect(subject.find("small").text()).not.toMatch(/required/);
+  });
 });

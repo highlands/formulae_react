@@ -20,8 +20,11 @@ export default function Question(props: Props) {
     setSubmission
   );
 
+  const required = question.required ? "* required" : "";
+
   return (
     <div>
+      <small>{required}</small>
       <label>
         {question.get("label")}
         {questionWidget}

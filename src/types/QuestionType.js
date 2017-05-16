@@ -9,6 +9,7 @@ export default class QuestionType
     label: "",
     type: "",
     order: 0,
+    required: false,
     section_id: 0
   }) {
   id: string;
@@ -16,5 +17,6 @@ export default class QuestionType
   label: string;
   type: string;
   order: number;
+  required: boolean;
   section_id: number;
 }
