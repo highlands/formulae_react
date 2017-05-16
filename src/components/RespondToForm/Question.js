@@ -2,7 +2,8 @@
 
 import React from "react";
 import { QuestionType, QuestionSubmissionType } from "../../types";
-import { String, Text, Boolean } from "./widgets";
+import { String, Text, Boolean, Select } from "./widgets";
+import { List } from "immutable";
 
 type Props = {
   question: QuestionType,
@@ -43,6 +44,15 @@ function getQuestionWidget(
       return <Text value={submission.get("value")} onChange={onChange} />;
     case "boolean":
       return <Boolean value={submission.get("value")} onChange={onChange} />;
+    case "select":
+      // FIXME: Need to get the choices for a given select somehow
+      return (
+        <Select
+          value={submission.get("value")}
+          onChange={onChange}
+          choices={new List([])}
+        />
+      );
     default:
       return <div />;
   }

@@ -1,7 +1,12 @@
 import React from "react";
 import { storiesOf, action, linkTo } from "@kadira/storybook";
 import Welcome from "./Welcome";
-import { String, Boolean, Text } from "../components/RespondToForm/widgets";
+import {
+  String,
+  Boolean,
+  Text,
+  Select
+} from "../components/RespondToForm/widgets";
 import Question from "../components/RespondToForm/Question";
 import Section from "../components/RespondToForm/Section";
 import RespondToForm from "../components/RespondToForm";
@@ -9,7 +14,8 @@ import {
   FormType,
   SectionType,
   QuestionType,
-  QuestionSubmissionType
+  QuestionSubmissionType,
+  ChoiceType
 } from "../types";
 import { List, Map } from "immutable";
 
@@ -27,6 +33,15 @@ storiesOf("Boolean", module).add("with value", () => (
 
 storiesOf("Text", module).add("with value", () => (
   <Text onChange={action("onChange")} value="Hello" />
+));
+
+const choices = new List([
+  new ChoiceType({ id: 1, name: "first" }),
+  new ChoiceType({ id: 2, name: "second" })
+]);
+
+storiesOf("Select", module).add("with value", () => (
+  <Select onChange={action("onChange")} value={1} choices={choices} />
 ));
 
 const section2 = new SectionType({
