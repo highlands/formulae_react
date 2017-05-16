@@ -31,6 +31,7 @@ type ApiQuestion = {
   label: string,
   content: string,
   order: number,
+  required: boolean,
   hidden: boolean,
   question_type: string,
   validate_as: string | null,
@@ -79,6 +80,7 @@ function decodeQuestion(question: ApiQuestion): QuestionType {
     label: question.label,
     type: question.question_type,
     order: question.order,
+    required: question.required,
     section_id: question.section_id
   });
 }
@@ -112,4 +114,4 @@ function decodeFormSubmissionResponse(
   });
 }
 
-export { decodeForm, decodeSection ,decodeFormSubmissionResponse };
+export { decodeForm, decodeSection, decodeFormSubmissionResponse };
