@@ -18,7 +18,6 @@ export default function Section(props: Props) {
     submissions,
     setSubmission
   );
-
   return (
     <div>
       <h2>{section.get("name")}</h2>
@@ -54,8 +53,6 @@ function getSubmission(
   question: QuestionType,
   submissions: Map<string, QuestionSubmissionType>
 ): QuestionSubmissionType {
-  return (
-    submissions.get(question.get("id")) ||
-    new QuestionSubmissionType({ key: question.get("id") })
-  );
+  return submissions.get(question.get("id")) ||
+    new QuestionSubmissionType({ key: question.get("id") });
 }
