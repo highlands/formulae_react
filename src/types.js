@@ -9,6 +9,7 @@ import QuestionType from "./types/QuestionType";
 import QuestionSubmissionType from "./types/QuestionSubmissionType";
 import FormQuestionSubmissionType from "./types/FormQuestionSubmissionType";
 import Model from "./types/Model";
+import ChoiceType from "./types/ChoiceType";
 
 export {
   SectionType,
@@ -19,5 +20,6 @@ export {
   QuestionType,
   QuestionSubmissionType,
   FormQuestionSubmissionType,
-  Model
+  Model,
+  ChoiceType
 };
