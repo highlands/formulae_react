@@ -13,6 +13,7 @@ type Props = {
   setSectionContent: Function,
   setQuestionType: Function,
   setQuestionKey: Function,
+  setQuestionRequired: Function,
   saveForm: Function,
   setQuestionLabel: Function
 };
@@ -26,6 +27,7 @@ export default function AdministerForm(props: Props) {
     addQuestion,
     setQuestionType,
     setQuestionKey,
+    setQuestionRequired,
     saveForm,
     setQuestionLabel
   } = props;
@@ -37,6 +39,7 @@ export default function AdministerForm(props: Props) {
       setQuestionType={setQuestionType}
       setQuestionKey={setQuestionKey}
       setQuestionLabel={setQuestionLabel}
+      setQuestionRequired={setQuestionRequired}
       section={s}
       key={i}
     />

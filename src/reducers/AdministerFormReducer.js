@@ -118,6 +118,22 @@ export default function AdministerFormReducer(
       } else {
         return model;
       }
+    case "SET_QUESTION_REQUIRED":
+      if (action.payload) {
+        let { sectionId, questionId, required } = action.payload;
+        return model.updateIn(["form", "sections"], sections => {
+          return sections.map(s => {
+            if (s.id === sectionId) {
+              let index = s.questions.findIndex(q => q.id === questionId);
+              return s.setIn(["questions", index, "required"], required);
+            } else {
+              return s;
+            }
+          });
+        });
+      } else {
+        return model;
+      }
     default:
       return model;
   }

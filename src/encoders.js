@@ -65,6 +65,7 @@ function encodeQuestion(question: QuestionType): ApiQuestion {
     key: question.key,
     label: question.label,
     content: question.content,
+    required: question.required,
     question_type: question.type,
     order: 1
   };
