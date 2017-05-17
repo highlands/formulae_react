@@ -42,6 +42,7 @@ function getQuestionWidget(
   setSubmission: Function
 ) {
   const onChange = e => setSubmission(id, e.target.value, type);
+  const onChangeCheckBox = e => setSubmission(id, e.target.checked, type);
   switch (type) {
     case "string":
       return (
@@ -64,7 +65,7 @@ function getQuestionWidget(
         <Boolean
           content={content}
           value={submission.get("value")}
-          onChange={onChange}
+          onChange={onChangeCheckBox}
         />
       );
     case "select":
