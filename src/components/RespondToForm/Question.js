@@ -16,6 +16,7 @@ export default function Question(props: Props) {
   const questionWidget = getQuestionWidget(
     question.get("type"),
     question.get("id"),
+    question.get("content"),
     submission,
     setSubmission
   );
@@ -36,17 +37,36 @@ export default function Question(props: Props) {
 function getQuestionWidget(
   type: string,
   id: number,
+  content: string,
   submission: QuestionSubmissionType,
   setSubmission: Function
 ) {
   const onChange = e => setSubmission(id, e.target.value, type);
   switch (type) {
     case "string":
-      return <String value={submission.get("value")} onChange={onChange} />;
+      return (
+        <String
+          content={content}
+          value={submission.get("value")}
+          onChange={onChange}
+        />
+      );
     case "text":
-      return <Text value={submission.get("value")} onChange={onChange} />;
+      return (
+        <Text
+          content={content}
+          value={submission.get("value")}
+          onChange={onChange}
+        />
+      );
     case "boolean":
-      return <Boolean value={submission.get("value")} onChange={onChange} />;
+      return (
+        <Boolean
+          content={content}
+          value={submission.get("value")}
+          onChange={onChange}
+        />
+      );
     case "select":
       // FIXME: Need to get the choices for a given select somehow
       return (
