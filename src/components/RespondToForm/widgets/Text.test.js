@@ -14,3 +14,12 @@ it("renders a text field with the specified value", () => {
 
   expect(subject.find("textarea").props().value).toBe("foo");
 });
+
+it("renders the content of a question", () => {
+  const div = document.createElement("div");
+  const subject = shallow(
+    <Text value={"foo"} content={"content"} onChange={() => {}} />
+  );
+
+  expect(subject.text()).toBe("content");
+});

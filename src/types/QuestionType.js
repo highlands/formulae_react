@@ -7,6 +7,7 @@ export default class QuestionType
     id: "",
     key: "",
     label: "",
+    content: "",
     type: "",
     order: 0,
     required: false,
@@ -15,6 +16,7 @@ export default class QuestionType
   id: string;
   key: string;
   label: string;
+  content: string;
   type: string;
   order: number;
   required: boolean;

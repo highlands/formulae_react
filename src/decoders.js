@@ -78,6 +78,7 @@ function decodeQuestion(question: ApiQuestion): QuestionType {
     id: question.id,
     key: question.key,
     label: question.label,
+    content: question.content,
     type: question.question_type,
     order: question.order,
     required: question.required,
