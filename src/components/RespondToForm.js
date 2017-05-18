@@ -59,6 +59,34 @@ function generateFormSubmission(
   });
 }
 
+function getRequiredQuestions(form: FormType) {
+  return form.sections
+    .flatMap(s => s.questions)
+    .filter(q => q.required === true);
+}
+
+function allRequiredQuestionsReplied(
+  form: FormType,
+  submissions: Map<string, QuestionSubmissionType>
+) {
+  const requiredQuestions = getRequiredQuestions(form).map(q => q.id).toArray();
+  const repliedQuestions = submissions.map(s => s.id).toArray();
+  // All required questions were replied
+  return requiredQuestions.every(e => repliedQuestions.includes(e));
+}
+
+function submitFormWithValidation(
+  submitForm: Function,
+  form: FormType,
+  submissions: Map<string, QuestionSubmissionType>
+) {
+  if (allRequiredQuestionsReplied(form, submissions)) {
+    submitForm(generateFormSubmission(form, submissions));
+  } else {
+    console.log("There is at least one required question not replied");
+  }
+}
+
 export default function RespondToForm(props: Props) {
   const {
     form,
@@ -113,9 +141,7 @@ export default function RespondToForm(props: Props) {
       {displaySections}
       <hr />
       <button
-        onClick={() => {
-          submitForm(generateFormSubmission(form, submissions));
-        }}
+        onClick={() => submitFormWithValidation(submitForm, form, submissions)}
       >
         Submit
       </button>
