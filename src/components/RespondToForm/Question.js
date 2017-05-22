@@ -13,30 +13,37 @@ type Props = {
 
 export default function Question(props: Props) {
   const { question, submission, setSubmission } = props;
+  const id = `question-${question.get("id")}`;
   const questionWidget = getQuestionWidget(
     question.get("type"),
-    question.get("id"),
+    id,
     question.get("content"),
     submission,
     setSubmission
   );
 
-  const required = question.required ? "* required" : "";
+  let required;
+  if (question.required) {
+    required = <small>* required</small>;
+  } else {
+    required = "";
+  }
+  <small>{required}</small>;
 
   return (
     <div>
-      <small>{required}</small>
-      <label>
+      {required}
+      <label htmlFor={id}>
         {question.get("label")}
-        {questionWidget}
       </label>
+      {questionWidget}
     </div>
   );
 }
 
 function getQuestionWidget(
   type: string,
-  id: number,
+  id: string,
   content: string,
   submission: QuestionSubmissionType,
   setSubmission: Function
@@ -47,6 +54,7 @@ function getQuestionWidget(
     case "string":
       return (
         <String
+          id={id}
           content={content}
           value={submission.get("value")}
           onChange={onChange}
@@ -55,6 +63,7 @@ function getQuestionWidget(
     case "text":
       return (
         <Text
+          id={id}
           content={content}
           value={submission.get("value")}
           onChange={onChange}
@@ -63,6 +72,7 @@ function getQuestionWidget(
     case "boolean":
       return (
         <Boolean
+          id={id}
           content={content}
           value={submission.get("value")}
           onChange={onChangeCheckBox}
@@ -72,6 +82,8 @@ function getQuestionWidget(
       // FIXME: Need to get the choices for a given select somehow
       return (
         <Select
+          content={content}
+          id={id}
           value={submission.get("value")}
           onChange={onChange}
           choices={new List([])}

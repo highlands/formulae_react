@@ -14,7 +14,7 @@ const init = new Model();
 // FIXME: Remove this eventually but for now it makes it easy to do some testing
 const firstSection: SectionType = new SectionType({
   id: "1",
-  title: "First",
+  name: "First",
   order: 1,
   content: "This is the content",
   questions: List([
@@ -29,12 +29,18 @@ const firstSection: SectionType = new SectionType({
       label: "second",
       type: "text",
       order: 1
+    }),
+    new QuestionType({
+      key: "third",
+      label: "third",
+      type: "radio",
+      order: 1
     })
   ])
 });
 const secondSection: SectionType = new SectionType({
   id: "2",
-  title: "Second",
+  name: "Second",
   content: "This is the content",
   order: 2
 });
