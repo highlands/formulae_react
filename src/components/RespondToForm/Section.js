@@ -42,6 +42,7 @@ function generateQuestions(
           key={i}
           question={question}
           submission={getSubmission(question, submissions)}
+          submissions={submissions}
           setSubmission={setSubmission}
         />
       ))
@@ -53,6 +54,8 @@ function getSubmission(
   question: QuestionType,
   submissions: Map<string, QuestionSubmissionType>
 ): QuestionSubmissionType {
-  return submissions.get(question.get("id")) ||
-    new QuestionSubmissionType({ key: question.get("id") });
+  return (
+    submissions.get(question.get("id")) ||
+    new QuestionSubmissionType({ key: question.get("id") })
+  );
 }

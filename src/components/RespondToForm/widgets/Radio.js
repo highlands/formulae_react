@@ -5,7 +5,6 @@ import { List } from "immutable";
 import { ChoiceType } from "../../../types";
 
 type Props = {
-  id: string,
   name: string,
   value: string,
   content: string,
@@ -14,21 +13,20 @@ type Props = {
 };
 
 export default function Radio(props: Props) {
-  const { id, name, value, content, choices, onChange } = props;
+  const { name, value, content, choices, onChange } = props;
 
   const options = choices
     .map((choice, i) => {
       const choiceId = `${name}-${choice.get("id")}`;
       return (
-        <label>
+        <label key={i} htmlFor={choiceId}>
           <input
             type="radio"
-            key={i}
             name={name}
             id={choiceId}
             value={choice.get("id")}
             checked={value === choice.get("id")}
-            onChange={() => onChange(id)}
+            onChange={() => onChange(choiceId)}
           />
           {choice.get("name")}
         </label>

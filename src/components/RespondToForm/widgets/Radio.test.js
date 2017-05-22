@@ -23,16 +23,13 @@ it("renders without crashing", () => {
   );
 });
 
-it("renders a select field with the specified options and the correct option checked", () => {
+it("renders a radio group with the specified options and the correct option checked", () => {
   const div = document.createElement("div");
   const subject = shallow(
-    <Radio id="radio-1" value={1} onChange={() => {}} choices={choices} />
+    <Radio name="radio-1" value={1} onChange={() => {}} choices={choices} />
   );
 
-  expect(subject.find("input[type=radio]").length).toBe(2);
-  expect(
-    subject.find("input[type=radio value=1 id=radio-1-1 name=radio-1]").props()
-      .checked
-  ).toBe(true);
-  expect(subject.find("label[for=radio-1-1]").text()).toBe("first");
+  expect(subject.find("input[type='radio']").length).toBe(2);
+  expect(subject.find("input[id='radio-1-1']").props().checked).toBe(true);
+  expect(subject.find("label[htmlFor='radio-1-1']").text()).toBe("first");
 });

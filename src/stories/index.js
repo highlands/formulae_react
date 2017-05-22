@@ -46,7 +46,12 @@ storiesOf("Select", module).add("with value", () => (
 ));
 
 storiesOf("Radio", module).add("with value", () => (
-  <Radio onChange={action("onChange")} value={1} choices={choices} />
+  <Radio
+    name="radio-1"
+    onChange={action("onChange")}
+    value={1}
+    choices={choices}
+  />
 ));
 
 const section2 = new SectionType({

@@ -3,16 +3,17 @@
 import React from "react";
 import { QuestionType, QuestionSubmissionType } from "../../types";
 import { String, Text, Boolean, Select } from "./widgets";
-import { List } from "immutable";
+import { List, Map } from "immutable";
 
 type Props = {
   question: QuestionType,
   submission: QuestionSubmissionType,
+  submissions: Map<string, QuestionSubmissionType>,
   setSubmission: Function
 };
 
-export default function Question(props: Props) {
-  const { question, submission, setSubmission } = props;
+function renderQuestion(props: Props) {
+  const { question, submission, submissions, setSubmission } = props;
   const id = `question-${question.get("id")}`;
   const questionWidget = getQuestionWidget(
     question.get("type"),
@@ -28,7 +29,6 @@ export default function Question(props: Props) {
   } else {
     required = "";
   }
-  <small>{required}</small>;
 
   return (
     <div>
@@ -39,6 +39,37 @@ export default function Question(props: Props) {
       {questionWidget}
     </div>
   );
+}
+
+function shouldDisplayQuestion(props: Props) {
+  const { question, submissions } = props;
+  const dependency = question.questionDependency;
+  if (dependency) {
+    const dependentChoicesSelected =
+      // for each dependency choice
+      dependency.choices.map(choice => {
+        return submissions.find((submission, key) => {
+          // FIXME: We need to know it's THIS choice this is answering,
+          // eventually
+          return submission.value == choice.id;
+        });
+      });
+    if (dependentChoicesSelected.size > 0) {
+      return dependency.display;
+    } else {
+      return !dependency.display;
+    }
+  } else {
+    return true;
+  }
+}
+
+export default function Question(props: Props) {
+  if (shouldDisplayQuestion(props)) {
+    return renderQuestion(props);
+  } else {
+    return <div />;
+  }
 }
 
 function getQuestionWidget(
