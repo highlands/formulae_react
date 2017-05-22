@@ -10,6 +10,7 @@ import {
   FormSubmissionType,
   FormQuestionSubmissionType
 } from "../types";
+require("purecss");
 
 type Props = {
   form: FormType,
@@ -138,13 +139,17 @@ export default function RespondToForm(props: Props) {
 
   return (
     <div>
-      {displaySections}
-      <hr />
-      <button
-        onClick={() => submitFormWithValidation(submitForm, form, submissions)}
-      >
-        Submit
-      </button>
+      <form className="pure-form">
+        {displaySections}
+        <hr />
+        <button
+          className="pure-button pure-button-primary"
+          onClick={() =>
+            submitFormWithValidation(submitForm, form, submissions)}
+        >
+          Submit
+        </button>
+      </form>
       <hr />
       <button onClick={loadExampleForm}>Load Example Form</button>
       <button

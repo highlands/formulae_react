@@ -3,18 +3,19 @@
 import React from "react";
 
 type Props = {
+  id: string,
   value: string,
   content: string,
   onChange: Function
 };
 
 export default function String(props: Props) {
-  const { value, onChange, content } = props;
+  const { id, value, onChange, content } = props;
 
   return (
     <div>
-      {content}
-      <input type="text" value={value} onChange={onChange} />
+      <input id={id} type="text" value={value} onChange={onChange} />
+      <p>{content}</p>
     </div>
   );
 }

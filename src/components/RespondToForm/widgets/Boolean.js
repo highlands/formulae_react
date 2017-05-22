@@ -3,17 +3,19 @@
 import React from "react";
 
 type Props = {
+  id: string,
   value: string,
   content: string,
   onChange: Function
 };
 
 export default function Boolean(props: Props) {
-  const { value, onChange, content } = props;
+  const { id, value, onChange, content } = props;
 
   return (
     <div>
-      {content}<input type="checkbox" value={value} onChange={onChange} />
+      <input id={id} type="checkbox" value={value} onChange={onChange} />
+      <p>{content}</p>
     </div>
   );
 }

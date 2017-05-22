@@ -5,7 +5,8 @@ import {
   String,
   Boolean,
   Text,
-  Select
+  Select,
+  Radio
 } from "../components/RespondToForm/widgets";
 import Question from "../components/RespondToForm/Question";
 import Section from "../components/RespondToForm/Section";
@@ -42,6 +43,10 @@ const choices = new List([
 
 storiesOf("Select", module).add("with value", () => (
   <Select onChange={action("onChange")} value={1} choices={choices} />
+));
+
+storiesOf("Radio", module).add("with value", () => (
+  <Radio onChange={action("onChange")} value={1} choices={choices} />
 ));
 
 const section2 = new SectionType({

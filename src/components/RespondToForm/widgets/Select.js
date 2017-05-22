@@ -5,13 +5,15 @@ import { List } from "immutable";
 import { ChoiceType } from "../../../types";
 
 type Props = {
+  id: string,
   value: string,
+  content: string,
   choices: List<ChoiceType>,
   onChange: Function
 };
 
 export default function Select(props: Props) {
-  const { value, choices, onChange } = props;
+  const { id, value, content, choices, onChange } = props;
 
   const options = choices
     .map((choice, i) => {
@@ -28,5 +30,10 @@ export default function Select(props: Props) {
     })
     .toJS();
 
-  return <select onChange={onChange}>{options}</select>;
+  return (
+    <div>
+      <select id={id} onChange={onChange}>{options}</select>
+      <p>{content}</p>
+    </div>
+  );
 }
