@@ -4,7 +4,9 @@ import {
   FormType,
   FormResponseType,
   SectionType,
+  ChoiceType,
   QuestionType,
+  QuestionDependencyType,
   FormSubmissionResponseType
 } from "./types";
 import { List } from "immutable";
@@ -25,6 +27,22 @@ type ApiSection = {
   updated_at: string
 };
 
+type ApiChoice = {
+  id: string,
+  question_id: number,
+  question_dependency_id: number,
+  metadata: string,
+  maximum_chosen: number,
+  label: string
+};
+
+type ApiQuestionDependency = {
+  id: string,
+  display: boolean,
+  choices: List<ApiChoice>,
+  and: boolean
+};
+
 type ApiQuestion = {
   id: number,
   key: string,
@@ -36,6 +54,8 @@ type ApiQuestion = {
   question_type: string,
   validate_as: string | null,
   created_at: string,
+  choices: List<ApiChoice>,
+  question_dependency: ApiQuestionDependency,
   updated_at: string,
   section_id: number
 };
@@ -74,6 +94,9 @@ function decodeSection(
 }
 
 function decodeQuestion(question: ApiQuestion): QuestionType {
+  const questionDependency = decodeQuestionDependency(
+    question.question_dependency
+  );
   return new QuestionType({
     id: question.id,
     key: question.key,
@@ -82,7 +105,35 @@ function decodeQuestion(question: ApiQuestion): QuestionType {
     type: question.question_type,
     order: question.order,
     required: question.required,
-    section_id: question.section_id
+    section_id: question.section_id,
+    choices: decodeChoices(question.choices),
+    questionDependency: questionDependency
+  });
+}
+
+function decodeQuestionDependency(
+  questionDependency: ApiQuestionDependency
+): ?QuestionDependencyType {
+  if (questionDependency === null) {
+    return null;
+  }
+  return new QuestionDependencyType({
+    display: questionDependency.display,
+    choices: decodeChoices(questionDependency.choices),
+    and: questionDependency.and
+  });
+}
+
+function decodeChoices(choices: List<ApiChoice>): List<ChoiceType> {
+  return choices.map(choice => {
+    return new ChoiceType({
+      id: choice.id,
+      question_id: choice.question_id,
+      question_dependency_id: choice.question_dependency_id,
+      metadata: choice.metadata,
+      maximum_chosen: choice.maximum_chosen,
+      label: choice.label
+    });
   });
 }
 

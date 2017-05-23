@@ -14,22 +14,18 @@ type Props = {
 
 export default function Select(props: Props) {
   const { id, value, content, choices, onChange } = props;
-
-  const options = choices
-    .map((choice, i) => {
-      return (
-        <option
-          key={i}
-          name={choice.get("name")}
-          value={choice.get("id")}
-          checked={value === choice.get("id")}
-        >
-          {choice.get("name")}
-        </option>
-      );
-    })
-    .toJS();
-
+  const options = choices.map((choice, i) => {
+    return (
+      <option
+        key={i}
+        name={choice.get("label")}
+        value={choice.get("id")}
+        checked={value === choice.get("id")}
+      >
+        {choice.get("label")}
+      </option>
+    );
+  });
   return (
     <div>
       <select id={id} onChange={onChange}>{options}</select>

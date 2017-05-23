@@ -28,7 +28,7 @@ export default function Radio(props: Props) {
             checked={value === choice.get("id")}
             onChange={() => onChange(choiceId)}
           />
-          {choice.get("name")}
+          {choice.get("label")}
         </label>
       );
     })

@@ -6,8 +6,8 @@ import { List } from "immutable";
 import { ChoiceType } from "../../../types";
 
 const choices = new List([
-  new ChoiceType({ id: 1, name: "first" }),
-  new ChoiceType({ id: 2, name: "second" })
+  new ChoiceType({ id: 1, label: "first" }),
+  new ChoiceType({ id: 2, label: "second" })
 ]);
 
 it("renders without crashing", () => {

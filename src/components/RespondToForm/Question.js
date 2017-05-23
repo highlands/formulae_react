@@ -1,7 +1,7 @@
 // @flow
 
 import React from "react";
-import { QuestionType, QuestionSubmissionType } from "../../types";
+import { ChoiceType, QuestionType, QuestionSubmissionType } from "../../types";
 import { String, Text, Boolean, Select } from "./widgets";
 import { List, Map } from "immutable";
 
@@ -20,7 +20,8 @@ function renderQuestion(props: Props) {
     id,
     question.get("content"),
     submission,
-    setSubmission
+    setSubmission,
+    question.get("choices")
   );
 
   let required;
@@ -51,7 +52,7 @@ function shouldDisplayQuestion(props: Props) {
         return submissions.find((submission, key) => {
           // FIXME: We need to know it's THIS choice this is answering,
           // eventually
-          return submission.value == choice.id;
+          return submission.value === choice.id;
         });
       });
     if (dependentChoicesSelected.size > 0) {
@@ -77,7 +78,8 @@ function getQuestionWidget(
   id: string,
   content: string,
   submission: QuestionSubmissionType,
-  setSubmission: Function
+  setSubmission: Function,
+  choices: List<ChoiceType>
 ) {
   const onChange = e => setSubmission(id, e.target.value, type);
   const onChangeCheckBox = e => setSubmission(id, e.target.checked, type);
@@ -117,7 +119,7 @@ function getQuestionWidget(
           id={id}
           value={submission.get("value")}
           onChange={onChange}
-          choices={new List([])}
+          choices={choices}
         />
       );
     default:

@@ -1,7 +1,8 @@
 // @flow
 
-import { Record } from "immutable";
+import { Record, List } from "immutable";
 import QuestionDependencyType from "./QuestionDependencyType";
+import ChoiceType from "./ChoiceType";
 
 export default class QuestionType
   extends Record({
@@ -13,6 +14,7 @@ export default class QuestionType
     order: 0,
     required: false,
     section_id: 0,
+    choices: List(),
     questionDependency: null
   }) {
   id: string;
@@ -23,5 +25,6 @@ export default class QuestionType
   order: number;
   required: boolean;
   section_id: number;
+  choices: List<ChoiceType>;
   questionDependency: ?QuestionDependencyType;
 }

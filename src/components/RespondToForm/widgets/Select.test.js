@@ -6,8 +6,8 @@ import { List } from "immutable";
 import { ChoiceType } from "../../../types";
 
 const choices = new List([
-  new ChoiceType({ id: 1, name: "first" }),
-  new ChoiceType({ id: 2, name: "second" })
+  new ChoiceType({ id: 1, label: "first" }),
+  new ChoiceType({ id: 2, label: "second" })
 ]);
 
 it("renders without crashing", () => {
@@ -21,7 +21,7 @@ it("renders without crashing", () => {
 it("renders a select field with the specified options and the correct option checked", () => {
   const div = document.createElement("div");
   const subject = shallow(
-    <Select value={1} onChange={() => {}} choices={choices} />
+    <Select id={1} value={1} onChange={() => {}} choices={choices} />
   );
 
   expect(subject.find("option").length).toBe(2);
