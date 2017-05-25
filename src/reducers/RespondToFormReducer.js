@@ -4,6 +4,7 @@ import {
   Model,
   FormType,
   SectionType,
+  ChoiceType,
   QuestionType,
   QuestionSubmissionType
 } from "../types";
@@ -32,8 +33,46 @@ const firstSection: SectionType = new SectionType({
     }),
     new QuestionType({
       key: "third",
-      label: "third",
+      label: "Multi Select",
+      type: "multi_select",
+      choices: [
+        new ChoiceType({
+          id: "id",
+          label: "label 1"
+        }),
+        new ChoiceType({
+          id: "id",
+          label: "label 2"
+        })
+      ],
+      order: 1
+    }),
+    new QuestionType({
+      key: "fourth",
+      label: "Radio",
       type: "radio",
+      choices: [
+        new ChoiceType({
+          id: "id",
+          label: "Radio Button"
+        })
+      ],
+      order: 1
+    }),
+    new QuestionType({
+      key: "fourth",
+      label: "Checkboxes",
+      type: "checkboxes",
+      choices: [
+        new ChoiceType({
+          id: "id",
+          label: "Checkbox 1"
+        }),
+        new ChoiceType({
+          id: "id",
+          label: "Checkbox 2"
+        })
+      ],
       order: 1
     })
   ])

@@ -6,6 +6,8 @@ import {
   Boolean,
   Text,
   Select,
+  MultiSelect,
+  Checkboxes,
   Radio
 } from "../components/RespondToForm/widgets";
 import Question from "../components/RespondToForm/Question";
@@ -37,12 +39,20 @@ storiesOf("Text", module).add("with value", () => (
 ));
 
 const choices = new List([
-  new ChoiceType({ id: 1, name: "first" }),
-  new ChoiceType({ id: 2, name: "second" })
+  new ChoiceType({ id: 1, label: "first" }),
+  new ChoiceType({ id: 2, label: "second" })
 ]);
 
 storiesOf("Select", module).add("with value", () => (
   <Select onChange={action("onChange")} value={1} choices={choices} />
+));
+
+storiesOf("MultiSelect", module).add("with value", () => (
+  <MultiSelect onChange={action("onChange")} value={1} choices={choices} />
+));
+
+storiesOf("Checkboxes", module).add("with value", () => (
+  <Checkboxes choices={choices} />
 ));
 
 storiesOf("Radio", module).add("with value", () => (
