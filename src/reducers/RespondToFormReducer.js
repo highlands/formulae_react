@@ -50,6 +50,7 @@ const firstSection: SectionType = new SectionType({
     new QuestionType({
       key: "fourth",
       label: "Radio",
+      name: "radio",
       type: "radio",
       choices: [
         new ChoiceType({

@@ -91,6 +91,7 @@ function getQuestionWidget(
 ) {
   const onChange = e => setSubmission(id, e.target.value, type);
   const onChangeCheckBox = e => setSubmission(id, e.target.checked, type);
+  const onChangeRadio = value => setSubmission(id, value, type);
   switch (type) {
     case "string":
       return (
@@ -149,7 +150,7 @@ function getQuestionWidget(
           content={content}
           id={id}
           value={submission.get("value")}
-          onChange={onChange}
+          onChange={onChangeRadio}
           choices={choices}
         />
       );
