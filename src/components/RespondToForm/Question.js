@@ -2,7 +2,15 @@
 
 import React from "react";
 import { ChoiceType, QuestionType, QuestionSubmissionType } from "../../types";
-import { String, Text, Boolean, Select } from "./widgets";
+import {
+  String,
+  Text,
+  Boolean,
+  Select,
+  MultiSelect,
+  Checkboxes,
+  Radio
+} from "./widgets";
 import { List, Map } from "immutable";
 
 type Props = {
@@ -115,6 +123,29 @@ function getQuestionWidget(
       // FIXME: Need to get the choices for a given select somehow
       return (
         <Select
+          content={content}
+          id={id}
+          value={submission.get("value")}
+          onChange={onChange}
+          choices={choices}
+        />
+      );
+    case "multi_select":
+      return (
+        <MultiSelect
+          content={content}
+          id={id}
+          value={submission.get("value")}
+          onChange={onChange}
+          choices={choices}
+        />
+      );
+    case "checkboxes":
+      return <Checkboxes choices={choices} />;
+    case "radio":
+      return (
+        <Radio
+          name={"radio-1"}
           content={content}
           id={id}
           value={submission.get("value")}
