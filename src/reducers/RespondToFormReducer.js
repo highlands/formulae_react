@@ -20,34 +20,38 @@ const firstSection: SectionType = new SectionType({
   content: "This is the content",
   questions: List([
     new QuestionType({
+      id: "1",
       key: "first",
       label: "first",
       type: "string",
       order: 0
     }),
     new QuestionType({
+      id: "2",
       key: "second",
       label: "second",
       type: "text",
       order: 1
     }),
     new QuestionType({
+      id: "3",
       key: "third",
       label: "Multi Select",
       type: "multi_select",
       choices: [
         new ChoiceType({
-          id: "id",
+          id: "3.1",
           label: "label 1"
         }),
         new ChoiceType({
-          id: "id",
+          id: "3.2",
           label: "label 2"
         })
       ],
       order: 1
     }),
     new QuestionType({
+      id: "4",
       key: "fourth",
       label: "Radio",
       name: "radio",
@@ -61,6 +65,7 @@ const firstSection: SectionType = new SectionType({
       order: 1
     }),
     new QuestionType({
+      id: "5",
       key: "fourth",
       label: "Checkboxes",
       type: "checkboxes",

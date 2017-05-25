@@ -112,7 +112,6 @@ export default function RespondToForm(props: Props) {
   //     'next/prev' buttons to move between sections
   // - RespondToForm.Section.HEADINGS
   //   - This is what we are already doing
-
   let displaySections = null;
   if (displaySectionsAs === "HEADINGS") {
     displaySections = (

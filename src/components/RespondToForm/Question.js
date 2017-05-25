@@ -22,7 +22,7 @@ type Props = {
 
 function renderQuestion(props: Props) {
   const { question, submission, submissions, setSubmission } = props;
-  const id = `question-${question.get("id")}`;
+  const id = `${question.get("id")}`;
   const questionWidget = getQuestionWidget(
     question.get("type"),
     id,
