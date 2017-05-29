@@ -56,7 +56,7 @@ function encodeFormSubmission(
     form_id: formSubmission.formId,
     question_submissions: formSubmission.questionSubmissions
       .toArray()
-      .map(encodeFormQuestionSubmission)
+      .flatMap(submission => submission.map(encodeFormQuestionSubmission))
   };
 }
 

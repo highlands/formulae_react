@@ -4,10 +4,13 @@ import React from "react";
 import { List, Map } from "immutable";
 import { SectionType, QuestionSubmissionType } from "../../types";
 import Section from "./Section";
+import type {
+  QuestionSubmissionsMapType
+} from "../../types/QuestionSubmissionsMapType";
 
 type Props = {
   sections: List<SectionType>,
-  submissions: Map<string, QuestionSubmissionType>,
+  submissions: QuestionSubmissionsMapType,
   setSubmission: Function,
   nextStep: Function,
   prevStep: Function,
@@ -17,7 +20,7 @@ type Props = {
 type StepProps = {
   section: SectionType,
   setSubmission: Function,
-  submissions: Map<string, QuestionSubmissionType>
+  submissions: QuestionSubmissionsMapType
 };
 
 export function Step(props: StepProps) {

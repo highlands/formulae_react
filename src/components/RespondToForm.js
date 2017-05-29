@@ -10,13 +10,16 @@ import {
   FormSubmissionType,
   FormQuestionSubmissionType
 } from "../types";
+import type {
+  QuestionSubmissionsMapType
+} from "../types/QuestionSubmissionsMapType";
 require("purecss");
 
 type Props = {
   form: FormType,
   loadExampleForm: Function,
   getForm: Function,
-  submissions: Map<string, QuestionSubmissionType>,
+  submissions: QuestionSubmissionsMapType,
   setSubmission: Function,
   setCurrentStep: Function,
   currentStep: number,
@@ -28,34 +31,36 @@ type Props = {
 
 function generateFormSubmission(
   form: FormType,
-  submissions: Map<string, QuestionSubmissionType>
+  submissions: QuestionSubmissionsMapType
 ): FormSubmissionType {
   return new FormSubmissionType({
     formId: form.id,
-    questionSubmissions: submissions.map(submission => {
-      switch (submission.questionType) {
-        case "string":
-          return new FormQuestionSubmissionType({
-            questionId: submission.id,
-            string: submission.value
-          });
-        case "text":
-          return new FormQuestionSubmissionType({
-            questionId: submission.id,
-            text: submission.value
-          });
-        case "boolean":
-          return new FormQuestionSubmissionType({
-            questionId: submission.id,
-            boolean: submission.value
-          });
-        default:
-          // FIXME: This shouldn't happen and this isn't necessarily sensible
-          return new FormQuestionSubmissionType({
-            questionId: submission.id,
-            string: submission.value
-          });
-      }
+    questionSubmissions: submissions.flatMap(submission => {
+      return submission.map(s => {
+        switch (s.questionType) {
+          case "string":
+            return new FormQuestionSubmissionType({
+              questionId: s.id,
+              string: s.value
+            });
+          case "text":
+            return new FormQuestionSubmissionType({
+              questionId: s.id,
+              text: s.value
+            });
+          case "boolean":
+            return new FormQuestionSubmissionType({
+              questionId: s.id,
+              boolean: s.value
+            });
+          default:
+            // FIXME: This shouldn't happen and this isn't necessarily sensible
+            return new FormQuestionSubmissionType({
+              questionId: s.id,
+              string: s.value
+            });
+        }
+      });
     })
   });
 }
@@ -68,10 +73,13 @@ function getRequiredQuestions(form: FormType) {
 
 function allRequiredQuestionsReplied(
   form: FormType,
-  submissions: Map<string, QuestionSubmissionType>
+  submissions: QuestionSubmissionsMapType
 ) {
   const requiredQuestions = getRequiredQuestions(form).map(q => q.id).toArray();
-  const repliedQuestions = submissions.map(s => s.id).toArray();
+  const repliedQuestions = submissions
+    .flatMap((submission, key) => submission.map(s => [key, s.id]))
+    .toSet()
+    .toArray();
   // All required questions were replied
   return requiredQuestions.every(e => repliedQuestions.includes(e));
 }
@@ -79,7 +87,7 @@ function allRequiredQuestionsReplied(
 function submitFormWithValidation(
   submitForm: Function,
   form: FormType,
-  submissions: Map<string, QuestionSubmissionType>
+  submissions: QuestionSubmissionsMapType
 ) {
   if (allRequiredQuestionsReplied(form, submissions)) {
     submitForm(generateFormSubmission(form, submissions));
