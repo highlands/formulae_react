@@ -35,7 +35,7 @@ function generateFormSubmission(
 ): FormSubmissionType {
   return new FormSubmissionType({
     formId: form.id,
-    questionSubmissions: submissions.flatMap(submission => {
+    questionSubmissions: submissions.map(submission => {
       return submission.map(s => {
         switch (s.questionType) {
           case "string":
@@ -146,7 +146,7 @@ export default function RespondToForm(props: Props) {
 
   return (
     <div>
-      <form className="pure-form">
+      <form className="pure-form" onSubmit={e => e.preventDefault()}>
         {displaySections}
         <hr />
         <button

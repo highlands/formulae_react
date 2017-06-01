@@ -54,9 +54,8 @@ function encodeFormSubmission(
 ): ApiFormSubmission {
   return {
     form_id: formSubmission.formId,
-    question_submissions: formSubmission.questionSubmissions
-      .toArray()
-      .flatMap(submission => submission.map(encodeFormQuestionSubmission))
+    question_submissions: formSubmission.questionSubmissions.map(submission =>
+      submission.map(encodeFormQuestionSubmission))
   };
 }
 
