@@ -3,10 +3,8 @@
 import React from "react";
 import SectionsWithSteps from "./RespondToForm/SectionsWithSteps";
 import SectionsWithHeadings from "./RespondToForm/SectionsWithHeadings";
-import { Map } from "immutable";
 import {
   FormType,
-  QuestionSubmissionType,
   FormSubmissionType,
   FormQuestionSubmissionType
 } from "../types";

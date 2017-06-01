@@ -1,7 +1,7 @@
 // @flow
 
 import React from "react";
-import { List, Map } from "immutable";
+import { List } from "immutable";
 import { SectionType, QuestionType, QuestionSubmissionType } from "../../types";
 // Having a hard time globbing together just type exports, so pulling this in
 // directly

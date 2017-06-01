@@ -11,8 +11,6 @@ type Props = {
 
 export default function String(props: Props) {
   const { id, value, onChange, content } = props;
-  console.log(value);
-
   return (
     <div>
       <input id={id} type="text" value={value} onChange={onChange} />

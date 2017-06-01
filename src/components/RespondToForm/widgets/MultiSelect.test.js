@@ -10,10 +10,12 @@ const choices = new List([
   new ChoiceType({ id: 2, label: "second" })
 ]);
 
+const values = new List([1, 2]);
+
 it("renders without crashing", () => {
   const div = document.createElement("div");
   ReactDOM.render(
-    <MultiSelect value={"first"} onChange={() => {}} choices={choices} />,
+    <MultiSelect values={values} onChange={() => {}} choices={choices} />,
     div
   );
 });
@@ -21,7 +23,7 @@ it("renders without crashing", () => {
 it("renders a select field with the specified options and the correct option checked", () => {
   const div = document.createElement("div");
   const subject = shallow(
-    <MultiSelect id={1} value={1} onChange={() => {}} choices={choices} />
+    <MultiSelect values={values} onChange={() => {}} choices={choices} />
   );
 
   expect(subject.find("option").length).toBe(2);

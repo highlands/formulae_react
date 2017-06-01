@@ -1,7 +1,7 @@
 // @flow
 
 import React from "react";
-import { ChoiceType, QuestionType, QuestionSubmissionType } from "../../types";
+import { ChoiceType, QuestionType } from "../../types";
 import type {
   QuestionSubmissionsMapType
 } from "../../types/QuestionSubmissionsMapType";
@@ -17,7 +17,7 @@ import {
   Checkboxes,
   Radio
 } from "./widgets";
-import { List, Map } from "immutable";
+import { List } from "immutable";
 
 type Props = {
   question: QuestionType,
@@ -27,7 +27,7 @@ type Props = {
 };
 
 function renderQuestion(props: Props) {
-  const { question, submission, submissions, setSubmission } = props;
+  const { question, submission, setSubmission } = props;
   const id = `${question.get("id")}`;
   const questionWidget = getQuestionWidget(
     question.get("type"),
@@ -66,7 +66,7 @@ function shouldDisplayQuestion(props: Props) {
         return submissions.find((submission, key) => {
           // FIXME: We need to know it's THIS choice this is answering,
           // eventually
-          return submission.find(s => s.value === choice.id);
+          return submission.value === choice.id;
         });
       });
     if (dependentChoicesSelected.size > 0) {
@@ -103,7 +103,6 @@ function getQuestionWidget(
   // FIXME: handle multiselect
   switch (type) {
     case "string":
-      console.log(submission.toJS());
       return (
         <String
           id={id}

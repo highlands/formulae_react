@@ -10,6 +10,14 @@ import {
 import { List, Map } from "immutable";
 import { shallow } from "enzyme";
 
+import type {
+  QuestionSubmissionsMapType
+} from "../../types/QuestionSubmissionsMapType";
+
+import type {
+  QuestionSubmissionMapValueType
+} from "../../types/QuestionSubmissionMapValueType";
+
 const question = new QuestionType({
   key: "first",
   label: "first",
@@ -135,9 +143,13 @@ describe("QuestionDependency", () => {
       questionDependency: questionDependencyDisplayTrue
     });
 
-    const submissions = new Map({
-      someQuestionId: "10"
-    });
+    const submissions = List([
+      new QuestionSubmissionType({
+        id: 1,
+        value: "first",
+        questionType: "string"
+      })
+    ]);
 
     it("hides the question if its dependencies are satisfied", () => {
       const subject = shallow(
