@@ -14,16 +14,26 @@ type Props = {
 
 function renderQuestionType(props) {
   const { section, setQuestionType, question } = props;
+  const makeString = () => setQuestionType(section.id, question.id, "string");
+  const makeText = () => setQuestionType(section.id, question.id, "text");
+  const makeBoolean = () => setQuestionType(section.id, question.id, "boolean");
+
   if (question.type === "") {
     return (
-      <select
-        onChange={e => setQuestionType(section.id, question.id, e.target.value)}
-      >
-        <option value="">Choose a type of Question</option>
-        <option value="string">String</option>
-        <option value="text">Text</option>
-        <option value="boolean">Boolean</option>
-      </select>
+      <div>
+        <button className="pure-button" onClick={makeString}>
+          <i className="fa fa-cog" />
+          String
+        </button>
+        <button className="pure-button" onClick={makeText}>
+          <i className="fa fa-cog" />
+          Text
+        </button>
+        <button className="pure-button" onClick={makeBoolean}>
+          <i className="fa fa-cog" />
+          Boolean
+        </button>
+      </div>
     );
   } else {
     return renderQuestionFields(props);
@@ -39,31 +49,36 @@ function renderQuestionFields(props) {
     setQuestionRequired
   } = props;
   return (
-    <div>
-      {question.type}:
-      <input
-        type="text"
-        value={question.key}
-        name="key"
-        onChange={e => setQuestionKey(section.id, question.id, e.target.value)}
-      />
-      <input
-        type="text"
-        value={question.label}
-        name="label"
-        onChange={e =>
-          setQuestionLabel(section.id, question.id, e.target.value)}
-      />
-      <input
-        type="checkbox"
-        value={question.required}
-        name="required"
-        onChange={e => {
-          let newValue = e.target.value === "false" ? true : false;
-          setQuestionRequired(section.id, question.id, newValue);
-        }}
-      />
-    </div>
+    <fieldset className="admin-question">
+      <header>
+        <input
+          type="text"
+          value={question.label}
+          name="label"
+          onChange={e =>
+            setQuestionLabel(section.id, question.id, e.target.value)}
+        />
+      </header>
+      <div>
+        {question.type}:
+        <input
+          type="text"
+          value={question.key}
+          name="key"
+          onChange={e =>
+            setQuestionKey(section.id, question.id, e.target.value)}
+        />
+        <input
+          type="checkbox"
+          value={question.required}
+          name="required"
+          onChange={e => {
+            let newValue = e.target.value === "false" ? true : false;
+            setQuestionRequired(section.id, question.id, newValue);
+          }}
+        />
+      </div>
+    </fieldset>
   );
 }
 

@@ -51,12 +51,12 @@ export default function AdministerForm(props: Props) {
       <div>
         <h3>Sections</h3>
         {sectionsToRender}
-        <button onClick={() => addSection()}>
+        <button className="pure-button" onClick={() => addSection()}>
           Add Section
         </button>
       </div>
       <hr />
-      <button onClick={() => saveForm()}>
+      <button className="pure-button" onClick={() => saveForm()}>
         Save  Form
       </button>
     </div>
