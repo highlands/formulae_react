@@ -1,7 +1,13 @@
 // @flow
 
 import React from "react";
-import { ChoiceType, QuestionType, QuestionSubmissionType } from "../../types";
+import { ChoiceType, QuestionType } from "../../types";
+import type {
+  QuestionSubmissionsMapType
+} from "../../types/QuestionSubmissionsMapType";
+import type {
+  QuestionSubmissionMapValueType
+} from "../../types/QuestionSubmissionMapValueType";
 import {
   String,
   Text,
@@ -11,18 +17,18 @@ import {
   Checkboxes,
   Radio
 } from "./widgets";
-import { List, Map } from "immutable";
+import { List } from "immutable";
 
 type Props = {
   question: QuestionType,
-  submission: QuestionSubmissionType,
-  submissions: Map<string, QuestionSubmissionType>,
+  submission: QuestionSubmissionMapValueType,
+  submissions: QuestionSubmissionsMapType,
   setSubmission: Function
 };
 
 function renderQuestion(props: Props) {
-  const { question, submission, submissions, setSubmission } = props;
-  const id = `question-${question.get("id")}`;
+  const { question, submission, setSubmission } = props;
+  const id = `${question.get("id")}`;
   const questionWidget = getQuestionWidget(
     question.get("type"),
     id,
@@ -85,20 +91,23 @@ function getQuestionWidget(
   type: string,
   id: string,
   content: string,
-  submission: QuestionSubmissionType,
+  submission: QuestionSubmissionMapValueType,
   setSubmission: Function,
   choices: List<ChoiceType>
 ) {
-  const onChange = e => setSubmission(id, e.target.value, type);
-  const onChangeCheckBox = e => setSubmission(id, e.target.checked, type);
-  const onChangeRadio = value => setSubmission(id, value, type);
+  const onChange = e => setSubmission(id, List([e.target.value]), type);
+  const onChangeCheckBox = e =>
+    setSubmission(id, List([e.target.checked]), type);
+  const onChangeRadio = value => setSubmission(id, List([value]), type);
+  const onChangeMultiSelect = values => setSubmission(id, List(values), type);
+  // FIXME: handle multiselect
   switch (type) {
     case "string":
       return (
         <String
           id={id}
           content={content}
-          value={submission.get("value")}
+          value={submission.get(0) ? submission.get(0).get("value") : ""}
           onChange={onChange}
         />
       );
@@ -107,7 +116,7 @@ function getQuestionWidget(
         <Text
           id={id}
           content={content}
-          value={submission.get("value")}
+          value={submission.get(0) ? submission.get(0).get("value") : ""}
           onChange={onChange}
         />
       );
@@ -116,17 +125,16 @@ function getQuestionWidget(
         <Boolean
           id={id}
           content={content}
-          value={submission.get("value")}
+          value={submission.get(0) ? submission.get(0).get("value") : ""}
           onChange={onChangeCheckBox}
         />
       );
     case "select":
-      // FIXME: Need to get the choices for a given select somehow
       return (
         <Select
           content={content}
           id={id}
-          value={submission.get("value")}
+          value={submission.get(0) ? submission.get(0).get("value") : ""}
           onChange={onChange}
           choices={choices}
         />
@@ -136,8 +144,8 @@ function getQuestionWidget(
         <MultiSelect
           content={content}
           id={id}
-          value={submission.get("value")}
-          onChange={onChange}
+          values={submission.map(x => x.get("value"))}
+          onChange={onChangeMultiSelect}
           choices={choices}
         />
       );
@@ -149,7 +157,7 @@ function getQuestionWidget(
           name={"radio-1"}
           content={content}
           id={id}
-          value={submission.get("value")}
+          value={submission.get(0) ? submission.get(0).get("value") : ""}
           onChange={onChangeRadio}
           choices={choices}
         />

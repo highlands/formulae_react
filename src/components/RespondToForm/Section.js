@@ -1,13 +1,21 @@
 // @flow
 
 import React from "react";
-import { List, Map } from "immutable";
+import { List } from "immutable";
 import { SectionType, QuestionType, QuestionSubmissionType } from "../../types";
+// Having a hard time globbing together just type exports, so pulling this in
+// directly
+import type {
+  QuestionSubmissionsMapType
+} from "../../types/QuestionSubmissionsMapType";
+import type {
+  QuestionSubmissionMapValueType
+} from "../../types/QuestionSubmissionMapValueType";
 import Question from "./Question";
 
 type Props = {
   section: SectionType,
-  submissions: Map<string, QuestionSubmissionType>,
+  submissions: QuestionSubmissionsMapType,
   setSubmission: Function
 };
 
@@ -29,7 +37,7 @@ export default function Section(props: Props) {
 
 function generateQuestions(
   questions: List<QuestionType>,
-  submissions: Map<string, QuestionSubmissionType>,
+  submissions: QuestionSubmissionsMapType,
   setSubmission: Function
 ): Array<Question> {
   if (questions === undefined) {
@@ -52,10 +60,8 @@ function generateQuestions(
 
 function getSubmission(
   question: QuestionType,
-  submissions: Map<string, QuestionSubmissionType>
-): QuestionSubmissionType {
-  return (
-    submissions.get(question.get("id")) ||
-    new QuestionSubmissionType({ key: question.get("id") })
-  );
+  submissions: QuestionSubmissionsMapType
+): QuestionSubmissionMapValueType {
+  return submissions.get(question.get("id")) ||
+    List([new QuestionSubmissionType({ key: question.get("id") })]);
 }

@@ -20,34 +20,38 @@ const firstSection: SectionType = new SectionType({
   content: "This is the content",
   questions: List([
     new QuestionType({
+      id: "1",
       key: "first",
       label: "first",
       type: "string",
       order: 0
     }),
     new QuestionType({
+      id: "2",
       key: "second",
       label: "second",
       type: "text",
       order: 1
     }),
     new QuestionType({
+      id: "3",
       key: "third",
       label: "Multi Select",
       type: "multi_select",
       choices: [
         new ChoiceType({
-          id: "id",
+          id: "3.1",
           label: "label 1"
         }),
         new ChoiceType({
-          id: "id",
+          id: "3.2",
           label: "label 2"
         })
       ],
       order: 1
     }),
     new QuestionType({
+      id: "4",
       key: "fourth",
       label: "Radio",
       name: "radio",
@@ -61,6 +65,7 @@ const firstSection: SectionType = new SectionType({
       order: 1
     }),
     new QuestionType({
+      id: "5",
       key: "fourth",
       label: "Checkboxes",
       type: "checkboxes",
@@ -89,35 +94,54 @@ const exampleForm = new FormType({
 });
 // END EXAMPLE FORM DATA
 
-type Action = "LOAD_EXAMPLE_FORM" | "GET_API_FORM" | "GOT_API_FORM";
-// FIXME: Uncomment this and then think real hard
-//| "SET_QUESTION_SUBMISSION";
+type LoadExampleFormType = { type: "LOAD_EXAMPLE_FORM" };
+type SetCurrentStepType = {
+  type: "SET_CURRENT_STEP",
+  payload: { currentStep: number }
+};
+type GotFormType = { type: "GOT_FORM", payload: { form: FormType } };
+type SetQuestionSubmissionType = {
+  type: "SET_QUESTION_SUBMISSION",
+  payload: { key: string, values: List<string>, questionType: string }
+};
+type NextStepType = { type: "NEXT_STEP" };
+type PrevStepType = { type: "PREV_STEP" };
+
+type ActionType =
+  | LoadExampleFormType
+  | SetCurrentStepType
+  | GotFormType
+  | SetQuestionSubmissionType
+  | NextStepType
+  | PrevStepType;
 
 export default function RespondToFormReducer(
   model: Model = init,
-  action: { type: Action }
+  action: ActionType
 ) {
-  switch (action.type) {
-    case "LOAD_EXAMPLE_FORM":
-      return new Model({ form: exampleForm });
-    case "SET_CURRENT_STEP":
-      return model.setIn(["currentStep"], action.payload.currentStep);
-    case "GOT_FORM":
-      return new Model({ form: action.payload.form });
-    case "SET_QUESTION_SUBMISSION":
-      return model.setIn(
-        ["submissions", action.payload.key],
-        new QuestionSubmissionType({
-          id: action.payload.key,
-          value: action.payload.value,
-          questionType: action.payload.questionType
-        })
-      );
-    case "NEXT_STEP":
-      return model.set("currentStep", model.get("currentStep") + 1);
-    case "PREV_STEP":
-      return model.set("currentStep", model.get("currentStep") - 1);
-    default:
-      return model;
+  if (action.type === "LOAD_EXAMPLE_FORM") {
+    return new Model({ form: exampleForm });
+  } else if (action.type === "SET_CURRENT_STEP") {
+    return model.setIn(["currentStep"], action.payload.currentStep);
+  } else if (action.type === "GOT_FORM") {
+    return new Model({ form: action.payload.form });
+  } else if (action.type === "SET_QUESTION_SUBMISSION") {
+    let { key, values, questionType } = action.payload;
+    return model.setIn(
+      ["submissions", key],
+      values.map(value => {
+        return new QuestionSubmissionType({
+          id: key,
+          value: value,
+          questionType: questionType
+        });
+      })
+    );
+  } else if (action.type === "NEXT_STEP") {
+    return model.set("currentStep", model.get("currentStep") + 1);
+  } else if (action.type === "PREV_STEP") {
+    return model.set("currentStep", model.get("currentStep") - 1);
+  } else {
+    return model;
   }
 }
