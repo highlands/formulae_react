@@ -1,7 +1,9 @@
-.admin-question {
+// NOTE: Added element here to fix specificity issue fighting with purecss
+fieldset.admin-question {
   border-color: $border-color;
   border-width: 1px;
   border-radius: .25rem;
+  border-style: solid;
   padding: 0;
   > header {
     padding: $padding-md;
@@ -22,10 +24,24 @@
         padding: $padding-lg;
         margin-left: $margin-md;
       }
+      > button {
+        color: $button-text-color;
+        background-color: $button-background-color;
+      }
+      > .edit {
+        color: $button-text-color;
+      }
       > i {
         font-size: 2rem;
         cursor: pointer;
       }
+    }
+  }
+  > div {
+    padding: $padding-xl;
+    textarea {
+      min-width: 50%;
+      min-height: 10rem;
     }
   }
 }

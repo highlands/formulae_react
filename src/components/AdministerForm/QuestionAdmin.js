@@ -9,7 +9,8 @@ type Props = {
   setQuestionType: Function,
   setQuestionKey: Function,
   setQuestionLabel: Function,
-  setQuestionRequired: Function
+  setQuestionRequired: Function,
+  setQuestionContent: Function
 };
 
 function renderQuestionType(props) {
@@ -46,7 +47,8 @@ function renderQuestionFields(props) {
     question,
     setQuestionKey,
     setQuestionLabel,
-    setQuestionRequired
+    setQuestionRequired,
+    setQuestionContent
   } = props;
   return (
     <fieldset className="admin-question">
@@ -62,11 +64,25 @@ function renderQuestionFields(props) {
         />
         <div className="controls">
           <button className="pure-button">Save</button>
-          <i className="fa fa-pencil" />
+          <i className="fa fa-pencil edit" />
           <i className="fa fa-times-circle-o" />
         </div>
       </header>
       <div>
+        <label>
+          <textarea
+            name="content"
+            placeholder="Description"
+            onChange={e =>
+              setQuestionContent(section.id, question.id, e.target.value)}
+          >
+            {question.content}
+          </textarea>
+          <p>A description/instructions for this field.</p>
+          <p>
+            TKTKTK we need to add a field to hold placeholder text for a question
+          </p>
+        </label>
         {question.type}:
         <input
           type="text"
