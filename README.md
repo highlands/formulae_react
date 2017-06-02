@@ -17,6 +17,21 @@ REACT_APP_FORMULAE_API_BASE_URL=http://localhost:3000
 PORT=3001
 ```
 
+### Start your development environment
+
+[We are using](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-a-css-preprocessor-sass-less-etc) a CSS preprocessor, so, if you want to see the right css loaded.
+Please run `watch-css`.
+
+```sh
+yarn watch-css
+```
+
+And don't forget to start the server:
+
+```sh
+yarn start
+```
+
 ### To run the tests
 
 ```sh
