@@ -1,6 +1,31 @@
 .admin-question {
-  background-color: red;
+  border-color: $border-color;
+  border-width: 1px;
+  border-radius: .25rem;
+  padding: 0;
   > header {
-    background-color: #f9fbfc;
+    padding: $padding-md;
+    display: flex;
+    background-color: $catskill-white;
+    > .grippy {
+      padding: $padding-lg;
+    }
+    > .labelinput {
+      margin-left: $margin-xl;
+      flex-grow: 1;
+    }
+    > .controls {
+      align-self: flex-end;
+      text-align: right;
+      display: flex;
+      > button, > i {
+        padding: $padding-lg;
+        margin-left: $margin-md;
+      }
+      > i {
+        font-size: 2rem;
+        cursor: pointer;
+      }
+    }
   }
 }

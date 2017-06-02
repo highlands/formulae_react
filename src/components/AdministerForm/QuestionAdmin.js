@@ -51,13 +51,20 @@ function renderQuestionFields(props) {
   return (
     <fieldset className="admin-question">
       <header>
+        <i className="fa fa-bars grippy" />
         <input
           type="text"
+          className="labelinput"
           value={question.label}
           name="label"
           onChange={e =>
             setQuestionLabel(section.id, question.id, e.target.value)}
         />
+        <div className="controls">
+          <button className="pure-button">Save</button>
+          <i className="fa fa-pencil" />
+          <i className="fa fa-times-circle-o" />
+        </div>
       </header>
       <div>
         {question.type}:

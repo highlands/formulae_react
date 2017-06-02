@@ -45,7 +45,7 @@ export default function AdministerForm(props: Props) {
     />
   ));
   return (
-    <div>
+    <form onSubmit={e => e.preventDefault()} className="pure-form">
       <h2>Administer Form</h2>
       <hr />
       <div>
@@ -57,8 +57,8 @@ export default function AdministerForm(props: Props) {
       </div>
       <hr />
       <button className="pure-button" onClick={() => saveForm()}>
-        Save  Form
+        Save Form
       </button>
-    </div>
+    </form>
   );
 }
