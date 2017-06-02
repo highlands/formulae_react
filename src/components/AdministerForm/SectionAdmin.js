@@ -12,6 +12,7 @@ type Props = {
   setQuestionType: Function,
   setQuestionKey: Function,
   setQuestionRequired: Function,
+  setQuestionContent: Function,
   setQuestionLabel: Function
 };
 
@@ -24,6 +25,7 @@ export default function SectionAdmin(props: Props) {
     setQuestionType,
     setQuestionKey,
     setQuestionRequired,
+    setQuestionContent,
     setQuestionLabel
   } = props;
   const questionsToRender = section.questions.map((q, i) => (
@@ -33,6 +35,7 @@ export default function SectionAdmin(props: Props) {
       setQuestionKey={setQuestionKey}
       setQuestionLabel={setQuestionLabel}
       setQuestionRequired={setQuestionRequired}
+      setQuestionContent={setQuestionContent}
       question={q}
       section={section}
       key={i}
@@ -43,19 +46,25 @@ export default function SectionAdmin(props: Props) {
     <div>
       <div className="section">
         <h6>{section.name}</h6>
-        <input
-          type="text"
-          value={section.name}
-          name="name"
-          onChange={e => setSectionName(section.id, e.target.value)}
-        />
-        <input
-          type="text"
-          value={section.content}
-          name="content"
-          onChange={e => setSectionContent(section.id, e.target.value)}
-        />
-        <button onClick={() => addQuestion(section.id)}>
+        <label>
+          Name:
+          <input
+            type="text"
+            value={section.name}
+            name="name"
+            onChange={e => setSectionName(section.id, e.target.value)}
+          />
+        </label>
+        <label>
+          Content:
+          <input
+            type="text"
+            value={section.content}
+            name="content"
+            onChange={e => setSectionContent(section.id, e.target.value)}
+          />
+        </label>
+        <button className="pure-button" onClick={() => addQuestion(section.id)}>
           Add Question
         </button>
       </div>

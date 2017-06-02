@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { RespondToForm, AdministerForm } from "./containers";
-import "./index.css";
+import "./css/index.css";
 import { Form } from "./api";
 import { RespondToFormStore, AdministerFormStore } from "./stores";
 

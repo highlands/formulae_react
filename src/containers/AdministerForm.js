@@ -35,6 +35,14 @@ export const AdministerForm = connect(
             required
           )
         ),
+      setQuestionContent: (sectionId, questionId, content) =>
+        dispatch(
+          AdministerFormActions.setQuestionContent(
+            sectionId,
+            questionId,
+            content
+          )
+        ),
       setQuestionLabel: (sectionId, questionId, label) =>
         dispatch(
           AdministerFormActions.setQuestionLabel(sectionId, questionId, label)

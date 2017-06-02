@@ -14,6 +14,7 @@ type Props = {
   setQuestionType: Function,
   setQuestionKey: Function,
   setQuestionRequired: Function,
+  setQuestionContent: Function,
   saveForm: Function,
   setQuestionLabel: Function
 };
@@ -28,6 +29,7 @@ export default function AdministerForm(props: Props) {
     setQuestionType,
     setQuestionKey,
     setQuestionRequired,
+    setQuestionContent,
     saveForm,
     setQuestionLabel
   } = props;
@@ -40,25 +42,26 @@ export default function AdministerForm(props: Props) {
       setQuestionKey={setQuestionKey}
       setQuestionLabel={setQuestionLabel}
       setQuestionRequired={setQuestionRequired}
+      setQuestionContent={setQuestionContent}
       section={s}
       key={i}
     />
   ));
   return (
-    <div>
+    <form onSubmit={e => e.preventDefault()} className="pure-form">
       <h2>Administer Form</h2>
       <hr />
       <div>
         <h3>Sections</h3>
         {sectionsToRender}
-        <button onClick={() => addSection()}>
+        <button className="pure-button" onClick={() => addSection()}>
           Add Section
         </button>
       </div>
       <hr />
-      <button onClick={() => saveForm()}>
-        Save  Form
+      <button className="pure-button" onClick={() => saveForm()}>
+        Save Form
       </button>
-    </div>
+    </form>
   );
 }

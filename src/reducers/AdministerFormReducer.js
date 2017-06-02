@@ -134,6 +134,22 @@ export default function AdministerFormReducer(
       } else {
         return model;
       }
+    case "SET_QUESTION_CONTENT":
+      if (action.payload) {
+        let { sectionId, questionId, content } = action.payload;
+        return model.updateIn(["form", "sections"], sections => {
+          return sections.map(s => {
+            if (s.id === sectionId) {
+              let index = s.questions.findIndex(q => q.id === questionId);
+              return s.setIn(["questions", index, "content"], content);
+            } else {
+              return s;
+            }
+          });
+        });
+      } else {
+        return model;
+      }
     default:
       return model;
   }

@@ -87,6 +87,21 @@ function setQuestionRequired(
   };
 }
 
+function setQuestionContent(
+  sectionId: number,
+  questionId: number,
+  content: string
+) {
+  return {
+    type: "SET_QUESTION_CONTENT",
+    payload: {
+      sectionId,
+      questionId,
+      content
+    }
+  };
+}
+
 function saveForm() {
   return (dispatch, getState) => {
     const { form } = getState();
@@ -103,5 +118,6 @@ export default {
   setQuestionType,
   setQuestionLabel,
   setQuestionRequired,
+  setQuestionContent,
   saveForm
 };

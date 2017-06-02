@@ -11,7 +11,6 @@ import {
 import type {
   QuestionSubmissionsMapType
 } from "../types/QuestionSubmissionsMapType";
-require("purecss");
 
 type Props = {
   form: FormType,
