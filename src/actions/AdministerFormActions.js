@@ -102,6 +102,21 @@ function setQuestionContent(
   };
 }
 
+function setQuestionPlaceholder(
+  sectionId: number,
+  questionId: number,
+  placeholder: string
+) {
+  return {
+    type: "SET_QUESTION_PLACEHOLDER",
+    payload: {
+      sectionId,
+      questionId,
+      placeholder
+    }
+  };
+}
+
 function saveForm() {
   return (dispatch, getState) => {
     const { form } = getState();
@@ -119,5 +134,6 @@ export default {
   setQuestionLabel,
   setQuestionRequired,
   setQuestionContent,
+  setQuestionPlaceholder,
   saveForm
 };
