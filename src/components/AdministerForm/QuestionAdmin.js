@@ -75,9 +75,8 @@ function renderQuestionFields(props) {
             placeholder="Description"
             onChange={e =>
               setQuestionContent(section.id, question.id, e.target.value)}
-          >
-            {question.content}
-          </textarea>
+            value={question.content}
+          />
           <p>A description/instructions for this field.</p>
           <p>
             TKTKTK we need to add a field to hold placeholder text for a question
