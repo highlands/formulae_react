@@ -10,6 +10,7 @@ export default class QuestionType
     key: "",
     label: "",
     content: "",
+    placeholder: "",
     type: "",
     order: 0,
     required: false,
@@ -21,6 +22,7 @@ export default class QuestionType
   key: string;
   label: string;
   content: string;
+  placeholder: string;
   type: string;
   order: number;
   required: boolean;

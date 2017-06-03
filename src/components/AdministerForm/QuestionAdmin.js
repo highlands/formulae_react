@@ -10,6 +10,7 @@ type Props = {
   setQuestionKey: Function,
   setQuestionLabel: Function,
   setQuestionRequired: Function,
+  setQuestionPlaceholder: Function,
   setQuestionContent: Function
 };
 
@@ -45,9 +46,9 @@ function renderQuestionFields(props) {
   const {
     section,
     question,
-    setQuestionKey,
     setQuestionLabel,
     setQuestionRequired,
+    setQuestionPlaceholder,
     setQuestionContent
   } = props;
   return (
@@ -79,26 +80,27 @@ function renderQuestionFields(props) {
           />
           <p>A description/instructions for this field.</p>
           <p>
-            TKTKTK we need to add a field to hold placeholder text for a question
+            <input
+              type="text"
+              value={question.placeholder}
+              name="key"
+              placeholder="Placeholder Text"
+              onChange={e =>
+                setQuestionPlaceholder(section.id, question.id, e.target.value)}
+            />
           </p>
         </label>
-        {question.type}:
-        <input
-          type="text"
-          value={question.key}
-          name="key"
-          onChange={e =>
-            setQuestionKey(section.id, question.id, e.target.value)}
-        />
-        <input
-          type="checkbox"
-          value={question.required}
-          name="required"
-          onChange={e => {
-            let newValue = e.target.value === "false" ? true : false;
-            setQuestionRequired(section.id, question.id, newValue);
-          }}
-        />
+        <label className="pure-checkbox">
+          <input
+            type="checkbox"
+            value={question.required}
+            name="required"
+            onChange={e => {
+              let newValue = e.target.value === "false" ? true : false;
+              setQuestionRequired(section.id, question.id, newValue);
+            }}
+          /> Required Field
+        </label>
       </div>
     </fieldset>
   );
