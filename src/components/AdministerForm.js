@@ -17,7 +17,8 @@ type Props = {
   setQuestionContent: Function,
   setQuestionPlaceholder: Function,
   saveForm: Function,
-  setQuestionLabel: Function
+  setQuestionLabel: Function,
+  deleteQuestion: Function
 };
 
 export default function AdministerForm(props: Props) {
@@ -33,7 +34,8 @@ export default function AdministerForm(props: Props) {
     setQuestionContent,
     setQuestionPlaceholder,
     saveForm,
-    setQuestionLabel
+    setQuestionLabel,
+    deleteQuestion
   } = props;
   const sectionsToRender = form.sections.map((s, i) => (
     <SectionAdmin
@@ -46,6 +48,7 @@ export default function AdministerForm(props: Props) {
       setQuestionRequired={setQuestionRequired}
       setQuestionContent={setQuestionContent}
       setQuestionPlaceholder={setQuestionPlaceholder}
+      deleteQuestion={deleteQuestion}
       section={s}
       key={i}
     />

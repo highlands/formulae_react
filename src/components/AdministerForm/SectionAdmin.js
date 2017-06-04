@@ -14,7 +14,8 @@ type Props = {
   setQuestionRequired: Function,
   setQuestionContent: Function,
   setQuestionPlaceholder: Function,
-  setQuestionLabel: Function
+  setQuestionLabel: Function,
+  deleteQuestion: Function
 };
 
 export default function SectionAdmin(props: Props) {
@@ -28,7 +29,8 @@ export default function SectionAdmin(props: Props) {
     setQuestionRequired,
     setQuestionContent,
     setQuestionPlaceholder,
-    setQuestionLabel
+    setQuestionLabel,
+    deleteQuestion
   } = props;
   const questionsToRender = section.questions.map((q, i) => (
     <QuestionAdmin
@@ -39,6 +41,7 @@ export default function SectionAdmin(props: Props) {
       setQuestionRequired={setQuestionRequired}
       setQuestionContent={setQuestionContent}
       setQuestionPlaceholder={setQuestionPlaceholder}
+      deleteQuestion={deleteQuestion}
       question={q}
       section={section}
       key={i}

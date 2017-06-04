@@ -54,7 +54,9 @@ export const AdministerForm = connect(
       setQuestionLabel: (sectionId, questionId, label) =>
         dispatch(
           AdministerFormActions.setQuestionLabel(sectionId, questionId, label)
-        )
+        ),
+      deleteQuestion: (sectionId, questionId) =>
+        dispatch(AdministerFormActions.deleteQuestion(sectionId, questionId))
     };
   }
 )(components.AdministerForm);

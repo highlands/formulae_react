@@ -117,6 +117,16 @@ function setQuestionPlaceholder(
   };
 }
 
+function deleteQuestion(sectionId: number, questionId: number) {
+  return {
+    type: "DELETE_QUESTION",
+    payload: {
+      sectionId,
+      questionId
+    }
+  };
+}
+
 function saveForm() {
   return (dispatch, getState) => {
     const { form } = getState();
@@ -135,5 +145,6 @@ export default {
   setQuestionRequired,
   setQuestionContent,
   setQuestionPlaceholder,
+  deleteQuestion,
   saveForm
 };
