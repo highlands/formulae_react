@@ -11,7 +11,8 @@ type Props = {
   setQuestionLabel: Function,
   setQuestionRequired: Function,
   setQuestionPlaceholder: Function,
-  setQuestionContent: Function
+  setQuestionContent: Function,
+  deleteQuestion: Function
 };
 
 function renderQuestionType(props) {
@@ -49,7 +50,8 @@ function renderQuestionFields(props) {
     setQuestionLabel,
     setQuestionRequired,
     setQuestionPlaceholder,
-    setQuestionContent
+    setQuestionContent,
+    deleteQuestion
   } = props;
   return (
     <fieldset className="admin-question">
@@ -66,7 +68,10 @@ function renderQuestionFields(props) {
         <div className="controls">
           <button className="pure-button">Save</button>
           <i className="fa fa-pencil edit" />
-          <i className="fa fa-times-circle-o" />
+          <i
+            onClick={e => deleteQuestion(section.id, question.id)}
+            className="fa fa-times-circle-o"
+          />
         </div>
       </header>
       <div>

@@ -150,6 +150,22 @@ export default function AdministerFormReducer(
       } else {
         return model;
       }
+    case "DELETE_QUESTION":
+      if (action.payload) {
+        let { sectionId, questionId } = action.payload;
+        return model.updateIn(["form", "sections"], sections => {
+          return sections.map(s => {
+            if (s.id === sectionId) {
+              let index = s.questions.findIndex(q => q.id === questionId);
+              return s.deleteIn(["questions", index]);
+            } else {
+              return s;
+            }
+          });
+        });
+      } else {
+        return model;
+      }
     case "SET_QUESTION_PLACEHOLDER":
       if (action.payload) {
         let { sectionId, questionId, placeholder } = action.payload;
