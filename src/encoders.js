@@ -23,7 +23,8 @@ type ApiQuestion = {
   key: string,
   label: string,
   content: string,
-  question_type: string
+  question_type: string,
+  order: number
 };
 
 type ApiSection = {
@@ -55,7 +56,8 @@ function encodeFormSubmission(
   return {
     form_id: formSubmission.formId,
     question_submissions: formSubmission.questionSubmissions.map(submission =>
-      submission.map(encodeFormQuestionSubmission))
+      submission.map(encodeFormQuestionSubmission)
+    )
   };
 }
 
@@ -67,7 +69,7 @@ function encodeQuestion(question: QuestionType): ApiQuestion {
     required: question.required,
     placeholder: question.placeholder,
     question_type: question.type,
-    order: 1
+    order: question.order
   };
 }
 

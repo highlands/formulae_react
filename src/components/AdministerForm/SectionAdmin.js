@@ -18,7 +18,8 @@ type Props = {
   setQuestionLabel: Function,
   deleteQuestion: Function,
   expandedQuestions: Set<string>,
-  toggleExpandQuestion: Function
+  toggleExpandQuestion: Function,
+  moveQuestion: Function
 };
 
 export default function SectionAdmin(props: Props) {
@@ -35,7 +36,8 @@ export default function SectionAdmin(props: Props) {
     setQuestionLabel,
     deleteQuestion,
     expandedQuestions,
-    toggleExpandQuestion
+    toggleExpandQuestion,
+    moveQuestion
   } = props;
   const questionsToRender = section.questions
     .sortBy(q => q.order)
@@ -54,6 +56,7 @@ export default function SectionAdmin(props: Props) {
         key={i}
         expanded={expandedQuestions.get(q.id) !== undefined}
         toggleExpandQuestion={() => toggleExpandQuestion(q.id)}
+        moveQuestion={direction => moveQuestion(q.id, direction)}
       />
     ));
 

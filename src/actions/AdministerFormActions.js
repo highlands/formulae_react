@@ -1,11 +1,15 @@
 import { Form } from "../api";
 
-function moveQuestion(id: string, sectionId: string, direction: 1 | -1) {
+function moveQuestion(
+  sectionId: string,
+  questionId: string,
+  direction: 1 | -1
+) {
   return {
     type: "MOVE_QUESTION",
     payload: {
-      id,
       sectionId,
+      questionId,
       direction
     }
   };

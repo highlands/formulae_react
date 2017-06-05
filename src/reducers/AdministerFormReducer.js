@@ -44,17 +44,18 @@ export default function AdministerFormReducer(
 }
 
 function moveQuestion(model, payload) {
-  let { id, sectionId, direction } = payload;
-  let questions = model.getIn(["form", "sections", sectionId, "questions"]);
+  let { questionId, sectionId, direction } = payload;
+  let sectionIndex = model.form.sections.findIndex(q => q.id === sectionId);
+  let questions = model.getIn(["form", "sections", sectionIndex, "questions"]);
   const nextQuestions = questions.map(value => {
-    if (value.id === id) {
+    if (value.id === questionId) {
       return value.set("order", value.get("order") + direction);
     } else {
       return value;
     }
   });
   return model.setIn(
-    ["form", "sections", sectionId, "questions"],
+    ["form", "sections", sectionIndex, "questions"],
     nextQuestions
   );
 }
