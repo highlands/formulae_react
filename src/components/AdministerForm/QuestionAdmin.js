@@ -1,7 +1,7 @@
 // @flow
 
 import React from "react";
-import { QuestionType } from "../../types";
+import { SectionType, QuestionType } from "../../types";
 
 type Props = {
   section: Object,
@@ -50,9 +50,6 @@ function renderQuestionFields(props) {
     section,
     question,
     setQuestionLabel,
-    setQuestionRequired,
-    setQuestionPlaceholder,
-    setQuestionContent,
     deleteQuestion,
     expanded,
     toggleExpandQuestion
@@ -82,40 +79,109 @@ function renderQuestionFields(props) {
         </div>
       </header>
       <div className={expanded ? "" : "hide"}>
-        <label>
-          <textarea
-            name="content"
-            placeholder="Description"
-            onChange={e =>
-              setQuestionContent(section.id, question.id, e.target.value)}
-            value={question.content}
-          />
-          <p>A description/instructions for this field.</p>
-          <p>
-            <input
-              type="text"
-              value={question.placeholder}
-              name="key"
-              placeholder="Placeholder Text"
-              onChange={e =>
-                setQuestionPlaceholder(section.id, question.id, e.target.value)}
-            />
-          </p>
-        </label>
-        <label className="pure-checkbox">
-          <input
-            type="checkbox"
-            value={question.required}
-            name="required"
-            onChange={e => {
-              let newValue = e.target.value === "false" ? true : false;
-              setQuestionRequired(section.id, question.id, newValue);
-            }}
-          /> Required Field
-        </label>
+        {renderQuestionAdminType(section, question, props)}
       </div>
     </fieldset>
   );
+}
+
+function renderQuestionAdminType(
+  section: SectionType,
+  question: QuestionType,
+  props: Props
+) {
+  const {
+    setQuestionRequired,
+    setQuestionPlaceholder,
+    setQuestionContent
+  } = props;
+
+  const descriptionInputArea = (
+    <div>
+      <input
+        name="content"
+        placeholder="Description"
+        onChange={e =>
+          setQuestionContent(section.id, question.id, e.target.value)}
+        value={question.content}
+      />
+      <p>A description/instructions for this field.</p>
+    </div>
+  );
+
+  const descriptionTextArea = (
+    <div>
+      <textarea
+        name="content"
+        placeholder="Description"
+        onChange={e =>
+          setQuestionContent(section.id, question.id, e.target.value)}
+        value={question.content}
+      />
+      <p>A description/instructions for this field.</p>
+    </div>
+  );
+
+  const placeholder = (
+    <p>
+      <input
+        type="text"
+        value={question.placeholder}
+        name="key"
+        placeholder="Placeholder Text"
+        onChange={e =>
+          setQuestionPlaceholder(section.id, question.id, e.target.value)}
+      />
+    </p>
+  );
+  const requiredField = (
+    <label className="pure-checkbox">
+      <input
+        type="checkbox"
+        value={question.required}
+        name="required"
+        onChange={e => {
+          let newValue = e.target.value === "false" ? true : false;
+          setQuestionRequired(section.id, question.id, newValue);
+        }}
+      /> Required Field
+    </label>
+  );
+
+  if (question.type === "string") {
+    return (
+      <div>
+        <label>
+          {descriptionInputArea}
+          {placeholder}
+        </label>
+        {requiredField}
+      </div>
+    );
+  }
+
+  if (question.type === "text") {
+    return (
+      <div>
+        <label>
+          {descriptionTextArea}
+          {placeholder}
+        </label>
+        {requiredField}
+      </div>
+    );
+  }
+
+  if (question.type === "boolean") {
+    return (
+      <div>
+        <label>
+          {descriptionTextArea}
+        </label>
+        {requiredField}
+      </div>
+    );
+  }
 }
 
 export default function QuestionAdmin(props: Props) {

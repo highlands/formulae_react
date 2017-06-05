@@ -1,8 +1,7 @@
 // @flow
 
-import { Record, Map, Set } from "immutable";
+import { Record, Set } from "immutable";
 import FormType from "./FormType";
-import QuestionSubmissionType from "./QuestionSubmissionType";
 
 export default class AdministerFormModel
   extends Record({

@@ -156,12 +156,13 @@ export default function RespondToForm(props: Props) {
       </form>
       <hr />
       <button onClick={loadExampleForm}>Load Example Form</button>
+      <input type="text" onChange={e => getForm(e.target.value)} />
       <button
         onClick={() => {
           getForm(1);
         }}
       >
-        Get API Form
+        Get API Form 1
       </button>
     </div>
   );
