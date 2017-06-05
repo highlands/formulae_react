@@ -31,6 +31,7 @@ function renderQuestion(props: Props) {
   const id = `${question.get("id")}`;
   const questionWidget = getQuestionWidget(
     question.get("type"),
+    question.get("placeholder"),
     id,
     question.get("content"),
     submission,
@@ -87,6 +88,7 @@ export default function Question(props: Props) {
 
 function getQuestionWidget(
   type: string,
+  placeholder: string,
   id: string,
   content: string,
   submission: QuestionSubmissionMapValueType,
@@ -105,6 +107,7 @@ function getQuestionWidget(
         <String
           id={id}
           content={content}
+          placeholder={placeholder}
           value={submission.get(0) ? submission.get(0).get("value") : ""}
           onChange={onChange}
         />
@@ -114,6 +117,7 @@ function getQuestionWidget(
         <Text
           id={id}
           content={content}
+          placeholder={placeholder}
           value={submission.get(0) ? submission.get(0).get("value") : ""}
           onChange={onChange}
         />

@@ -49,6 +49,7 @@ type ApiQuestion = {
   label: string,
   content: string,
   order: number,
+  placeholder: string,
   required: boolean,
   hidden: boolean,
   question_type: string,
@@ -105,6 +106,7 @@ function decodeQuestion(question: ApiQuestion): QuestionType {
     type: question.question_type,
     order: question.order,
     required: question.required,
+    placeholder: question.placeholder,
     section_id: question.section_id,
     choices: decodeChoices(question.choices),
     questionDependency: questionDependency
