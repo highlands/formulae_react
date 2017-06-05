@@ -12,187 +12,211 @@ export default function AdministerFormReducer(
   action: { type: Action, payload: ?Object }
 ) {
   switch (action.type) {
+    case "MOVE_QUESTION":
+      return moveQuestion(model, action.payload);
     case "TOGGLE_EXPAND_QUESTION":
-      let { id } = action.payload;
-      if (model.getIn(["expandedQuestions", id])) {
-        return model.set(
-          "expandedQuestions",
-          model.expandedQuestions.delete(id)
-        );
-      } else {
-        return model.set("expandedQuestions", model.expandedQuestions.add(id));
-      }
+      return toggleExpandQuestion(model, action.payload);
     case "ADD_SECTION":
-      return model.updateIn(["form", "sections"], sections => {
-        return sections.push(
-          new SectionType({
-            id: uuidV4(),
-            name: "",
-            content: ""
-          })
-        );
-      });
+      return addSection(model);
     case "SET_SECTION_NAME":
-      if (action.payload) {
-        let { sectionId, name } = action.payload;
-        return model.updateIn(["form", "sections"], sections => {
-          return sections.map(s => {
-            if (s.id === sectionId) {
-              return s.set("name", name);
-            } else {
-              return s;
-            }
-          });
-        });
-      } else {
-        return model;
-      }
+      return setSectionName(model, action.payload);
     case "SET_SECTION_CONTENT":
-      if (action.payload) {
-        let { sectionId, content } = action.payload;
-        return model.updateIn(["form", "sections"], sections => {
-          return sections.map(s => {
-            if (s.id === sectionId) {
-              return s.set("content", content);
-            } else {
-              return s;
-            }
-          });
-        });
-      } else {
-        return model;
-      }
+      return setSectionContent(model, action.payload);
     case "ADD_QUESTION":
-      if (action.payload) {
-        let { sectionId } = action.payload;
-        return model.updateIn(["form", "sections"], sections => {
-          return sections.map(s => {
-            if (s.id === sectionId) {
-              return s.set(
-                "questions",
-                s.questions.push(new QuestionType({ id: uuidV4() }))
-              );
-            } else {
-              return s;
-            }
-          });
-        });
-      } else {
-        return model;
-      }
+      return addQuestion(model, action.payload);
     case "SET_QUESTION_TYPE":
-      if (action.payload) {
-        let { sectionId, questionId, type } = action.payload;
-        return model.updateIn(["form", "sections"], sections => {
-          return sections.map(s => {
-            if (s.id === sectionId) {
-              let index = s.questions.findIndex(q => q.id === questionId);
-              return s.setIn(["questions", index, "type"], type);
-            } else {
-              return s;
-            }
-          });
-        });
-      } else {
-        return model;
-      }
+      return setQuestionType(model, action.payload);
     case "SET_QUESTION_KEY":
-      if (action.payload) {
-        let { sectionId, questionId, key } = action.payload;
-        return model.updateIn(["form", "sections"], sections => {
-          return sections.map(s => {
-            if (s.id === sectionId) {
-              let index = s.questions.findIndex(q => q.id === questionId);
-              return s.setIn(["questions", index, "key"], key);
-            } else {
-              return s;
-            }
-          });
-        });
-      } else {
-        return model;
-      }
+      return setQuestionKey(model, action.payload);
     case "SET_QUESTION_LABEL":
-      if (action.payload) {
-        let { sectionId, questionId, label } = action.payload;
-        return model.updateIn(["form", "sections"], sections => {
-          return sections.map(s => {
-            if (s.id === sectionId) {
-              let index = s.questions.findIndex(q => q.id === questionId);
-              return s.setIn(["questions", index, "label"], label);
-            } else {
-              return s;
-            }
-          });
-        });
-      } else {
-        return model;
-      }
+      return setQuestionLabel(model, action.payload);
     case "SET_QUESTION_REQUIRED":
-      if (action.payload) {
-        let { sectionId, questionId, required } = action.payload;
-        return model.updateIn(["form", "sections"], sections => {
-          return sections.map(s => {
-            if (s.id === sectionId) {
-              let index = s.questions.findIndex(q => q.id === questionId);
-              return s.setIn(["questions", index, "required"], required);
-            } else {
-              return s;
-            }
-          });
-        });
-      } else {
-        return model;
-      }
+      return setQuestionRequired(model, action.payload);
     case "SET_QUESTION_CONTENT":
-      if (action.payload) {
-        let { sectionId, questionId, content } = action.payload;
-        return model.updateIn(["form", "sections"], sections => {
-          return sections.map(s => {
-            if (s.id === sectionId) {
-              let index = s.questions.findIndex(q => q.id === questionId);
-              return s.setIn(["questions", index, "content"], content);
-            } else {
-              return s;
-            }
-          });
-        });
-      } else {
-        return model;
-      }
+      return setQuestionContent(model, action.payload);
     case "DELETE_QUESTION":
-      if (action.payload) {
-        let { sectionId, questionId } = action.payload;
-        return model.updateIn(["form", "sections"], sections => {
-          return sections.map(s => {
-            if (s.id === sectionId) {
-              let index = s.questions.findIndex(q => q.id === questionId);
-              return s.deleteIn(["questions", index]);
-            } else {
-              return s;
-            }
-          });
-        });
-      } else {
-        return model;
-      }
+      return deleteQuestion(model, action.payload);
     case "SET_QUESTION_PLACEHOLDER":
-      if (action.payload) {
-        let { sectionId, questionId, placeholder } = action.payload;
-        return model.updateIn(["form", "sections"], sections => {
-          return sections.map(s => {
-            if (s.id === sectionId) {
-              let index = s.questions.findIndex(q => q.id === questionId);
-              return s.setIn(["questions", index, "placeholder"], placeholder);
-            } else {
-              return s;
-            }
-          });
-        });
-      } else {
-        return model;
-      }
+      return setQuestionPlaceholder(model, action.payload);
     default:
       return model;
   }
+}
+
+function moveQuestion(model, payload) {
+  let { id, sectionId, direction } = payload;
+  let questions = model.getIn(["form", "sections", sectionId, "questions"]);
+  const nextQuestions = questions.map(value => {
+    if (value.id === id) {
+      return value.set("order", value.get("order") + direction);
+    } else {
+      return value;
+    }
+  });
+  return model.setIn(
+    ["form", "sections", sectionId, "questions"],
+    nextQuestions
+  );
+}
+
+function toggleExpandQuestion(model, payload) {
+  let { id } = payload;
+  if (model.getIn(["expandedQuestions", id])) {
+    return model.set("expandedQuestions", model.expandedQuestions.delete(id));
+  } else {
+    return model.set("expandedQuestions", model.expandedQuestions.add(id));
+  }
+}
+
+function addSection(model) {
+  return model.updateIn(["form", "sections"], sections => {
+    return sections.push(
+      new SectionType({
+        id: uuidV4(),
+        name: "",
+        content: ""
+      })
+    );
+  });
+}
+
+function setSectionName(model, payload) {
+  if (payload) {
+    let { sectionId, name } = payload;
+    return setSectionField(model, sectionId, "name", name);
+  } else {
+    return model;
+  }
+}
+
+function setSectionContent(model, payload) {
+  if (payload) {
+    let { sectionId, content } = payload;
+    return setSectionField(model, sectionId, "content", content);
+  } else {
+    return model;
+  }
+}
+
+function addQuestion(model, payload) {
+  if (payload) {
+    let { sectionId } = payload;
+    return model.updateIn(["form", "sections"], sections => {
+      return sections.map(s => {
+        if (s.id === sectionId) {
+          return s.set(
+            "questions",
+            s.questions.push(new QuestionType({ id: uuidV4() }))
+          );
+        } else {
+          return s;
+        }
+      });
+    });
+  } else {
+    return model;
+  }
+}
+
+function setQuestionType(model, payload) {
+  if (payload) {
+    let { sectionId, questionId, type } = payload;
+    return setQuestionField(model, sectionId, questionId, "type", type);
+  } else {
+    return model;
+  }
+}
+
+function setQuestionKey(model, payload) {
+  if (payload) {
+    let { sectionId, questionId, key } = payload;
+    return setQuestionField(model, sectionId, questionId, "key", key);
+  } else {
+    return model;
+  }
+}
+
+function setQuestionLabel(model, payload) {
+  if (payload) {
+    let { sectionId, questionId, label } = payload;
+    return setQuestionField(model, sectionId, questionId, "label", label);
+  } else {
+    return model;
+  }
+}
+
+function setQuestionRequired(model, payload) {
+  if (payload) {
+    let { sectionId, questionId, required } = payload;
+    return setQuestionField(model, sectionId, questionId, "required", required);
+  } else {
+    return model;
+  }
+}
+
+function setQuestionContent(model, payload) {
+  if (payload) {
+    let { sectionId, questionId, content } = payload;
+    return setQuestionField(model, sectionId, questionId, "content", content);
+  } else {
+    return model;
+  }
+}
+
+function deleteQuestion(model, payload) {
+  if (payload) {
+    let { sectionId, questionId } = payload;
+    return model.updateIn(["form", "sections"], sections => {
+      return sections.map(s => {
+        if (s.id === sectionId) {
+          let index = s.questions.findIndex(q => q.id === questionId);
+          return s.deleteIn(["questions", index]);
+        } else {
+          return s;
+        }
+      });
+    });
+  } else {
+    return model;
+  }
+}
+
+function setQuestionPlaceholder(model, payload) {
+  if (payload) {
+    let { sectionId, questionId, placeholder } = payload;
+    return setQuestionField(
+      model,
+      sectionId,
+      questionId,
+      "placeholder",
+      placeholder
+    );
+  } else {
+    return model;
+  }
+}
+
+function setQuestionField(model, sectionId, questionId, key, value) {
+  return model.updateIn(["form", "sections"], sections => {
+    return sections.map(s => {
+      if (s.id === sectionId) {
+        let index = s.questions.findIndex(q => q.id === questionId);
+        return s.setIn(["questions", index, key], value);
+      } else {
+        return s;
+      }
+    });
+  });
+}
+
+function setSectionField(model, sectionId, key, value) {
+  return model.updateIn(["form", "sections"], sections => {
+    return sections.map(s => {
+      if (s.id === sectionId) {
+        return s.set(key, value);
+      } else {
+        return s;
+      }
+    });
+  });
 }

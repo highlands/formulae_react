@@ -37,23 +37,25 @@ export default function SectionAdmin(props: Props) {
     expandedQuestions,
     toggleExpandQuestion
   } = props;
-  const questionsToRender = section.questions.map((q, i) => (
-    <QuestionAdmin
-      addQuestion={addQuestion}
-      setQuestionType={setQuestionType}
-      setQuestionKey={setQuestionKey}
-      setQuestionLabel={setQuestionLabel}
-      setQuestionRequired={setQuestionRequired}
-      setQuestionContent={setQuestionContent}
-      setQuestionPlaceholder={setQuestionPlaceholder}
-      deleteQuestion={deleteQuestion}
-      question={q}
-      section={section}
-      key={i}
-      expanded={expandedQuestions.get(q.id) !== undefined}
-      toggleExpandQuestion={() => toggleExpandQuestion(q.id)}
-    />
-  ));
+  const questionsToRender = section.questions
+    .sortBy(q => q.order)
+    .map((q, i) => (
+      <QuestionAdmin
+        addQuestion={addQuestion}
+        setQuestionType={setQuestionType}
+        setQuestionKey={setQuestionKey}
+        setQuestionLabel={setQuestionLabel}
+        setQuestionRequired={setQuestionRequired}
+        setQuestionContent={setQuestionContent}
+        setQuestionPlaceholder={setQuestionPlaceholder}
+        deleteQuestion={deleteQuestion}
+        question={q}
+        section={section}
+        key={i}
+        expanded={expandedQuestions.get(q.id) !== undefined}
+        toggleExpandQuestion={() => toggleExpandQuestion(q.id)}
+      />
+    ));
 
   return (
     <div>
