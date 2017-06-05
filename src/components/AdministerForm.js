@@ -2,10 +2,10 @@
 
 import React from "react";
 import SectionAdmin from "./AdministerForm/SectionAdmin";
-import { FormType } from "../types";
+import { AdministerFormModel } from "../types";
 
 type Props = {
-  form: FormType,
+  model: AdministerFormModel,
   getForm: Function,
   addSection: Function,
   addQuestion: Function,
@@ -18,12 +18,13 @@ type Props = {
   setQuestionPlaceholder: Function,
   saveForm: Function,
   setQuestionLabel: Function,
-  deleteQuestion: Function
+  deleteQuestion: Function,
+  toggleExpandQuestion: Function
 };
 
 export default function AdministerForm(props: Props) {
   const {
-    form,
+    model,
     addSection,
     setSectionName,
     setSectionContent,
@@ -35,9 +36,10 @@ export default function AdministerForm(props: Props) {
     setQuestionPlaceholder,
     saveForm,
     setQuestionLabel,
-    deleteQuestion
+    deleteQuestion,
+    toggleExpandQuestion
   } = props;
-  const sectionsToRender = form.sections.map((s, i) => (
+  const sectionsToRender = model.form.sections.map((s, i) => (
     <SectionAdmin
       setSectionName={setSectionName}
       setSectionContent={setSectionContent}
@@ -50,6 +52,8 @@ export default function AdministerForm(props: Props) {
       setQuestionPlaceholder={setQuestionPlaceholder}
       deleteQuestion={deleteQuestion}
       section={s}
+      expandedQuestions={model.expandedQuestions}
+      toggleExpandQuestion={toggleExpandQuestion}
       key={i}
     />
   ));

@@ -110,7 +110,7 @@ describe("QuestionDependency", () => {
     });
 
     const submissions = new Map({
-      someQuestionId: "10"
+      "1": new List([new QuestionSubmissionType({ id: "1", value: "value" })])
     });
 
     it("renders the question if its dependencies are satisfied", () => {

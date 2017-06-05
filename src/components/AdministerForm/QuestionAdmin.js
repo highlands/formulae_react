@@ -12,7 +12,9 @@ type Props = {
   setQuestionRequired: Function,
   setQuestionPlaceholder: Function,
   setQuestionContent: Function,
-  deleteQuestion: Function
+  deleteQuestion: Function,
+  expanded: boolean,
+  toggleExpandQuestion: Function
 };
 
 function renderQuestionType(props) {
@@ -43,23 +45,6 @@ function renderQuestionType(props) {
   }
 }
 
-function toggleQuestionContent(id: string) {
-  const element = document.getElementById(id);
-  const saveButton = document.getElementById(`save-button-${id}`);
-  const editButton = document.getElementById(`edit-${id}`);
-  if (element && saveButton && editButton) {
-    if (element.className === "hide") {
-      element.className = "";
-      saveButton.className = "pure-button";
-      editButton.className = "hide";
-    } else {
-      element.className = "hide";
-      saveButton.className = "hide";
-      editButton.className = "fa fa-pencil edit";
-    }
-  }
-}
-
 function renderQuestionFields(props) {
   const {
     section,
@@ -68,16 +53,15 @@ function renderQuestionFields(props) {
     setQuestionRequired,
     setQuestionPlaceholder,
     setQuestionContent,
-    deleteQuestion
+    deleteQuestion,
+    expanded,
+    toggleExpandQuestion
   } = props;
 
   return (
     <fieldset className="admin-question">
       <header>
-        <i
-          onClick={() => toggleQuestionContent(question.id)}
-          className="fa fa-bars grippy"
-        />
+        <i onClick={toggleExpandQuestion} className="fa fa-bars grippy" />
         <input
           type="text"
           className="labelinput"
@@ -97,7 +81,7 @@ function renderQuestionFields(props) {
           />
         </div>
       </header>
-      <div id={question.id}>
+      <div className={expanded ? "" : "hide"}>
         <label>
           <textarea
             name="content"

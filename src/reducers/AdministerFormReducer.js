@@ -1,17 +1,27 @@
 // @flow
 
-import { Model, SectionType, QuestionType } from "../types";
+import { AdministerFormModel, SectionType, QuestionType } from "../types";
 
-const init = new Model();
+const init = new AdministerFormModel();
 const uuidV4 = require("uuid/v4");
 
 type Action = "ADD_SECTION" | "ADD_QUESTION";
 
 export default function AdministerFormReducer(
-  model: Model = init,
+  model: AdministerFormModel = init,
   action: { type: Action, payload: ?Object }
 ) {
   switch (action.type) {
+    case "TOGGLE_EXPAND_QUESTION":
+      let { id } = action.payload;
+      if (model.getIn(["expandedQuestions", id])) {
+        return model.set(
+          "expandedQuestions",
+          model.expandedQuestions.delete(id)
+        );
+      } else {
+        return model.set("expandedQuestions", model.expandedQuestions.add(id));
+      }
     case "ADD_SECTION":
       return model.updateIn(["form", "sections"], sections => {
         return sections.push(

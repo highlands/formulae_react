@@ -3,6 +3,7 @@
 import React from "react";
 import { SectionType } from "../../types";
 import QuestionAdmin from "./QuestionAdmin";
+import { Set } from "immutable";
 
 type Props = {
   section: SectionType,
@@ -15,7 +16,9 @@ type Props = {
   setQuestionContent: Function,
   setQuestionPlaceholder: Function,
   setQuestionLabel: Function,
-  deleteQuestion: Function
+  deleteQuestion: Function,
+  expandedQuestions: Set<string>,
+  toggleExpandQuestion: Function
 };
 
 export default function SectionAdmin(props: Props) {
@@ -30,7 +33,9 @@ export default function SectionAdmin(props: Props) {
     setQuestionContent,
     setQuestionPlaceholder,
     setQuestionLabel,
-    deleteQuestion
+    deleteQuestion,
+    expandedQuestions,
+    toggleExpandQuestion
   } = props;
   const questionsToRender = section.questions.map((q, i) => (
     <QuestionAdmin
@@ -45,6 +50,8 @@ export default function SectionAdmin(props: Props) {
       question={q}
       section={section}
       key={i}
+      expanded={expandedQuestions.get(q.id) !== undefined}
+      toggleExpandQuestion={() => toggleExpandQuestion(q.id)}
     />
   ));
 
