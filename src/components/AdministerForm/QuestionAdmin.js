@@ -43,6 +43,23 @@ function renderQuestionType(props) {
   }
 }
 
+function toggleQuestionContent(id: string) {
+  const element = document.getElementById(id);
+  const saveButton = document.getElementById(`save-button-${id}`);
+  const editButton = document.getElementById(`edit-${id}`);
+  if (element && saveButton && editButton) {
+    if (element.className === "hide") {
+      element.className = "";
+      saveButton.className = "pure-button";
+      editButton.className = "hide";
+    } else {
+      element.className = "hide";
+      saveButton.className = "hide";
+      editButton.className = "fa fa-pencil edit";
+    }
+  }
+}
+
 function renderQuestionFields(props) {
   const {
     section,
@@ -53,10 +70,14 @@ function renderQuestionFields(props) {
     setQuestionContent,
     deleteQuestion
   } = props;
+
   return (
     <fieldset className="admin-question">
       <header>
-        <i className="fa fa-bars grippy" />
+        <i
+          onClick={() => toggleQuestionContent(question.id)}
+          className="fa fa-bars grippy"
+        />
         <input
           type="text"
           className="labelinput"
@@ -66,15 +87,17 @@ function renderQuestionFields(props) {
             setQuestionLabel(section.id, question.id, e.target.value)}
         />
         <div className="controls">
-          <button className="pure-button">Save</button>
-          <i className="fa fa-pencil edit" />
+          <button id={`save-button-${question.id}`} className="pure-button">
+            Save
+          </button>
+          <i id={`edit-${question.id}`} className="fa fa-pencil edit" />
           <i
             onClick={e => deleteQuestion(section.id, question.id)}
             className="fa fa-times-circle-o"
           />
         </div>
       </header>
-      <div>
+      <div id={question.id}>
         <label>
           <textarea
             name="content"
