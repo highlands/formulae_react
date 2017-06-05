@@ -1,3 +1,5 @@
+// @flow
+
 import { connect } from "react-redux";
 import * as components from "../components";
 import { AdministerFormActions } from "../actions";
@@ -5,7 +7,7 @@ import { AdministerFormActions } from "../actions";
 export const AdministerForm = connect(
   function mapStateToProps(state) {
     return {
-      form: state.get("form")
+      model: state
     };
   },
   function mapDispatchToProps(dispatch) {
@@ -56,7 +58,9 @@ export const AdministerForm = connect(
           AdministerFormActions.setQuestionLabel(sectionId, questionId, label)
         ),
       deleteQuestion: (sectionId, questionId) =>
-        dispatch(AdministerFormActions.deleteQuestion(sectionId, questionId))
+        dispatch(AdministerFormActions.deleteQuestion(sectionId, questionId)),
+      toggleExpandQuestion: id =>
+        dispatch(AdministerFormActions.toggleExpandQuestion(id))
     };
   }
 )(components.AdministerForm);

@@ -1,5 +1,14 @@
 import { Form } from "../api";
 
+function toggleExpandQuestion(id: string) {
+  return {
+    type: "TOGGLE_EXPAND_QUESTION",
+    payload: {
+      id
+    }
+  };
+}
+
 function addSection(section: SectionType, form_id: number) {
   return {
     type: "ADD_SECTION"
@@ -146,5 +155,6 @@ export default {
   setQuestionContent,
   setQuestionPlaceholder,
   deleteQuestion,
-  saveForm
+  saveForm,
+  toggleExpandQuestion
 };
