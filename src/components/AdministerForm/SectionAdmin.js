@@ -82,13 +82,13 @@ export default function SectionAdmin(props: Props) {
             onChange={e => setSectionContent(section.id, e.target.value)}
           />
         </label>
-        <button className="pure-button" onClick={() => addQuestion(section.id)}>
-          Add Question
-        </button>
       </div>
       <div className="question-container">
         {questionsToRender}
       </div>
+      <button className="pure-button" onClick={() => addQuestion(section.id)}>
+        Add Question
+      </button>
     </div>
   );
 }

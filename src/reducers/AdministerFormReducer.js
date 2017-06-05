@@ -101,13 +101,16 @@ function setSectionContent(model, payload) {
 
 function addQuestion(model, payload) {
   if (payload) {
-    let { sectionId } = payload;
+    const { sectionId } = payload;
     return model.updateIn(["form", "sections"], sections => {
       return sections.map(s => {
+        const maxOrder = s.questions.map(q => q.order).max() || 0;
         if (s.id === sectionId) {
           return s.set(
             "questions",
-            s.questions.push(new QuestionType({ id: uuidV4() }))
+            s.questions.push(
+              new QuestionType({ id: uuidV4(), order: maxOrder + 1 })
+            )
           );
         } else {
           return s;
