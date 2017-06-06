@@ -18,7 +18,8 @@ type Props = {
   setQuestionLabel: Function,
   deleteQuestion: Function,
   expandedQuestions: Set<string>,
-  toggleExpandQuestion: Function
+  toggleExpandQuestion: Function,
+  moveQuestion: Function
 };
 
 export default function SectionAdmin(props: Props) {
@@ -35,25 +36,29 @@ export default function SectionAdmin(props: Props) {
     setQuestionLabel,
     deleteQuestion,
     expandedQuestions,
-    toggleExpandQuestion
+    toggleExpandQuestion,
+    moveQuestion
   } = props;
-  const questionsToRender = section.questions.map((q, i) => (
-    <QuestionAdmin
-      addQuestion={addQuestion}
-      setQuestionType={setQuestionType}
-      setQuestionKey={setQuestionKey}
-      setQuestionLabel={setQuestionLabel}
-      setQuestionRequired={setQuestionRequired}
-      setQuestionContent={setQuestionContent}
-      setQuestionPlaceholder={setQuestionPlaceholder}
-      deleteQuestion={deleteQuestion}
-      question={q}
-      section={section}
-      key={i}
-      expanded={expandedQuestions.get(q.id) !== undefined}
-      toggleExpandQuestion={() => toggleExpandQuestion(q.id)}
-    />
-  ));
+  const questionsToRender = section.questions
+    .sortBy(q => q.order)
+    .map((q, i) => (
+      <QuestionAdmin
+        addQuestion={addQuestion}
+        setQuestionType={setQuestionType}
+        setQuestionKey={setQuestionKey}
+        setQuestionLabel={setQuestionLabel}
+        setQuestionRequired={setQuestionRequired}
+        setQuestionContent={setQuestionContent}
+        setQuestionPlaceholder={setQuestionPlaceholder}
+        deleteQuestion={deleteQuestion}
+        question={q}
+        section={section}
+        key={i}
+        expanded={expandedQuestions.get(q.id) !== undefined}
+        toggleExpandQuestion={() => toggleExpandQuestion(q.id)}
+        moveQuestion={direction => moveQuestion(q.id, direction)}
+      />
+    ));
 
   return (
     <div>
@@ -77,13 +82,13 @@ export default function SectionAdmin(props: Props) {
             onChange={e => setSectionContent(section.id, e.target.value)}
           />
         </label>
-        <button className="pure-button" onClick={() => addQuestion(section.id)}>
-          Add Question
-        </button>
       </div>
       <div className="question-container">
         {questionsToRender}
       </div>
+      <button className="pure-button" onClick={() => addQuestion(section.id)}>
+        Add Question
+      </button>
     </div>
   );
 }

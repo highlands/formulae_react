@@ -1,5 +1,20 @@
 import { Form } from "../api";
 
+function moveQuestion(
+  sectionId: string,
+  questionId: string,
+  direction: 1 | -1
+) {
+  return {
+    type: "MOVE_QUESTION",
+    payload: {
+      sectionId,
+      questionId,
+      direction
+    }
+  };
+}
+
 function toggleExpandQuestion(id: string) {
   return {
     type: "TOGGLE_EXPAND_QUESTION",
@@ -156,5 +171,6 @@ export default {
   setQuestionPlaceholder,
   deleteQuestion,
   saveForm,
-  toggleExpandQuestion
+  toggleExpandQuestion,
+  moveQuestion
 };

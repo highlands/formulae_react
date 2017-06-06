@@ -14,7 +14,8 @@ type Props = {
   setQuestionContent: Function,
   deleteQuestion: Function,
   expanded: boolean,
-  toggleExpandQuestion: Function
+  toggleExpandQuestion: Function,
+  moveQuestion: Function
 };
 
 function renderQuestionType(props) {
@@ -52,13 +53,16 @@ function renderQuestionFields(props) {
     setQuestionLabel,
     deleteQuestion,
     expanded,
-    toggleExpandQuestion
+    toggleExpandQuestion,
+    moveQuestion
   } = props;
 
   return (
     <fieldset className="admin-question">
       <header>
         <i onClick={toggleExpandQuestion} className="fa fa-bars grippy" />
+        <button onClick={() => moveQuestion(-1)}>Up</button>
+        <button onClick={() => moveQuestion(1)}>Down</button>
         <input
           type="text"
           className="labelinput"

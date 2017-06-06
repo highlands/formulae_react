@@ -60,7 +60,11 @@ export const AdministerForm = connect(
       deleteQuestion: (sectionId, questionId) =>
         dispatch(AdministerFormActions.deleteQuestion(sectionId, questionId)),
       toggleExpandQuestion: id =>
-        dispatch(AdministerFormActions.toggleExpandQuestion(id))
+        dispatch(AdministerFormActions.toggleExpandQuestion(id)),
+      moveQuestion: (sectionId, questionId, direction) =>
+        dispatch(
+          AdministerFormActions.moveQuestion(sectionId, questionId, direction)
+        )
     };
   }
 )(components.AdministerForm);

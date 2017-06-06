@@ -19,7 +19,8 @@ type Props = {
   saveForm: Function,
   setQuestionLabel: Function,
   deleteQuestion: Function,
-  toggleExpandQuestion: Function
+  toggleExpandQuestion: Function,
+  moveQuestion: Function
 };
 
 export default function AdministerForm(props: Props) {
@@ -37,7 +38,8 @@ export default function AdministerForm(props: Props) {
     saveForm,
     setQuestionLabel,
     deleteQuestion,
-    toggleExpandQuestion
+    toggleExpandQuestion,
+    moveQuestion
   } = props;
   const sectionsToRender = model.form.sections.map((s, i) => (
     <SectionAdmin
@@ -54,6 +56,8 @@ export default function AdministerForm(props: Props) {
       section={s}
       expandedQuestions={model.expandedQuestions}
       toggleExpandQuestion={toggleExpandQuestion}
+      moveQuestion={(questionId, direction) =>
+        moveQuestion(s.id, questionId, direction)}
       key={i}
     />
   ));
