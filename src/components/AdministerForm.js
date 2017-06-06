@@ -16,6 +16,7 @@ type Props = {
   setQuestionRequired: Function,
   setQuestionContent: Function,
   setQuestionPlaceholder: Function,
+  setQuestionValidateAs: Function,
   saveForm: Function,
   setQuestionLabel: Function,
   deleteQuestion: Function,
@@ -37,6 +38,7 @@ export default function AdministerForm(props: Props) {
     setQuestionPlaceholder,
     saveForm,
     setQuestionLabel,
+    setQuestionValidateAs,
     deleteQuestion,
     toggleExpandQuestion,
     moveQuestion
@@ -52,6 +54,7 @@ export default function AdministerForm(props: Props) {
       setQuestionRequired={setQuestionRequired}
       setQuestionContent={setQuestionContent}
       setQuestionPlaceholder={setQuestionPlaceholder}
+      setQuestionValidateAs={setQuestionValidateAs}
       deleteQuestion={deleteQuestion}
       section={s}
       expandedQuestions={model.expandedQuestions}

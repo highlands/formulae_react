@@ -12,6 +12,7 @@ type Props = {
   setQuestionRequired: Function,
   setQuestionPlaceholder: Function,
   setQuestionContent: Function,
+  setQuestionValidateAs: Function,
   deleteQuestion: Function,
   expanded: boolean,
   toggleExpandQuestion: Function,
@@ -97,7 +98,8 @@ function renderQuestionAdminType(
   const {
     setQuestionRequired,
     setQuestionPlaceholder,
-    setQuestionContent
+    setQuestionContent,
+    setQuestionValidateAs
   } = props;
 
   const descriptionInputArea = (
@@ -138,6 +140,28 @@ function renderQuestionAdminType(
       />
     </p>
   );
+
+  const validateAs = (
+    <p>
+      Validate As:
+      <select
+        onChange={e => {
+          setQuestionValidateAs(section.id, question.id, e.target.value);
+        }}
+      >
+        <option name={"none"} value={"none"}>
+          None
+        </option>
+        <option name={"number"} value={"number"}>
+          Number
+        </option>
+        <option name={"email"} value={"email"}>
+          E-mail
+        </option>
+      </select>
+    </p>
+  );
+
   const requiredField = (
     <label className="pure-checkbox">
       <input
@@ -158,6 +182,7 @@ function renderQuestionAdminType(
         <label>
           {descriptionInputArea}
           {placeholder}
+          {validateAs}
         </label>
         {requiredField}
       </div>
