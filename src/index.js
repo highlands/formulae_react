@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { RespondToForm, AdministerForm } from "./containers";
+import { RespondToForm, AdministerForm, Api, Stores } from "./output_lib";
 import "./css/index.css";
-import { Form } from "./api";
-import { RespondToFormStore, AdministerFormStore } from "./stores";
+const { Form } = Api;
+const { RespondToFormStore, AdministerFormStore } = Stores;
 
 // Just a thing to play with the form api
 // FIXME: Remove this eventually

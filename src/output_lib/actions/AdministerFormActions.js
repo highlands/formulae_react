@@ -141,6 +141,21 @@ function setQuestionPlaceholder(
   };
 }
 
+function setQuestionValidateAs(
+  sectionId: number,
+  questionId: number,
+  validateAs: string
+) {
+  return {
+    type: "SET_QUESTION_VALIDATE_AS",
+    payload: {
+      sectionId,
+      questionId,
+      validateAs
+    }
+  };
+}
+
 function deleteQuestion(sectionId: number, questionId: number) {
   return {
     type: "DELETE_QUESTION",
@@ -169,6 +184,7 @@ export default {
   setQuestionRequired,
   setQuestionContent,
   setQuestionPlaceholder,
+  setQuestionValidateAs,
   deleteQuestion,
   saveForm,
   toggleExpandQuestion,

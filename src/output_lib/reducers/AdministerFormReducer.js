@@ -30,6 +30,8 @@ export default function AdministerFormReducer(
       return setQuestionKey(model, action.payload);
     case "SET_QUESTION_LABEL":
       return setQuestionLabel(model, action.payload);
+    case "SET_QUESTION_VALIDATE_AS":
+      return setQuestionValidateAs(model, action.payload);
     case "SET_QUESTION_REQUIRED":
       return setQuestionRequired(model, action.payload);
     case "SET_QUESTION_CONTENT":
@@ -153,6 +155,21 @@ function setQuestionRequired(model, payload) {
   if (payload) {
     let { sectionId, questionId, required } = payload;
     return setQuestionField(model, sectionId, questionId, "required", required);
+  } else {
+    return model;
+  }
+}
+
+function setQuestionValidateAs(model, payload) {
+  if (payload) {
+    let { sectionId, questionId, validateAs } = payload;
+    return setQuestionField(
+      model,
+      sectionId,
+      questionId,
+      "validateAs",
+      validateAs
+    );
   } else {
     return model;
   }

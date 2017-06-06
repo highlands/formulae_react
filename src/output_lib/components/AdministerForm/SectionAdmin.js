@@ -16,6 +16,7 @@ type Props = {
   setQuestionContent: Function,
   setQuestionPlaceholder: Function,
   setQuestionLabel: Function,
+  setQuestionValidateAs: Function,
   deleteQuestion: Function,
   expandedQuestions: Set<string>,
   toggleExpandQuestion: Function,
@@ -34,6 +35,7 @@ export default function SectionAdmin(props: Props) {
     setQuestionContent,
     setQuestionPlaceholder,
     setQuestionLabel,
+    setQuestionValidateAs,
     deleteQuestion,
     expandedQuestions,
     toggleExpandQuestion,
@@ -50,6 +52,7 @@ export default function SectionAdmin(props: Props) {
         setQuestionRequired={setQuestionRequired}
         setQuestionContent={setQuestionContent}
         setQuestionPlaceholder={setQuestionPlaceholder}
+        setQuestionValidateAs={setQuestionValidateAs}
         deleteQuestion={deleteQuestion}
         question={q}
         section={section}

@@ -15,6 +15,7 @@ export default class QuestionType
     order: 0,
     required: false,
     section_id: 0,
+    validateAs: "",
     choices: List(),
     questionDependency: null
   }) {
@@ -27,6 +28,7 @@ export default class QuestionType
   order: number;
   required: boolean;
   section_id: number;
+  validateAs: string;
   choices: List<ChoiceType>;
   questionDependency: ?QuestionDependencyType;
 }

@@ -57,6 +57,14 @@ export const AdministerForm = connect(
         dispatch(
           AdministerFormActions.setQuestionLabel(sectionId, questionId, label)
         ),
+      setQuestionValidateAs: (sectionId, questionId, validateAs) =>
+        dispatch(
+          AdministerFormActions.setQuestionValidateAs(
+            sectionId,
+            questionId,
+            validateAs
+          )
+        ),
       deleteQuestion: (sectionId, questionId) =>
         dispatch(AdministerFormActions.deleteQuestion(sectionId, questionId)),
       toggleExpandQuestion: id =>
