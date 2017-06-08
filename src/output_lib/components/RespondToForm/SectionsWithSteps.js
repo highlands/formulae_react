@@ -14,22 +14,38 @@ type Props = {
   setSubmission: Function,
   nextStep: Function,
   prevStep: Function,
-  currentStep: number
+  currentStep: number,
+  addError: Function,
+  removeError: Function,
+  errors: Object
 };
 
 type StepProps = {
   section: SectionType,
   setSubmission: Function,
-  submissions: QuestionSubmissionsMapType
+  submissions: QuestionSubmissionsMapType,
+  addError: Function,
+  removeError: Function,
+  errors: Object
 };
 
 export function Step(props: StepProps) {
-  const { section, setSubmission, submissions } = props;
+  const {
+    section,
+    setSubmission,
+    submissions,
+    addError,
+    removeError,
+    errors
+  } = props;
   return (
     <Section
       section={section}
       submissions={submissions}
       setSubmission={setSubmission}
+      addError={addError}
+      removeError={removeError}
+      errors={errors}
     />
   );
 }
@@ -49,7 +65,10 @@ export default function SectionsWithSteps(props: Props) {
     setSubmission,
     currentStep,
     nextStep,
-    prevStep
+    prevStep,
+    addError,
+    removeError,
+    errors
   } = props;
 
   const totalSteps = sections.size;
@@ -75,6 +94,9 @@ export default function SectionsWithSteps(props: Props) {
           section={section}
           submissions={submissions}
           setSubmission={setSubmission}
+          addError={addError}
+          removeError={removeError}
+          errors={errors}
         />
         {previous}
         {next}

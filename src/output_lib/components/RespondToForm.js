@@ -23,7 +23,10 @@ type Props = {
   submitForm: Function,
   displaySectionsAs: string,
   nextStep: Function,
-  prevStep: Function
+  prevStep: Function,
+  addError: Function,
+  removeError: Function,
+  errors: Object
 };
 
 function generateFormSubmission(
@@ -84,12 +87,15 @@ function allRequiredQuestionsReplied(
 function submitFormWithValidation(
   submitForm: Function,
   form: FormType,
-  submissions: QuestionSubmissionsMapType
+  submissions: QuestionSubmissionsMapType,
+  errors: Object
 ) {
-  if (allRequiredQuestionsReplied(form, submissions)) {
+  if (allRequiredQuestionsReplied(form, submissions) && errors.isEmpty()) {
     submitForm(generateFormSubmission(form, submissions));
+  } else if (!errors.isEmpty()) {
+    console.log("There are erros in the form");
   } else {
-    console.log("There is at least one required question not replied");
+    console.log("There is at least one required question not replied.");
   }
 }
 
@@ -105,7 +111,10 @@ export default function RespondToForm(props: Props) {
     setCurrentStep,
     currentStep,
     nextStep,
-    prevStep
+    prevStep,
+    addError,
+    removeError,
+    errors
   } = props;
 
   const sections = form.get("sections");
@@ -124,6 +133,9 @@ export default function RespondToForm(props: Props) {
         sections={sections}
         submissions={submissions}
         setSubmission={setSubmission}
+        addError={addError}
+        removeError={removeError}
+        errors={errors}
       />
     );
   }
@@ -137,6 +149,9 @@ export default function RespondToForm(props: Props) {
         currentStep={currentStep}
         nextStep={nextStep}
         prevStep={prevStep}
+        addError={addError}
+        removeError={removeError}
+        errors={errors}
       />
     );
   }
@@ -149,7 +164,7 @@ export default function RespondToForm(props: Props) {
         <button
           className="pure-button pure-button-primary"
           onClick={() =>
-            submitFormWithValidation(submitForm, form, submissions)}
+            submitFormWithValidation(submitForm, form, submissions, errors)}
         >
           Submit
         </button>

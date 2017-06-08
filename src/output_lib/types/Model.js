@@ -8,7 +8,8 @@ export default class Model
   extends Record({
     form: new FormType(),
     submissions: new Map(),
-    currentStep: 0
+    currentStep: 0,
+    errors: new Map()
   }) {
   form: FormType;
   submissions: Map<string, QuestionSubmissionType>;

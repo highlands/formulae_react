@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Section from "./Section";
-import { List } from "immutable";
+import { List, Map } from "immutable";
 import { SectionType, QuestionType } from "../../types";
 import { shallow } from "enzyme";
 
@@ -11,12 +11,15 @@ const section = new SectionType({
   content: "This is the content",
   questions: List([
     new QuestionType({
+      id: "1",
       key: "first",
       label: "first",
       type: "string"
     })
   ])
 });
+
+const errors = new Map();
 
 it("renders without crashing", () => {
   const div = document.createElement("div");
@@ -25,6 +28,7 @@ it("renders without crashing", () => {
       section={new SectionType()}
       submissions={new Map()}
       setSubmission={() => {}}
+      errors={errors}
     />,
     div
   );
@@ -38,6 +42,7 @@ it("renders the name in an h2", () => {
       section={section}
       submissions={new Map()}
       setSubmission={() => {}}
+      errors={errors}
     />
   );
 
@@ -52,6 +57,7 @@ it("renders the content in an paragraph", () => {
       section={section}
       submissions={new Map()}
       setSubmission={() => {}}
+      errors={errors}
     />
   );
 

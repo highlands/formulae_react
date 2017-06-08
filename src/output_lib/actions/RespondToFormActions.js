@@ -61,6 +61,24 @@ function prevStep() {
   };
 }
 
+function addError(id: string, message: string) {
+  return {
+    type: "ADD_ERROR",
+    payload: {
+      id,
+      message
+    }
+  };
+}
+
+function removeError(id: number) {
+  return {
+    type: "REMOVE_ERROR",
+    payload: {
+      id
+    }
+  };
+}
 export default {
   loadExampleForm,
   getForm,
@@ -69,5 +87,7 @@ export default {
   setCurrentStep,
   setQuestionSubmission,
   nextStep,
-  prevStep
+  prevStep,
+  addError,
+  removeError
 };

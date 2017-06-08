@@ -7,11 +7,12 @@ type Props = {
   value: string,
   content: string,
   placeholder: string,
-  onChange: Function
+  onChange: Function,
+  errorMessage: string
 };
 
 export default function String(props: Props) {
-  const { id, value, onChange, placeholder, content } = props;
+  const { id, value, onChange, placeholder, content, errorMessage } = props;
   return (
     <div>
       <input
@@ -22,6 +23,7 @@ export default function String(props: Props) {
         onChange={onChange}
       />
       <p>{content}</p>
+      <p>{errorMessage}</p>
     </div>
   );
 }

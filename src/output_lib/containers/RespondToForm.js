@@ -7,7 +7,8 @@ export const RespondToForm = connect(
     return {
       form: state.get("form"),
       submissions: state.get("submissions"),
-      currentStep: state.get("currentStep")
+      currentStep: state.get("currentStep"),
+      errors: state.get("errors")
     };
   },
   function mapDispatchToProps(dispatch) {
@@ -26,7 +27,10 @@ export const RespondToForm = connect(
       submitForm: formSubmission =>
         dispatch(RespondToFormActions.submitForm(formSubmission)),
       nextStep: () => dispatch(RespondToFormActions.nextStep()),
-      prevStep: () => dispatch(RespondToFormActions.prevStep())
+      prevStep: () => dispatch(RespondToFormActions.prevStep()),
+      addError: (id, message) =>
+        dispatch(RespondToFormActions.addError(id, message)),
+      removeError: id => dispatch(RespondToFormActions.removeError(id))
     };
   }
 )(components.RespondToForm);

@@ -18,25 +18,41 @@ import {
   Radio
 } from "./widgets";
 import { List } from "immutable";
+import EmailValidator from "./Validators/EmailValidator";
+import NumberValidator from "./Validators/NumberValidator";
 
 type Props = {
   question: QuestionType,
   submission: QuestionSubmissionMapValueType,
   submissions: QuestionSubmissionsMapType,
-  setSubmission: Function
+  setSubmission: Function,
+  addError: Function,
+  removeError: Function,
+  errorMessage: string
 };
 
 function renderQuestion(props: Props) {
-  const { question, submission, setSubmission } = props;
+  const {
+    question,
+    submission,
+    setSubmission,
+    addError,
+    removeError,
+    errorMessage
+  } = props;
   const id = `${question.get("id")}`;
   const questionWidget = getQuestionWidget(
     question.get("type"),
+    question.get("validateAs"),
     question.get("placeholder"),
     id,
     question.get("content"),
     submission,
     setSubmission,
-    question.get("choices")
+    addError,
+    removeError,
+    question.get("choices"),
+    errorMessage
   );
 
   let required;
@@ -88,14 +104,35 @@ export default function Question(props: Props) {
 
 function getQuestionWidget(
   type: string,
+  validateAs: string,
   placeholder: string,
   id: string,
   content: string,
   submission: QuestionSubmissionMapValueType,
   setSubmission: Function,
-  choices: List<ChoiceType>
+  addError: Function,
+  removeError: Function,
+  choices: List<ChoiceType>,
+  errorMessage: string
 ) {
-  const onChange = e => setSubmission(id, List([e.target.value]), type);
+  const onChange = e => {
+    if (validateAs === "email") {
+      if (EmailValidator.valid(e.target.value)) {
+        removeError(id);
+      } else {
+        addError(id, "This is not an email");
+      }
+    }
+
+    if (validateAs === "number") {
+      if (NumberValidator.valid(e.target.value)) {
+        removeError(id);
+      } else {
+        addError(id, "This is not a number");
+      }
+    }
+    setSubmission(id, List([e.target.value]), type);
+  };
   const onChangeCheckBox = e =>
     setSubmission(id, List([e.target.checked]), type);
   const onChangeRadio = value => setSubmission(id, List([value]), type);
@@ -110,6 +147,7 @@ function getQuestionWidget(
           placeholder={placeholder}
           value={submission.get(0) ? submission.get(0).get("value") : ""}
           onChange={onChange}
+          errorMessage={errorMessage}
         />
       );
     case "text":
