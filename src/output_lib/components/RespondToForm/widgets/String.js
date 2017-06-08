@@ -31,7 +31,8 @@ export default function String(props: Props) {
   } else {
     hasError = false;
   }
-  const className = hasError ? "-has-error" : "";
+  const errorClassName = hasError ? "-has-error" : "";
+  const className = `pure-input-1-2 ${errorClassName}`;
   return (
     <div className="question-widget question-string">
       <input
