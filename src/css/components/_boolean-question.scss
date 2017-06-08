@@ -1,0 +1,10 @@
+.boolean {
+  > .labelinput {
+    margin-right: $margin-md;
+    display: block;
+    flex-grow: 1;
+  }
+  > input {
+    margin-right: $margin-md;
+  }
+}

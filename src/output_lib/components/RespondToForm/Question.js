@@ -48,6 +48,7 @@ function renderQuestion(props: Props) {
     question.get("placeholder"),
     id,
     question.get("content"),
+    question.get("label"),
     required,
     submission,
     setSubmission,
@@ -65,14 +66,22 @@ function renderQuestion(props: Props) {
   }
 
   return (
-    <div>
+    <div className="question-widget">
       <label htmlFor={id}>
-        {question.get("label")}
+        {labelForElement(question)}
         {requiredElement}
       </label>
       {questionWidget}
     </div>
   );
+}
+
+function labelForElement(question: QuestionType) {
+  if (question.get("type") === "boolean") {
+    return "";
+  } else {
+    return question.get("label");
+  }
 }
 
 function shouldDisplayQuestion(props: Props) {
@@ -110,6 +119,7 @@ function getQuestionWidget(
   placeholder: string,
   id: string,
   content: string,
+  label: string,
   required: boolean,
   submission: QuestionSubmissionMapValueType,
   setSubmission: Function,
@@ -168,6 +178,7 @@ function getQuestionWidget(
       return (
         <Boolean
           id={id}
+          label={label}
           content={content}
           value={submission.get(0) ? submission.get(0).get("value") : ""}
           onChange={onChangeCheckBox}

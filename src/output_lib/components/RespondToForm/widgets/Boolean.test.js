@@ -23,3 +23,17 @@ it("renders the content of a question", () => {
 
   expect(subject.text()).toBe("content");
 });
+
+it("renders label and content", () => {
+  const div = document.createElement("div");
+  const subject = shallow(
+    <Boolean
+      value={"foo"}
+      label={"label"}
+      content={"content"}
+      onChange={() => {}}
+    />
+  );
+
+  expect(subject.text()).toBe("labelcontent");
+});
