@@ -26,7 +26,8 @@ type Props = {
   prevStep: Function,
   addError: Function,
   removeError: Function,
-  errors: Object
+  errors: Object,
+  submitted: boolean
 };
 
 function generateFormSubmission(
@@ -114,7 +115,8 @@ export default function RespondToForm(props: Props) {
     prevStep,
     addError,
     removeError,
-    errors
+    errors,
+    submitted
   } = props;
 
   const sections = form.get("sections");
@@ -156,11 +158,14 @@ export default function RespondToForm(props: Props) {
     );
   }
 
+  const showCompletionContent = submitted ? form.completionContent : "";
+
   return (
     <div>
       <form className="pure-form" onSubmit={e => e.preventDefault()}>
         {displaySections}
         <hr />
+        <p>{showCompletionContent}</p>
         <button
           className="pure-button pure-button-primary"
           onClick={() =>

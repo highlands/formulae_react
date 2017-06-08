@@ -72,6 +72,10 @@ export const AdministerForm = connect(
       moveQuestion: (sectionId, questionId, direction) =>
         dispatch(
           AdministerFormActions.moveQuestion(sectionId, questionId, direction)
+        ),
+      setFormCompletionContent: completionContent =>
+        dispatch(
+          AdministerFormActions.setFormCompletionContent(completionContent)
         )
     };
   }

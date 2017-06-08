@@ -21,7 +21,8 @@ type Props = {
   setQuestionLabel: Function,
   deleteQuestion: Function,
   toggleExpandQuestion: Function,
-  moveQuestion: Function
+  moveQuestion: Function,
+  setFormCompletionContent: Function
 };
 
 export default function AdministerForm(props: Props) {
@@ -41,7 +42,8 @@ export default function AdministerForm(props: Props) {
     setQuestionValidateAs,
     deleteQuestion,
     toggleExpandQuestion,
-    moveQuestion
+    moveQuestion,
+    setFormCompletionContent
   } = props;
   const sectionsToRender = model.form.sections.map((s, i) => (
     <SectionAdmin
@@ -68,6 +70,13 @@ export default function AdministerForm(props: Props) {
     <form onSubmit={e => e.preventDefault()} className="pure-form">
       <h2>Administer Form</h2>
       <hr />
+      CompletionContent:
+      <input
+        type="text"
+        placeholder="Completion content goes here"
+        value={model.get("form").get("completionContent")}
+        onChange={e => setFormCompletionContent(e.target.value)}
+      />
       <div>
         <h3>Sections</h3>
         {sectionsToRender}

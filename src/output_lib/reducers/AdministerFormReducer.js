@@ -18,6 +18,8 @@ export default function AdministerFormReducer(
       return toggleExpandQuestion(model, action.payload);
     case "ADD_SECTION":
       return addSection(model);
+    case "SET_FORM_COMPLETION_CONTENT":
+      return setFormCompletionContent(model, action.payload);
     case "SET_SECTION_NAME":
       return setSectionName(model, action.payload);
     case "SET_SECTION_CONTENT":
@@ -60,6 +62,15 @@ function moveQuestion(model, payload) {
     ["form", "sections", sectionIndex, "questions"],
     nextQuestions
   );
+}
+
+function setFormCompletionContent(model, payload) {
+  if (payload) {
+    let { completionContent } = payload;
+    return model.setIn(["form", "completionContent"], completionContent);
+  } else {
+    return model;
+  }
 }
 
 function toggleExpandQuestion(model, payload) {

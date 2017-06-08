@@ -1,5 +1,4 @@
 import { Form, FormSubmission } from "../api";
-import { FormType } from "../types";
 import { List } from "immutable";
 
 function setQuestionSubmission(key, values: List<string>, questionType) {
@@ -27,11 +26,20 @@ function getForm(id) {
 
 function submitForm(formSubmissionType) {
   return dispatch => {
-    FormSubmission.post(formSubmissionType).then(console.log);
+    FormSubmission.post(formSubmissionType).then(response => {
+      dispatch(setAsSubmitted());
+      console.log(response);
+    });
   };
 }
 
-function gotForm(form: FormType) {
+function setAsSubmitted() {
+  return {
+    type: "SET_AS_SUBMITTED"
+  };
+}
+
+function gotForm(form: formtype) {
   return {
     type: "GOT_FORM",
     payload: {
@@ -89,5 +97,6 @@ export default {
   nextStep,
   prevStep,
   addError,
-  removeError
+  removeError,
+  setAsSubmitted
 };

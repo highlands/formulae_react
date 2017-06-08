@@ -37,6 +37,7 @@ type ApiSection = {
 
 type ApiForm = {
   application_id: ?number,
+  completion_content: ?string,
   sections: Array<ApiSection>
 };
 
@@ -87,6 +88,7 @@ function encodeSection(section: QuestionType): ApiSection {
 function encodeForm(form: FormType): ApiForm {
   return {
     application_id: 1,
+    completion_content: form.completionContent,
     sections: form.sections.toArray().map(encodeSection)
   };
 }

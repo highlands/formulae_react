@@ -8,7 +8,8 @@ export const RespondToForm = connect(
       form: state.get("form"),
       submissions: state.get("submissions"),
       currentStep: state.get("currentStep"),
-      errors: state.get("errors")
+      errors: state.get("errors"),
+      submitted: state.get("submitted")
     };
   },
   function mapDispatchToProps(dispatch) {

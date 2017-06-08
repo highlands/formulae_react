@@ -9,6 +9,7 @@ export default class Model
     form: new FormType(),
     submissions: new Map(),
     currentStep: 0,
+    submitted: false,
     errors: new Map()
   }) {
   form: FormType;

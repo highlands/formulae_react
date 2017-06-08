@@ -143,6 +143,8 @@ export default function RespondToFormReducer(
     return model.set("currentStep", model.get("currentStep") - 1);
   } else if (action.type === "ADD_ERROR") {
     return model.setIn(["errors", action.payload.id], action.payload.message);
+  } else if (action.type === "SET_AS_SUBMITTED") {
+    return model.set("submitted", true);
   } else if (action.type === "REMOVE_ERROR") {
     return model.setIn(
       ["errors"],

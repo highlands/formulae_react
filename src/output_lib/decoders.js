@@ -64,6 +64,7 @@ type ApiQuestion = {
 type ApiForm = {
   id: number,
   application: ApiApplication,
+  completion_content: string,
   sections: Array<ApiSection>,
   questions: Array<ApiQuestion>
 };
@@ -145,6 +146,7 @@ function decodeForm(data: ApiForm): FormType {
   const questions = List(data.questions.map(decodeQuestion));
   return new FormType({
     id: data.id,
+    completionContent: data.completion_content,
     sections: List(
       data.sections.map(section => {
         return decodeSection(section, questions);

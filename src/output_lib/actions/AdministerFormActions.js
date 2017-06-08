@@ -173,6 +173,15 @@ function saveForm() {
   };
 }
 
+function setFormCompletionContent(completionContent: string) {
+  return {
+    type: "SET_FORM_COMPLETION_CONTENT",
+    payload: {
+      completionContent
+    }
+  };
+}
+
 export default {
   addSection,
   setSectionName,
@@ -188,5 +197,6 @@ export default {
   deleteQuestion,
   saveForm,
   toggleExpandQuestion,
-  moveQuestion
+  moveQuestion,
+  setFormCompletionContent
 };
