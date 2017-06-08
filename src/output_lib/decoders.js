@@ -104,7 +104,7 @@ function decodeQuestion(question: ApiQuestion): QuestionType {
     label: question.label,
     content: question.content,
     type: question.question_type,
-    validate_as: question.validate_as,
+    validateAs: question.validate_as,
     order: question.order,
     required: question.required,
     placeholder: question.placeholder,

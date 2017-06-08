@@ -16,15 +16,28 @@ import Question from "./Question";
 type Props = {
   section: SectionType,
   submissions: QuestionSubmissionsMapType,
-  setSubmission: Function
+  setSubmission: Function,
+  addError: Function,
+  removeError: Function,
+  errors: Object
 };
 
 export default function Section(props: Props) {
-  const { section, submissions, setSubmission } = props;
+  const {
+    section,
+    submissions,
+    setSubmission,
+    addError,
+    removeError,
+    errors
+  } = props;
   const questions = generateQuestions(
     section.get("questions"),
     submissions,
-    setSubmission
+    setSubmission,
+    addError,
+    removeError,
+    errors
   );
   return (
     <div>
@@ -38,7 +51,10 @@ export default function Section(props: Props) {
 function generateQuestions(
   questions: List<QuestionType>,
   submissions: QuestionSubmissionsMapType,
-  setSubmission: Function
+  setSubmission: Function,
+  addError: Function,
+  removeError: Function,
+  errors
 ): Array<Question> {
   if (questions === undefined) {
     return [];
@@ -52,6 +68,9 @@ function generateQuestions(
           submission={getSubmission(question, submissions)}
           submissions={submissions}
           setSubmission={setSubmission}
+          addError={addError}
+          removeError={removeError}
+          errorMessage={errors.get(question.get("id"))}
         />
       ))
       .toJS();

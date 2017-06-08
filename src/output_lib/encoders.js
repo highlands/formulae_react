@@ -69,7 +69,7 @@ function encodeQuestion(question: QuestionType): ApiQuestion {
     required: question.required,
     placeholder: question.placeholder,
     question_type: question.type,
-    validate_as: question.validate_as,
+    validate_as: question.validateAs,
     order: question.order
   };
 }

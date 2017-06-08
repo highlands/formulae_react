@@ -1,0 +1,9 @@
+.alert-box {
+  padding: $padding-lg;
+  border: 1px solid transparent;
+  &.-error {
+    border-color: $border-color-error-alert;
+    background-color: $background-color-error-alert;
+    color: $text-color-error-alert;
+  }
+}

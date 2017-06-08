@@ -14,24 +14,67 @@ type Props = {
   setSubmission: Function,
   nextStep: Function,
   prevStep: Function,
-  currentStep: number
+  currentStep: number,
+  addError: Function,
+  removeError: Function,
+  errors: Object
 };
 
 type StepProps = {
   section: SectionType,
   setSubmission: Function,
-  submissions: QuestionSubmissionsMapType
+  submissions: QuestionSubmissionsMapType,
+  addError: Function,
+  removeError: Function,
+  errors: Object
 };
 
 export function Step(props: StepProps) {
-  const { section, setSubmission, submissions } = props;
+  const {
+    section,
+    setSubmission,
+    submissions,
+    addError,
+    removeError,
+    errors
+  } = props;
   return (
     <Section
       section={section}
       submissions={submissions}
       setSubmission={setSubmission}
+      addError={addError}
+      removeError={removeError}
+      errors={errors}
     />
   );
+}
+
+function canGoToNextStep(
+  nextStep: Function,
+  errors: Object,
+  section: SectionType,
+  submissions: QuestionSubmissionsMapType
+) {
+  const requiredQuestions = getRequiredQuestions(section);
+
+  const repliedQuestions = submissions
+    .flatMap((submission, key) => submission.map(s => [key, s.id]))
+    .toSet()
+    .toArray();
+
+  const requiredQuestionReplied = requiredQuestions.every(e =>
+    repliedQuestions.includes(e));
+  if (errors.isEmpty() && requiredQuestionReplied) {
+    return nextStep();
+  }
+}
+
+function getRequiredQuestions(section: SectionType) {
+  return section.questions
+    .filter(q => q.required === true)
+    .map(q => q.id)
+    .toArray();
 }
 
 // - Add a 'currentStep' integer to the RespondToForm props that's passed down
@@ -49,12 +92,16 @@ export default function SectionsWithSteps(props: Props) {
     setSubmission,
     currentStep,
     nextStep,
-    prevStep
+    prevStep,
+    addError,
+    removeError,
+    errors
   } = props;
 
   const totalSteps = sections.size;
 
   let previous, next;
+  const section = sections.get(currentStep);
 
   if (currentStep > 0) {
     previous = <button onClick={prevStep}> Previous </button>;
@@ -62,19 +109,27 @@ export default function SectionsWithSteps(props: Props) {
     previous = <div />;
   }
   if (currentStep < totalSteps - 1) {
-    next = <button onClick={nextStep}> Next </button>;
+    next = (
+      <button
+        onClick={() => canGoToNextStep(nextStep, errors, section, submissions)}
+      >
+        Next
+      </button>
+    );
   } else {
     next = <div />;
   }
 
   if (!sections.isEmpty()) {
-    const section = sections.get(currentStep);
     return (
       <div>
         <Step
           section={section}
           submissions={submissions}
           setSubmission={setSubmission}
+          addError={addError}
+          removeError={removeError}
+          errors={errors}
         />
         {previous}
         {next}

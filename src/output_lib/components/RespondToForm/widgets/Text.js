@@ -19,6 +19,7 @@ export default function Text(props: Props) {
         id={id}
         placeholder={placeholder}
         value={value}
+        className="pure-input-1"
         onChange={onChange}
       />
       <p>{content}</p>

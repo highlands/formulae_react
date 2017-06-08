@@ -141,6 +141,13 @@ export default function RespondToFormReducer(
     return model.set("currentStep", model.get("currentStep") + 1);
   } else if (action.type === "PREV_STEP") {
     return model.set("currentStep", model.get("currentStep") - 1);
+  } else if (action.type === "ADD_ERROR") {
+    return model.setIn(["errors", action.payload.id], action.payload.message);
+  } else if (action.type === "REMOVE_ERROR") {
+    return model.setIn(
+      ["errors"],
+      model.get("errors").delete(action.payload.id)
+    );
   } else {
     return model;
   }

@@ -10,11 +10,21 @@ import type {
 type Props = {
   sections: List<SectionType>,
   submissions: QuestionSubmissionsMapType,
-  setSubmission: Function
+  setSubmission: Function,
+  addError: Function,
+  removeError: Function,
+  errors: Object
 };
 
 export default function SectionsWithHeadings(props: Props) {
-  const { sections, submissions, setSubmission } = props;
+  const {
+    sections,
+    submissions,
+    setSubmission,
+    addError,
+    removeError,
+    errors
+  } = props;
 
   let renderingSections = sections
     .sort(s => s.order)
@@ -25,6 +35,9 @@ export default function SectionsWithHeadings(props: Props) {
           section={s}
           submissions={submissions}
           setSubmission={setSubmission}
+          addError={addError}
+          removeError={removeError}
+          errors={errors}
         />
       );
     })
