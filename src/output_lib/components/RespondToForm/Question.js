@@ -41,12 +41,14 @@ function renderQuestion(props: Props) {
     errorMessage
   } = props;
   const id = `${question.get("id")}`;
+  const required = question.required;
   const questionWidget = getQuestionWidget(
     question.get("type"),
     question.get("validateAs"),
     question.get("placeholder"),
     id,
     question.get("content"),
+    required,
     submission,
     setSubmission,
     addError,
@@ -55,18 +57,18 @@ function renderQuestion(props: Props) {
     errorMessage
   );
 
-  let required;
-  if (question.required) {
-    required = <small>* required</small>;
+  let requiredElement;
+  if (required) {
+    requiredElement = <i> (required)</i>;
   } else {
-    required = "";
+    requiredElement = "";
   }
 
   return (
     <div>
-      {required}
       <label htmlFor={id}>
         {question.get("label")}
+        {requiredElement}
       </label>
       {questionWidget}
     </div>
@@ -108,6 +110,7 @@ function getQuestionWidget(
   placeholder: string,
   id: string,
   content: string,
+  required: boolean,
   submission: QuestionSubmissionMapValueType,
   setSubmission: Function,
   addError: Function,
@@ -148,6 +151,7 @@ function getQuestionWidget(
           value={submission.get(0) ? submission.get(0).get("value") : ""}
           onChange={onChange}
           errorMessage={errorMessage}
+          required={required}
         />
       );
     case "text":

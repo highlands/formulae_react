@@ -3,8 +3,15 @@ $catskill-white: #f9fbfc;
 $concrete: #f3f3f3;
 $lochmara: #008ccc;
 $link-water: #e9f3f9;
+$alizarin-crimson: #e9322d;
+
 
 // Usages
 $border-color: $concrete;
 $button-text-color: $lochmara;
 $button-background-color: $link-water;
+$border-color-error-field: $alizarin-crimson;
+$border-color-error-alert: desaturate($alizarin-crimson, 20%);
+$text-color-error-alert: $border-color-error-alert;
+$background-color-error-alert: lighten($border-color-error-alert, 40%);
+$subtle-text-color: #666;

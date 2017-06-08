@@ -1,0 +1,7 @@
+.pure-form {
+  input[type=text] {
+    &.-has-error {
+      border-color: $border-color-error-field;
+    }
+  }
+}
