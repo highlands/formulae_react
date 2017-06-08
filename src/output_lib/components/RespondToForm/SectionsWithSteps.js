@@ -50,6 +50,33 @@ export function Step(props: StepProps) {
   );
 }
 
+function canGoToNextStep(
+  nextStep: Function,
+  errors: Object,
+  section: SectionType,
+  submissions: QuestionSubmissionsMapType
+) {
+  const requiredQuestions = getRequiredQuestions(section);
+
+  const repliedQuestions = submissions
+    .flatMap((submission, key) => submission.map(s => [key, s.id]))
+    .toSet()
+    .toArray();
+
+  const requiredQuestionReplied = requiredQuestions.every(e =>
+    repliedQuestions.includes(e));
+  if (errors.isEmpty() && requiredQuestionReplied) {
+    return nextStep();
+  }
+}
+
+function getRequiredQuestions(section: SectionType) {
+  return section.questions
+    .filter(q => q.required === true)
+    .map(q => q.id)
+    .toArray();
+}
+
 // - Add a 'currentStep' integer to the RespondToForm props that's passed down
 // - Add a 'nextStep/prevStep' action
 // - Render each section in some `Step` component
@@ -74,6 +101,7 @@ export default function SectionsWithSteps(props: Props) {
   const totalSteps = sections.size;
 
   let previous, next;
+  const section = sections.get(currentStep);
 
   if (currentStep > 0) {
     previous = <button onClick={prevStep}> Previous </button>;
@@ -81,13 +109,18 @@ export default function SectionsWithSteps(props: Props) {
     previous = <div />;
   }
   if (currentStep < totalSteps - 1) {
-    next = <button onClick={nextStep}> Next </button>;
+    next = (
+      <button
+        onClick={() => canGoToNextStep(nextStep, errors, section, submissions)}
+      >
+        Next
+      </button>
+    );
   } else {
     next = <div />;
   }
 
   if (!sections.isEmpty()) {
-    const section = sections.get(currentStep);
     return (
       <div>
         <Step
