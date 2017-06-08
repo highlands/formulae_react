@@ -1,5 +1,7 @@
+const re = /\D/;
+
 function valid(number) {
-  return !/\D/.test(number);
+  return !re.test(number);
 }
 
 export default {
