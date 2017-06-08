@@ -6,7 +6,7 @@ export default class ChoiceType
   extends Record({
     id: "",
     question_id: 0,
-    question_dependendy_id: 0,
+    question_dependency_id: 0,
     metadata: "",
     maximum_chosen: 0,
     label: ""
