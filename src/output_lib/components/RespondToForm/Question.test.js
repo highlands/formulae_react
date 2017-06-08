@@ -69,7 +69,7 @@ describe("Required Questions", () => {
     );
 
     expect(subject.find("label").text()).toMatch(/first/);
-    expect(subject.find("small").text()).toMatch(/required/);
+    expect(subject.find("i").text()).toMatch(/required/);
   });
 
   it("does not render required when the question is not required", () => {
