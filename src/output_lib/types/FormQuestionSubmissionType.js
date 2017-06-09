@@ -7,10 +7,12 @@ export default class FormQuestionSubmissionType
     questionId: 0,
     string: undefined,
     text: undefined,
-    boolean: undefined
+    boolean: undefined,
+    composite: undefined
   }) {
   questionId: number;
   string: ?string;
   text: ?string;
   boolean: ?boolean;
+  composite: ?Object;
 }

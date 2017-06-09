@@ -12,6 +12,7 @@ import FormQuestionSubmissionType from "./types/FormQuestionSubmissionType";
 import Model from "./types/Model";
 import AdministerFormModel from "./types/AdministerFormModel";
 import ChoiceType from "./types/ChoiceType";
+import AddressType from "./types/AddressType";
 
 export {
   SectionType,
@@ -25,5 +26,6 @@ export {
   FormQuestionSubmissionType,
   Model,
   AdministerFormModel,
-  ChoiceType
+  ChoiceType,
+  AddressType
 };

@@ -102,7 +102,7 @@ type SetCurrentStepType = {
 type GotFormType = { type: "GOT_FORM", payload: { form: FormType } };
 type SetQuestionSubmissionType = {
   type: "SET_QUESTION_SUBMISSION",
-  payload: { key: string, values: List<string>, questionType: string }
+  payload: { key: string, values: List<Object>, questionType: string }
 };
 type NextStepType = { type: "NEXT_STEP" };
 type PrevStepType = { type: "PREV_STEP" };
