@@ -3,12 +3,19 @@ import ReactDOM from "react-dom";
 import Address from "./Address";
 import { shallow } from "enzyme";
 import { List } from "immutable";
-import { ChoiceType } from "../../../types";
+import { AddressType } from "../../../types";
+
+const address = new AddressType({
+  street: "Street",
+  city: "Birmighan",
+  state: "Alabama",
+  zip: "5555"
+});
 
 it("renders without crashing", () => {
   const div = document.createElement("div");
   ReactDOM.render(
-    <Address content={"Content"} placeholder={"placeholder"} />,
+    <Address value={address} content={"Content"} placeholder={"placeholder"} />,
     div
   );
 });
