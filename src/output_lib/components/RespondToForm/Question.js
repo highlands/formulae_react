@@ -20,6 +20,7 @@ import {
 import { List } from "immutable";
 import EmailValidator from "./Validators/EmailValidator";
 import NumberValidator from "./Validators/NumberValidator";
+import Address from "./widgets/Address";
 
 type Props = {
   question: QuestionType,
@@ -155,6 +156,7 @@ function getQuestionWidget(
     case "string":
       return (
         <String
+          validateAs={validateAs}
           id={id}
           content={content}
           placeholder={placeholder}
@@ -167,6 +169,16 @@ function getQuestionWidget(
     case "text":
       return (
         <Text
+          id={id}
+          content={content}
+          placeholder={placeholder}
+          value={submission.get(0) ? submission.get(0).get("value") : ""}
+          onChange={onChange}
+        />
+      );
+    case "address":
+      return (
+        <Address
           id={id}
           content={content}
           placeholder={placeholder}
