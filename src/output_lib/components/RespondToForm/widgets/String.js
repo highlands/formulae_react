@@ -9,8 +9,7 @@ type Props = {
   placeholder: string,
   onChange: Function,
   errorMessage: ?string,
-  required: boolean,
-  validateAs: string
+  required: boolean
 };
 
 export default function String(props: Props) {
@@ -21,8 +20,7 @@ export default function String(props: Props) {
     placeholder,
     content,
     errorMessage,
-    required,
-    validateAs
+    required
   } = props;
 
   let hasError;
@@ -37,60 +35,6 @@ export default function String(props: Props) {
   const className = `pure-input-1-2 ${errorClassName}`;
   return (
     <div className="question-widget question-string">
-      {renderSpecificComponent(
-        validateAs,
-        id,
-        "text",
-        placeholder,
-        value,
-        className,
-        onChange,
-        required
-      )}
-      {errorElement}
-      <p className="content">{content}</p>
-    </div>
-  );
-}
-
-function renderSpecificComponent(
-  validateAs: string,
-  id: string,
-  type: string,
-  placeholder: string,
-  value: string,
-  className: string,
-  onChange: Function,
-  required: boolean
-) {
-  if (validateAs === "email") {
-    return (
-      <div>
-        <input
-          id={id}
-          type="text"
-          placeholder={placeholder}
-          value={value}
-          className={className}
-          onChange={onChange}
-          required={required}
-        />
-        <p>
-          Confirm your e-mail:
-          <input
-            id={id}
-            type="text"
-            placeholder={placeholder}
-            value={value}
-            className={className}
-            onChange={onChange}
-            required={required}
-          />
-        </p>
-      </div>
-    );
-  } else {
-    return (
       <input
         id={id}
         type="text"
@@ -100,6 +44,8 @@ function renderSpecificComponent(
         onChange={onChange}
         required={required}
       />
-    );
-  }
+      {errorElement}
+      <p className="content">{content}</p>
+    </div>
+  );
 }

@@ -157,7 +157,6 @@ function getQuestionWidget(
     case "string":
       return (
         <String
-          validateAs={validateAs}
           id={id}
           content={content}
           placeholder={placeholder}
