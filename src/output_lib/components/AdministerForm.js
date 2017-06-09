@@ -22,6 +22,7 @@ type Props = {
   deleteQuestion: Function,
   toggleExpandQuestion: Function,
   moveQuestion: Function,
+  moveSection: Function,
   setFormCompletionContent: Function
 };
 
@@ -43,29 +44,33 @@ export default function AdministerForm(props: Props) {
     deleteQuestion,
     toggleExpandQuestion,
     moveQuestion,
+    moveSection,
     setFormCompletionContent
   } = props;
-  const sectionsToRender = model.form.sections.map((s, i) => (
-    <SectionAdmin
-      setSectionName={setSectionName}
-      setSectionContent={setSectionContent}
-      addQuestion={addQuestion}
-      setQuestionType={setQuestionType}
-      setQuestionKey={setQuestionKey}
-      setQuestionLabel={setQuestionLabel}
-      setQuestionRequired={setQuestionRequired}
-      setQuestionContent={setQuestionContent}
-      setQuestionPlaceholder={setQuestionPlaceholder}
-      setQuestionValidateAs={setQuestionValidateAs}
-      deleteQuestion={deleteQuestion}
-      section={s}
-      expandedQuestions={model.expandedQuestions}
-      toggleExpandQuestion={toggleExpandQuestion}
-      moveQuestion={(questionId, direction) =>
-        moveQuestion(s.id, questionId, direction)}
-      key={i}
-    />
-  ));
+  const sectionsToRender = model.form.sections
+    .sortBy(s => s.order)
+    .map((s, i) => (
+      <SectionAdmin
+        setSectionName={setSectionName}
+        setSectionContent={setSectionContent}
+        addQuestion={addQuestion}
+        setQuestionType={setQuestionType}
+        setQuestionKey={setQuestionKey}
+        setQuestionLabel={setQuestionLabel}
+        setQuestionRequired={setQuestionRequired}
+        setQuestionContent={setQuestionContent}
+        setQuestionPlaceholder={setQuestionPlaceholder}
+        setQuestionValidateAs={setQuestionValidateAs}
+        deleteQuestion={deleteQuestion}
+        section={s}
+        expandedQuestions={model.expandedQuestions}
+        toggleExpandQuestion={toggleExpandQuestion}
+        moveQuestion={(questionId, direction) =>
+          moveQuestion(s.id, questionId, direction)}
+        moveSection={direction => moveSection(s.id, direction)}
+        key={i}
+      />
+    ));
   return (
     <form onSubmit={e => e.preventDefault()} className="pure-form">
       <h2>Administer Form</h2>

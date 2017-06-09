@@ -15,6 +15,16 @@ function moveQuestion(
   };
 }
 
+function moveSection(sectionId: string, direction: 1 | -1) {
+  return {
+    type: "MOVE_SECTION",
+    payload: {
+      sectionId,
+      direction
+    }
+  };
+}
+
 function toggleExpandQuestion(id: string) {
   return {
     type: "TOGGLE_EXPAND_QUESTION",
@@ -198,5 +208,6 @@ export default {
   saveForm,
   toggleExpandQuestion,
   moveQuestion,
+  moveSection,
   setFormCompletionContent
 };

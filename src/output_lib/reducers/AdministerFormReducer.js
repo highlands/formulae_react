@@ -14,6 +14,8 @@ export default function AdministerFormReducer(
   switch (action.type) {
     case "MOVE_QUESTION":
       return moveQuestion(model, action.payload);
+    case "MOVE_SECTION":
+      return moveSection(model, action.payload);
     case "TOGGLE_EXPAND_QUESTION":
       return toggleExpandQuestion(model, action.payload);
     case "ADD_SECTION":
@@ -47,13 +49,38 @@ export default function AdministerFormReducer(
   }
 }
 
+function moveSection(model, payload) {
+  let { sectionId, direction } = payload;
+  let sections = model.getIn(["form", "sections"]);
+  const nextSections = sections.map(value => {
+    if (value.id === sectionId) {
+      const maxValue = sections.count();
+      const newOrder = value.get("order") + direction;
+      if (0 <= newOrder && newOrder <= maxValue) {
+        return value.set("order", newOrder);
+      } else {
+        return value;
+      }
+    } else {
+      return value;
+    }
+  });
+  return model.setIn(["form", "sections"], nextSections);
+}
+
 function moveQuestion(model, payload) {
   let { questionId, sectionId, direction } = payload;
   let sectionIndex = model.form.sections.findIndex(q => q.id === sectionId);
   let questions = model.getIn(["form", "sections", sectionIndex, "questions"]);
   const nextQuestions = questions.map(value => {
     if (value.id === questionId) {
-      return value.set("order", value.get("order") + direction);
+      const maxValue = questions.count();
+      const newOrder = value.get("order") + direction;
+      if (0 <= newOrder && newOrder <= maxValue) {
+        return value.set("order", newOrder);
+      } else {
+        return value;
+      }
     } else {
       return value;
     }
@@ -84,10 +111,12 @@ function toggleExpandQuestion(model, payload) {
 
 function addSection(model) {
   return model.updateIn(["form", "sections"], sections => {
+    const maxOrder = sections.map(q => q.order).max() || 0;
     return sections.push(
       new SectionType({
         id: uuidV4(),
         name: "",
+        order: maxOrder + 1,
         content: ""
       })
     );

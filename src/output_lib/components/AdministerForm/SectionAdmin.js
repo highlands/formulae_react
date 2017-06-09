@@ -20,7 +20,8 @@ type Props = {
   deleteQuestion: Function,
   expandedQuestions: Set<string>,
   toggleExpandQuestion: Function,
-  moveQuestion: Function
+  moveQuestion: Function,
+  moveSection: Function
 };
 
 export default function SectionAdmin(props: Props) {
@@ -39,7 +40,8 @@ export default function SectionAdmin(props: Props) {
     deleteQuestion,
     expandedQuestions,
     toggleExpandQuestion,
-    moveQuestion
+    moveQuestion,
+    moveSection
   } = props;
   const questionsToRender = section.questions
     .sortBy(q => q.order)
@@ -67,6 +69,8 @@ export default function SectionAdmin(props: Props) {
     <div>
       <div className="section">
         <h6>{section.name}</h6>
+        <button onClick={() => moveSection(-1)}>Up</button>
+        <button onClick={() => moveSection(1)}>Down</button>
         <label>
           Name:
           <input
