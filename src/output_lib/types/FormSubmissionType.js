@@ -9,5 +9,5 @@ export default class FormSubmissionType
     questionSubmissions: new List()
   }) {
   form_id: number;
-  question_submissions: List<FormQuestionSubmissionType>;
+  questionSubmissions: List<FormQuestionSubmissionType>;
 }

@@ -24,6 +24,7 @@ function renderQuestionType(props) {
   const makeString = () => setQuestionType(section.id, question.id, "string");
   const makeText = () => setQuestionType(section.id, question.id, "text");
   const makeBoolean = () => setQuestionType(section.id, question.id, "boolean");
+  const makeAddress = () => setQuestionType(section.id, question.id, "address");
 
   if (question.type === "") {
     return (
@@ -39,6 +40,10 @@ function renderQuestionType(props) {
         <button className="pure-button" onClick={makeBoolean}>
           <i className="fa fa-cog" />
           Boolean
+        </button>
+        <button className="pure-button" onClick={makeAddress}>
+          <i className="fa fa-cog" />
+          Address
         </button>
       </div>
     );
@@ -101,19 +106,6 @@ function renderQuestionAdminType(
     setQuestionContent,
     setQuestionValidateAs
   } = props;
-
-  const descriptionInputArea = (
-    <div>
-      <input
-        name="content"
-        placeholder="Description"
-        onChange={e =>
-          setQuestionContent(section.id, question.id, e.target.value)}
-        value={question.content}
-      />
-      <p>A description/instructions for this field.</p>
-    </div>
-  );
 
   const descriptionTextArea = (
     <div>
@@ -179,11 +171,9 @@ function renderQuestionAdminType(
   if (question.type === "string") {
     return (
       <div>
-        <label>
-          {descriptionInputArea}
-          {placeholder}
-          {validateAs}
-        </label>
+        {descriptionTextArea}
+        {placeholder}
+        {validateAs}
         {requiredField}
       </div>
     );
@@ -192,10 +182,8 @@ function renderQuestionAdminType(
   if (question.type === "text") {
     return (
       <div>
-        <label>
-          {descriptionTextArea}
-          {placeholder}
-        </label>
+        {descriptionTextArea}
+        {placeholder}
         {requiredField}
       </div>
     );
@@ -204,9 +192,16 @@ function renderQuestionAdminType(
   if (question.type === "boolean") {
     return (
       <div>
-        <label>
-          {descriptionTextArea}
-        </label>
+        {descriptionTextArea}
+        {requiredField}
+      </div>
+    );
+  }
+
+  if (question.type === "address") {
+    return (
+      <div>
+        {descriptionTextArea}
         {requiredField}
       </div>
     );

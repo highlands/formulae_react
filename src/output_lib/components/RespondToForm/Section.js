@@ -2,7 +2,12 @@
 
 import React from "react";
 import { List } from "immutable";
-import { SectionType, QuestionType, QuestionSubmissionType } from "../../types";
+import {
+  SectionType,
+  QuestionType,
+  QuestionSubmissionType,
+  AddressType
+} from "../../types";
 // Having a hard time globbing together just type exports, so pulling this in
 // directly
 import type {
@@ -81,6 +86,19 @@ function getSubmission(
   question: QuestionType,
   submissions: QuestionSubmissionsMapType
 ): QuestionSubmissionMapValueType {
-  return submissions.get(question.get("id")) ||
-    List([new QuestionSubmissionType({ key: question.get("id") })]);
+  return (
+    submissions.get(question.get("id")) ||
+    List([getDefaultSubmission(question)])
+  );
+}
+
+function getDefaultSubmission(question: QuestionType): QuestionSubmissionType {
+  if (question.type === "address") {
+    return new QuestionSubmissionType({
+      key: question.get("id"),
+      value: new AddressType()
+    });
+  }
+
+  return new QuestionSubmissionType({ key: question.get("id") });
 }

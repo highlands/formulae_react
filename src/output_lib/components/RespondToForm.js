@@ -54,6 +54,11 @@ function generateFormSubmission(
               questionId: s.id,
               boolean: s.value
             });
+          case "address":
+            return new FormQuestionSubmissionType({
+              questionId: s.id,
+              composite: s.value
+            });
           default:
             // FIXME: This shouldn't happen and this isn't necessarily sensible
             return new FormQuestionSubmissionType({
@@ -162,7 +167,10 @@ export default function RespondToForm(props: Props) {
 
   return (
     <div>
-      <form className="pure-form" onSubmit={e => e.preventDefault()}>
+      <form
+        className="pure-form pure-form-stacked"
+        onSubmit={e => e.preventDefault()}
+      >
         {displaySections}
         <hr />
         <p>{showCompletionContent}</p>

@@ -11,7 +11,8 @@ type ApiQuestionSubmission = {
   question_id: number,
   string: ?string,
   text: ?string,
-  boolean: ?boolean
+  boolean: ?boolean,
+  composite: ?Object
 };
 
 type ApiFormSubmission = {
@@ -48,7 +49,8 @@ function encodeFormQuestionSubmission(
     question_id: questionSubmission.questionId,
     string: questionSubmission.string,
     text: questionSubmission.text,
-    boolean: questionSubmission.boolean
+    boolean: questionSubmission.boolean,
+    composite: questionSubmission.composite
   };
 }
 
@@ -57,8 +59,9 @@ function encodeFormSubmission(
 ): ApiFormSubmission {
   return {
     form_id: formSubmission.formId,
-    question_submissions: formSubmission.questionSubmissions.map(submission =>
-      submission.map(encodeFormQuestionSubmission))
+    question_submissions: formSubmission.questionSubmissions
+      .map(submission => submission.map(encodeFormQuestionSubmission))
+      .toJS()
   };
 }
 

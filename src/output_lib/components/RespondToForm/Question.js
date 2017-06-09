@@ -1,7 +1,7 @@
 // @flow
 
 import React from "react";
-import { ChoiceType, QuestionType } from "../../types";
+import { ChoiceType, QuestionType, AddressType } from "../../types";
 import type {
   QuestionSubmissionsMapType
 } from "../../types/QuestionSubmissionsMapType";
@@ -20,6 +20,7 @@ import {
 import { List } from "immutable";
 import EmailValidator from "./Validators/EmailValidator";
 import NumberValidator from "./Validators/NumberValidator";
+import Address from "./widgets/Address";
 
 type Props = {
   question: QuestionType,
@@ -150,6 +151,7 @@ function getQuestionWidget(
     setSubmission(id, List([e.target.checked]), type);
   const onChangeRadio = value => setSubmission(id, List([value]), type);
   const onChangeMultiSelect = values => setSubmission(id, List(values), type);
+  const onAddressChange = address => setSubmission(id, List([address]), type);
   // FIXME: handle multiselect
   switch (type) {
     case "string":
@@ -172,6 +174,20 @@ function getQuestionWidget(
           placeholder={placeholder}
           value={submission.get(0) ? submission.get(0).get("value") : ""}
           onChange={onChange}
+        />
+      );
+    case "address":
+      return (
+        <Address
+          id={id}
+          content={content}
+          placeholder={placeholder}
+          value={
+            submission.get(0)
+              ? submission.get(0).get("value")
+              : new AddressType()
+          }
+          onChange={onAddressChange}
         />
       );
     case "boolean":
