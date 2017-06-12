@@ -1,14 +1,24 @@
-import { RespondToForm, AdministerForm } from "./containers";
-import { Form } from "./api";
-import { RespondToFormStore, AdministerFormStore } from "./stores";
+import {
+  RespondToForm,
+  AdministerForm,
+  ViewFormSubmission
+} from "./containers";
+import { Form, FormSubmission } from "./api";
+import {
+  RespondToFormStore,
+  AdministerFormStore,
+  ViewFormSubmissionStore
+} from "./stores";
 
 const Api = {
-  Form: Form
+  Form: Form,
+  FormSubmission: FormSubmission
 };
 
 const Stores = {
   RespondToFormStore,
-  AdministerFormStore
+  AdministerFormStore,
+  ViewFormSubmissionStore
 };
 
-export { RespondToForm, AdministerForm, Api, Stores };
+export { RespondToForm, AdministerForm, ViewFormSubmission, Api, Stores };

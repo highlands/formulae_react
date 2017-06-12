@@ -7,6 +7,7 @@ import {
   ChoiceType,
   QuestionType,
   QuestionDependencyType,
+  QuestionSubmissionType,
   FormSubmissionResponseType
 } from "./types";
 import { List } from "immutable";
@@ -74,9 +75,16 @@ type ApiFormResponse = {
   application_id: number
 };
 
+type ApiQuestionSubmissionResponse = {
+  id: number,
+  value: string | Object,
+  question_type: string
+};
+
 type ApiFormSubmissionResponse = {
   id: number,
-  form: ApiFormResponse
+  form: ApiFormResponse,
+  question_submissions: Array<ApiQuestionSubmissionResponse>
 };
 
 function decodeSection(
@@ -162,12 +170,24 @@ function decodeFormResponse(data: ApiFormResponse): FormResponseType {
   });
 }
 
+function decodeQuestionSubmissions(data: Array<ApiQuestionSubmissionResponse>) {
+  return data.map(
+    qs =>
+      new QuestionSubmissionType({
+        id: qs.id,
+        value: qs.value,
+        questionType: qs.question_type
+      })
+  );
+}
+
 function decodeFormSubmissionResponse(
   data: ApiFormSubmissionResponse
 ): FormSubmissionResponseType {
   return new FormSubmissionResponseType({
     id: data.id,
-    formResponse: decodeFormResponse(data.form)
+    formResponse: decodeFormResponse(data.form),
+    questionSubmissions: decodeQuestionSubmissions(data.question_submissions)
   });
 }
 

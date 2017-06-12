@@ -7,6 +7,11 @@ import { decodeFormSubmissionResponse } from "../decoders";
 const api = createApi("form_submissions");
 
 const FormSubmission = {
+  get: (id: number): Promise<FormSubmissionType> => {
+    return api
+      .get(`${id}`)
+      .then(resp => decodeFormSubmissionResponse(resp.data));
+  },
   post: (
     formSubmission: FormSubmissionType
   ): Promise<FormSubmissionResponseType> => {

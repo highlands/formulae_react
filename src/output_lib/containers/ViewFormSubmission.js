@@ -1,16 +1,17 @@
 import { connect } from "react-redux";
 import * as components from "../components";
-import { RespondToFormActions } from "../actions";
+import { ViewFormSubmissionActions } from "../actions";
 
 export const ViewFormSubmission = connect(
   function mapStateToProps(state) {
     return {
-      form: state.get("form")
+      formSubmission: state.get("formSubmission")
     };
   },
   function mapDispatchToProps(dispatch) {
     return {
-      getForm: id => dispatch(RespondToFormActions.getForm(id))
+      getFormSubmission: id =>
+        dispatch(ViewFormSubmissionActions.getFormSubmission(id))
     };
   }
 )(components.ViewFormSubmission);

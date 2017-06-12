@@ -1,7 +1,7 @@
 // @flow
 
 import { Record, List } from "immutable";
-import FormQuestionSubmissionType from "./FormQuestionSubmissionType";
+import QuestionSubmissionType from "./QuestionSubmissionType";
 
 export default class FormSubmissionType
   extends Record({
@@ -9,5 +9,5 @@ export default class FormSubmissionType
     questionSubmissions: new List()
   }) {
   form_id: number;
-  questionSubmissions: List<FormQuestionSubmissionType>;
+  questionSubmissions: List<QuestionSubmissionType>;
 }
