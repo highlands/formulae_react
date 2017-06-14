@@ -25,6 +25,7 @@ function renderQuestionType(props) {
   const makeText = () => setQuestionType(section.id, question.id, "text");
   const makeBoolean = () => setQuestionType(section.id, question.id, "boolean");
   const makeAddress = () => setQuestionType(section.id, question.id, "address");
+  const makeContent = () => setQuestionType(section.id, question.id, "content");
 
   if (question.type === "") {
     return (
@@ -44,6 +45,10 @@ function renderQuestionType(props) {
         <button className="pure-button" onClick={makeAddress}>
           <i className="fa fa-cog" />
           Address
+        </button>
+        <button className="pure-button" onClick={makeContent}>
+          <i className="fa fa-cog" />
+          Content
         </button>
       </div>
     );
@@ -203,6 +208,14 @@ function renderQuestionAdminType(
       <div>
         {descriptionTextArea}
         {requiredField}
+      </div>
+    );
+  }
+
+  if (question.type === "content") {
+    return (
+      <div>
+        {descriptionTextArea}
       </div>
     );
   }

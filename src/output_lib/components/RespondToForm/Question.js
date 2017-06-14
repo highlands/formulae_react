@@ -10,6 +10,7 @@ import type {
 } from "../../types/QuestionSubmissionMapValueType";
 import {
   String,
+  Content,
   Text,
   Boolean,
   Select,
@@ -154,6 +155,8 @@ function getQuestionWidget(
   const onAddressChange = address => setSubmission(id, List([address]), type);
   // FIXME: handle multiselect
   switch (type) {
+    case "content":
+      return <Content content={content} />;
     case "string":
       return (
         <String
