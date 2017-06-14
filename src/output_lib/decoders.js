@@ -40,7 +40,7 @@ type ApiChoice = {
 type ApiQuestionDependency = {
   id: string,
   display: boolean,
-  choices: List<ApiChoice>,
+  choices: Array<ApiChoice>,
   and: boolean
 };
 
@@ -56,7 +56,7 @@ type ApiQuestion = {
   question_type: string,
   validate_as: string | null,
   created_at: string,
-  choices: List<ApiChoice>,
+  choices: Array<ApiChoice>,
   question_dependency: ApiQuestionDependency,
   updated_at: string,
   section_id: number
@@ -136,17 +136,19 @@ function decodeQuestionDependency(
   });
 }
 
-function decodeChoices(choices: List<ApiChoice>): List<ChoiceType> {
-  return choices.map(choice => {
-    return new ChoiceType({
-      id: choice.id,
-      question_id: choice.question_id,
-      question_dependency_id: choice.question_dependency_id,
-      metadata: choice.metadata,
-      maximum_chosen: choice.maximum_chosen,
-      label: choice.label
-    });
-  });
+function decodeChoices(choices: Array<ApiChoice>): List<ChoiceType> {
+  return List(
+    choices.map(choice => {
+      return new ChoiceType({
+        id: choice.id,
+        question_id: choice.question_id,
+        question_dependency_id: choice.question_dependency_id,
+        metadata: choice.metadata,
+        maximum_chosen: choice.maximum_chosen,
+        label: choice.label
+      });
+    })
+  );
 }
 
 function decodeForm(data: ApiForm): FormType {

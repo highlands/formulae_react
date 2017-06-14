@@ -92,11 +92,14 @@ function shouldDisplayQuestion(props: Props) {
   if (dependency) {
     const dependentChoicesSelected =
       // for each dependency choice
-      dependency.choices.map(choice => {
-        return submissions.find((submissionList, key) => {
-          return submissionList.find(value => value === choice.id);
-        });
-      });
+      dependency.choices
+        .map(choice => {
+          return submissions.find((submissionList, key) => {
+            return !!submissionList.find(qs => qs.value === `${choice.id}`);
+          });
+        })
+        .filter(a => a !== undefined);
+
     if (dependentChoicesSelected.size > 0) {
       return dependency.display;
     } else {

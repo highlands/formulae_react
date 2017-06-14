@@ -110,7 +110,7 @@ describe("QuestionDependency", () => {
     });
 
     const submissions = new Map({
-      "1": new List([new QuestionSubmissionType({ id: "1", value: "value" })])
+      "1": new List([new QuestionSubmissionType({ id: "1", value: "10" })])
     });
 
     it("renders the question if its dependencies are satisfied", () => {
@@ -143,13 +143,15 @@ describe("QuestionDependency", () => {
       questionDependency: questionDependencyDisplayTrue
     });
 
-    const submissions = List([
-      new QuestionSubmissionType({
-        id: 1,
-        value: "first",
-        questionType: "string"
-      })
-    ]);
+    const submissions = new Map({
+      "1": List([
+        new QuestionSubmissionType({
+          id: 1,
+          value: "10",
+          questionType: "string"
+        })
+      ])
+    });
 
     it("hides the question if its dependencies are satisfied", () => {
       const subject = shallow(
