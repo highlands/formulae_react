@@ -50,45 +50,55 @@ export default function AdministerFormReducer(
 }
 
 function moveSection(model, payload) {
-  let { sectionId, direction } = payload;
-  let sections = model.getIn(["form", "sections"]);
-  const nextSections = sections.map(value => {
-    if (value.id === sectionId) {
-      const maxValue = sections.count();
-      const newOrder = value.get("order") + direction;
-      if (0 <= newOrder && newOrder <= maxValue) {
-        return value.set("order", newOrder);
-      } else {
-        return value;
-      }
-    } else {
-      return value;
-    }
-  });
-  return model.setIn(["form", "sections"], nextSections);
+  const { sectionId, direction } = payload;
+  return moveThing(model, ["sections"], sectionId, direction);
 }
 
 function moveQuestion(model, payload) {
-  let { questionId, sectionId, direction } = payload;
-  let sectionIndex = model.form.sections.findIndex(q => q.id === sectionId);
-  let questions = model.getIn(["form", "sections", sectionIndex, "questions"]);
-  const nextQuestions = questions.map(value => {
-    if (value.id === questionId) {
-      const maxValue = questions.count();
-      const newOrder = value.get("order") + direction;
-      if (0 <= newOrder && newOrder <= maxValue) {
-        return value.set("order", newOrder);
-      } else {
-        return value;
-      }
-    } else {
-      return value;
-    }
-  });
-  return model.setIn(
-    ["form", "sections", sectionIndex, "questions"],
-    nextQuestions
+  const { questionId, sectionId, direction } = payload;
+  const sectionIndex = model.form.sections.findIndex(q => q.id === sectionId);
+  return moveThing(
+    model,
+    ["sections", sectionIndex, "questions"],
+    questionId,
+    direction
   );
+}
+
+function moveThing(model, key, thingId, direction) {
+  const things = model.getIn(["form"].concat(key));
+  const maxOrder = things.map(s => s.order).sort().max();
+  const section = things.find(s => s.id === thingId);
+  if (section) {
+    const nextOrder = section.order + direction;
+    const nextThings = things.map((value, index) => {
+      if (value.id === thingId) {
+        if (1 <= nextOrder && nextOrder <= maxOrder) {
+          return value.set("order", nextOrder);
+        } else {
+          return value;
+        }
+      } else {
+        if (direction === -1) {
+          if (value.order <= nextOrder) {
+            return value.set("order", value.order + 1);
+          } else {
+            return value;
+          }
+        } else {
+          if (value.order >= nextOrder) {
+            return value.set("order", value.order - 1);
+          } else {
+            return value;
+          }
+        }
+      }
+    });
+    return model.setIn(["form"].concat(key), nextThings);
+  } else {
+    console.log("no thing", key, thingId);
+    return model;
+  }
 }
 
 function setFormCompletionContent(model, payload) {
