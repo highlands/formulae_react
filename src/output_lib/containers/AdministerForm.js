@@ -98,6 +98,10 @@ export const AdministerForm = connect(
             choiceId,
             label
           )
+        ),
+      deleteChoice: (sectionId, questionId, choiceId) =>
+        dispatch(
+          AdministerFormActions.deleteChoice(sectionId, questionId, choiceId)
         )
     };
   }

@@ -9,7 +9,8 @@ type Props = {
   question: QuestionType,
   addChoice: Function,
   moveChoice: Function,
-  setChoiceLabel: Function
+  setChoiceLabel: Function,
+  deleteChoice: Function
 };
 
 export default function ChoicesAdmin(props: Props) {
@@ -18,7 +19,8 @@ export default function ChoicesAdmin(props: Props) {
     question,
     addChoice,
     moveChoice,
-    setChoiceLabel
+    setChoiceLabel,
+    deleteChoice
   } = props;
   const choicesToRender = question.choices
     .sortBy(c => c.order)
@@ -30,6 +32,7 @@ export default function ChoicesAdmin(props: Props) {
         choice={c}
         sectionId={sectionId}
         questionId={question.id}
+        deleteChoice={deleteChoice}
         moveChoice={(choiceId, direction) =>
           moveChoice(sectionId, question.id, choiceId, direction)}
       />
