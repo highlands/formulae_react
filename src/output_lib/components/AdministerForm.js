@@ -26,7 +26,8 @@ type Props = {
   setFormCompletionContent: Function,
   addChoice: Function,
   moveChoice: Function,
-  setChoiceLabel: Function
+  setChoiceLabel: Function,
+  deleteChoice: Function
 };
 
 export default function AdministerForm(props: Props) {
@@ -51,7 +52,8 @@ export default function AdministerForm(props: Props) {
     setFormCompletionContent,
     addChoice,
     moveChoice,
-    setChoiceLabel
+    setChoiceLabel,
+    deleteChoice
   } = props;
   const sectionsToRender = model.form.sections
     .sortBy(s => s.order)
@@ -78,6 +80,7 @@ export default function AdministerForm(props: Props) {
         addChoice={addChoice}
         moveChoice={moveChoice}
         setChoiceLabel={setChoiceLabel}
+        deleteChoice={deleteChoice}
       />
     ));
   return (

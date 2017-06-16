@@ -236,6 +236,17 @@ function setChoiceLabel(
   };
 }
 
+function deleteChoice(sectionId: string, questionId: string, choiceId: string) {
+  return {
+    type: "DELETE_CHOICE",
+    payload: {
+      sectionId,
+      questionId,
+      choiceId
+    }
+  };
+}
+
 export default {
   addSection,
   setSectionName,
@@ -256,5 +267,6 @@ export default {
   setFormCompletionContent,
   addChoice,
   moveChoice,
-  setChoiceLabel
+  setChoiceLabel,
+  deleteChoice
 };

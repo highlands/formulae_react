@@ -20,7 +20,8 @@ type Props = {
   moveQuestion: Function,
   addChoice: Function,
   moveChoice: Function,
-  setChoiceLabel: Function
+  setChoiceLabel: Function,
+  deleteChoice: Function
 };
 
 function renderQuestionType(props) {
@@ -121,7 +122,8 @@ function renderQuestionAdminType(
     setQuestionValidateAs,
     addChoice,
     moveChoice,
-    setChoiceLabel
+    setChoiceLabel,
+    deleteChoice
   } = props;
 
   const descriptionTextArea = (
@@ -242,6 +244,7 @@ function renderQuestionAdminType(
           addChoice={addChoice}
           moveChoice={moveChoice}
           setChoiceLabel={setChoiceLabel}
+          deleteChoice={deleteChoice}
         />
       </div>
     );

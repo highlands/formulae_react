@@ -24,7 +24,8 @@ type Props = {
   moveSection: Function,
   addChoice: Function,
   moveChoice: Function,
-  setChoiceLabel: Function
+  setChoiceLabel: Function,
+  deleteChoice: Function
 };
 
 export default function SectionAdmin(props: Props) {
@@ -47,7 +48,8 @@ export default function SectionAdmin(props: Props) {
     moveSection,
     addChoice,
     moveChoice,
-    setChoiceLabel
+    setChoiceLabel,
+    deleteChoice
   } = props;
   const questionsToRender = section.questions
     .sortBy(q => q.order)
@@ -71,6 +73,7 @@ export default function SectionAdmin(props: Props) {
         addChoice={addChoice}
         moveChoice={moveChoice}
         setChoiceLabel={setChoiceLabel}
+        deleteChoice={deleteChoice}
       />
     ));
 

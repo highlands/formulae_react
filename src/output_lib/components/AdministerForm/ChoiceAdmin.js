@@ -8,11 +8,19 @@ type Props = {
   sectionId: string,
   questionId: string,
   setChoiceLabel: Function,
-  moveChoice: Function
+  moveChoice: Function,
+  deleteChoice: Function
 };
 
 export default function ChoiceAdmin(props: Props) {
-  const { choice, sectionId, questionId, setChoiceLabel, moveChoice } = props;
+  const {
+    choice,
+    sectionId,
+    questionId,
+    setChoiceLabel,
+    moveChoice,
+    deleteChoice
+  } = props;
 
   return (
     <div>
@@ -29,6 +37,9 @@ export default function ChoiceAdmin(props: Props) {
               setChoiceLabel(sectionId, questionId, choice.id, e.target.value)}
           />
         </label>
+        <button onClick={() => deleteChoice(sectionId, questionId, choice.id)}>
+          Delete
+        </button>
       </div>
     </div>
   );
