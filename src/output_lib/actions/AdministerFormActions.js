@@ -192,6 +192,50 @@ function setFormCompletionContent(completionContent: string) {
   };
 }
 
+function addChoice(sectionId: string, questionId: string) {
+  return {
+    type: "ADD_CHOICE",
+    payload: {
+      sectionId,
+      questionId
+    }
+  };
+}
+
+function moveChoice(
+  sectionId: string,
+  questionId: string,
+  choiceId: string,
+  direction: 1 | -1
+) {
+  return {
+    type: "MOVE_CHOICE",
+    payload: {
+      sectionId,
+      questionId,
+      choiceId,
+      direction
+    }
+  };
+}
+
+function setChoiceLabel(
+  sectionId: string,
+  questionId: string,
+  choiceId: string,
+  label: string
+) {
+  return {
+    type: "SET_CHOICE_LABEL",
+    payload: {
+      sectionId,
+      questionId,
+      choiceId,
+      label
+    }
+  };
+}
+
 export default {
   addSection,
   setSectionName,
@@ -209,5 +253,8 @@ export default {
   toggleExpandQuestion,
   moveQuestion,
   moveSection,
-  setFormCompletionContent
+  setFormCompletionContent,
+  addChoice,
+  moveChoice,
+  setChoiceLabel
 };

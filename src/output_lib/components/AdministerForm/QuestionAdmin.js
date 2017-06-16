@@ -2,6 +2,7 @@
 
 import React from "react";
 import { SectionType, QuestionType } from "../../types";
+import ChoicesAdmin from "./ChoicesAdmin";
 
 type Props = {
   section: Object,
@@ -16,7 +17,10 @@ type Props = {
   deleteQuestion: Function,
   expanded: boolean,
   toggleExpandQuestion: Function,
-  moveQuestion: Function
+  moveQuestion: Function,
+  addChoice: Function,
+  moveChoice: Function,
+  setChoiceLabel: Function
 };
 
 function renderQuestionType(props) {
@@ -26,6 +30,7 @@ function renderQuestionType(props) {
   const makeBoolean = () => setQuestionType(section.id, question.id, "boolean");
   const makeAddress = () => setQuestionType(section.id, question.id, "address");
   const makeContent = () => setQuestionType(section.id, question.id, "content");
+  const makeSelect = () => setQuestionType(section.id, question.id, "select");
 
   if (question.type === "") {
     return (
@@ -49,6 +54,10 @@ function renderQuestionType(props) {
         <button className="pure-button" onClick={makeContent}>
           <i className="fa fa-cog" />
           Content
+        </button>
+        <button className="pure-button" onClick={makeSelect}>
+          <i className="fa fa-cog" />
+          Select
         </button>
       </div>
     );
@@ -109,7 +118,10 @@ function renderQuestionAdminType(
     setQuestionRequired,
     setQuestionPlaceholder,
     setQuestionContent,
-    setQuestionValidateAs
+    setQuestionValidateAs,
+    addChoice,
+    moveChoice,
+    setChoiceLabel
   } = props;
 
   const descriptionTextArea = (
@@ -216,6 +228,21 @@ function renderQuestionAdminType(
     return (
       <div>
         {descriptionTextArea}
+      </div>
+    );
+  }
+
+  if (question.type === "select") {
+    return (
+      <div>
+        {descriptionTextArea}
+        <ChoicesAdmin
+          sectionId={section.id}
+          question={question}
+          addChoice={addChoice}
+          moveChoice={moveChoice}
+          setChoiceLabel={setChoiceLabel}
+        />
       </div>
     );
   }

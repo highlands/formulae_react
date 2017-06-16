@@ -1,6 +1,11 @@
 // @flow
 
-import { AdministerFormModel, SectionType, QuestionType } from "../types";
+import {
+  AdministerFormModel,
+  SectionType,
+  QuestionType,
+  ChoiceType
+} from "../types";
 
 const init = new AdministerFormModel();
 const uuidV4 = require("uuid/v4");
@@ -44,9 +49,76 @@ export default function AdministerFormReducer(
       return deleteQuestion(model, action.payload);
     case "SET_QUESTION_PLACEHOLDER":
       return setQuestionPlaceholder(model, action.payload);
+    case "ADD_CHOICE":
+      return addChoice(model, action.payload);
+    case "SET_CHOICE_LABEL":
+      return setChoiceLabel(model, action.payload);
+    case "MOVE_CHOICE":
+      return moveChoice(model, action.payload);
     default:
       return model;
   }
+}
+
+function addChoice(model, payload) {
+  if (payload) {
+    const { sectionId, questionId } = payload;
+    return model.updateIn(["form", "sections"], sections => {
+      return sections.map(s => {
+        if (s.id === sectionId) {
+          return s.updateIn(["questions"], questions => {
+            return questions.map(q => {
+              const maxOrder = q.choices.map(c => c.order).max() || 0;
+              if (q.id === questionId) {
+                return q.set(
+                  "choices",
+                  q.choices.push(
+                    new ChoiceType({ id: uuidV4(), order: maxOrder + 1 })
+                  )
+                );
+              } else {
+                return q;
+              }
+            });
+          });
+        } else {
+          return s;
+        }
+      });
+    });
+  } else {
+    return model;
+  }
+}
+
+function setChoiceLabel(model, payload) {
+  if (payload) {
+    const { sectionId, questionId, choiceId, label } = payload;
+    return setChoiceField(
+      model,
+      sectionId,
+      questionId,
+      choiceId,
+      "label",
+      label
+    );
+  } else {
+    return model;
+  }
+}
+
+function moveChoice(model, payload) {
+  const { questionId, sectionId, choiceId, direction } = payload;
+  const sectionIndex = model.form.sections.findIndex(s => s.id === sectionId);
+  const questionIndex = model.form.sections
+    .get(sectionIndex)
+    .questions.findIndex(q => q.id === questionId);
+  return moveThing(
+    model,
+    ["sections", sectionIndex, "questions", questionIndex, "choices"],
+    choiceId,
+    direction
+  );
 }
 
 function moveSection(model, payload) {
@@ -140,6 +212,31 @@ function setSectionName(model, payload) {
   } else {
     return model;
   }
+}
+
+function setChoiceField(model, sectionId, questionId, choiceId, key, value) {
+  return model.updateIn(["form", "sections"], sections => {
+    return sections.map(s => {
+      if (s.id === sectionId) {
+        const sectionIndex = model.form.sections.findIndex(
+          s => s.id === sectionId
+        );
+        const questionIndex = model.form.sections
+          .get(sectionIndex)
+          .questions.findIndex(q => q.id === questionId);
+        const choiceIndex = model.form.sections
+          .get(sectionIndex)
+          .questions.get(questionIndex)
+          .choices.findIndex(c => c.id === choiceId);
+        return s.setIn(
+          ["questions", questionIndex, "choices", choiceIndex, key],
+          value
+        );
+      } else {
+        return s;
+      }
+    });
+  });
 }
 
 function setSectionContent(model, payload) {

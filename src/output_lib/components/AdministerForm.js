@@ -23,7 +23,10 @@ type Props = {
   toggleExpandQuestion: Function,
   moveQuestion: Function,
   moveSection: Function,
-  setFormCompletionContent: Function
+  setFormCompletionContent: Function,
+  addChoice: Function,
+  moveChoice: Function,
+  setChoiceLabel: Function
 };
 
 export default function AdministerForm(props: Props) {
@@ -45,7 +48,10 @@ export default function AdministerForm(props: Props) {
     toggleExpandQuestion,
     moveQuestion,
     moveSection,
-    setFormCompletionContent
+    setFormCompletionContent,
+    addChoice,
+    moveChoice,
+    setChoiceLabel
   } = props;
   const sectionsToRender = model.form.sections
     .sortBy(s => s.order)
@@ -69,6 +75,9 @@ export default function AdministerForm(props: Props) {
           moveQuestion(s.id, questionId, direction)}
         moveSection={direction => moveSection(s.id, direction)}
         key={i}
+        addChoice={addChoice}
+        moveChoice={moveChoice}
+        setChoiceLabel={setChoiceLabel}
       />
     ));
   return (

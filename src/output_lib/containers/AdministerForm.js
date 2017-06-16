@@ -78,6 +78,26 @@ export const AdministerForm = connect(
       setFormCompletionContent: completionContent =>
         dispatch(
           AdministerFormActions.setFormCompletionContent(completionContent)
+        ),
+      addChoice: (sectionId, questionId) =>
+        dispatch(AdministerFormActions.addChoice(sectionId, questionId)),
+      moveChoice: (sectionId, questionId, choiceId, direction) =>
+        dispatch(
+          AdministerFormActions.moveChoice(
+            sectionId,
+            questionId,
+            choiceId,
+            direction
+          )
+        ),
+      setChoiceLabel: (sectionId, questionId, choiceId, label) =>
+        dispatch(
+          AdministerFormActions.setChoiceLabel(
+            sectionId,
+            questionId,
+            choiceId,
+            label
+          )
         )
     };
   }
