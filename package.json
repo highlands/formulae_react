@@ -85,7 +85,7 @@
     "flow": "flow",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
-    "lib": "babel src/output_lib --out-dir lib --copy-files"
+    "lib": "bash scripts/lib.sh"
   },
   "jest": {
     "collectCoverageFrom": [
