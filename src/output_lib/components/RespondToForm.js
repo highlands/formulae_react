@@ -134,7 +134,7 @@ export default function RespondToForm(props: Props) {
   // - RespondToForm.Section.HEADINGS
   //   - This is what we are already doing
   let displaySections = null;
-  if (displaySectionsAs === "HEADINGS") {
+  if (displaySectionsAs === "HEADINGS" || displaySectionsAs === "headings") {
     displaySections = (
       <SectionsWithHeadings
         sections={sections}
@@ -146,7 +146,7 @@ export default function RespondToForm(props: Props) {
       />
     );
   }
-  if (displaySectionsAs === "STEPS") {
+  if (displaySectionsAs === "STEPS" || displaySectionsAs === "steps") {
     displaySections = (
       <SectionsWithSteps
         sections={sections}
