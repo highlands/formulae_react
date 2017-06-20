@@ -9,7 +9,6 @@ import {
   QuestionSubmissionType
 } from "../types";
 import { List } from "immutable";
-
 const init = new Model();
 
 // FIXME: Remove this eventually but for now it makes it easy to do some testing
