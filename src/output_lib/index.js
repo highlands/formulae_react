@@ -4,12 +4,13 @@ import {
   ViewFormSubmission
 } from "./containers";
 import { Form, FormSubmission } from "./api";
-import { Model } from "./types";
+import { Model, AdministerFormModel } from "./types";
 import {
   RespondToFormStore,
   AdministerFormStore,
   ViewFormSubmissionStore,
-  createRespondToFormStore
+  createRespondToFormStore,
+  createAdministerFormStore
 } from "./stores";
 
 const Api = {
@@ -21,11 +22,13 @@ const Stores = {
   RespondToFormStore,
   AdministerFormStore,
   ViewFormSubmissionStore,
-  createRespondToFormStore
+  createRespondToFormStore,
+  createAdministerFormStore
 };
 
 const Types = {
-  Model
+  Model,
+  AdministerFormModel
 };
 
 export {
