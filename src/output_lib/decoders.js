@@ -92,6 +92,7 @@ function decodeSection(
   questions: List<QuestionType>
 ): SectionType {
   return new SectionType({
+    id: section.id,
     name: section.name,
     content: section.content,
     order: section.order,
