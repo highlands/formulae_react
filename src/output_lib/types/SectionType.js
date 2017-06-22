@@ -7,12 +7,14 @@ import QuestionType from "./QuestionType";
 export default class SectionType
   extends Record({
     id: "",
+    form_id: "",
     name: "",
     content: "",
     order: 0,
     questions: List()
   }) {
   id: string;
+  form_id: string;
   name: string;
   content: string;
   order: number;

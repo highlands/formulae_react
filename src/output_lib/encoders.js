@@ -67,6 +67,7 @@ function encodeFormSubmission(
 
 function encodeQuestion(question: QuestionType): ApiQuestion {
   return {
+    id: question.id,
     key: question.key,
     label: question.label,
     content: question.content,
@@ -80,6 +81,7 @@ function encodeQuestion(question: QuestionType): ApiQuestion {
 
 function encodeSection(section: QuestionType): ApiSection {
   return {
+    id: section.id,
     form_id: undefined,
     name: section.name,
     order: section.order,
@@ -90,6 +92,7 @@ function encodeSection(section: QuestionType): ApiSection {
 
 function encodeForm(form: FormType): ApiForm {
   return {
+    id: form.id,
     application_id: 1,
     completion_content: form.completionContent,
     sections: form.sections.toArray().map(encodeSection)
