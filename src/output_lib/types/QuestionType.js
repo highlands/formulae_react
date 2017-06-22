@@ -19,7 +19,7 @@ export default class QuestionType
     choices: List(),
     questionDependency: null
   }) {
-  id: string;
+  id: number | string;
   key: string;
   label: string;
   content: string;

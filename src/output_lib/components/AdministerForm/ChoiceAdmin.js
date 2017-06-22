@@ -5,8 +5,8 @@ import { ChoiceType } from "../../types";
 
 type Props = {
   choice: ChoiceType,
-  sectionId: string,
-  questionId: string,
+  sectionId: number | string,
+  questionId: number | string,
   setChoiceLabel: Function,
   moveChoice: Function,
   deleteChoice: Function

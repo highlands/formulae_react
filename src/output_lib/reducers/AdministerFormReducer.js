@@ -17,6 +17,8 @@ export default function AdministerFormReducer(
   action: { type: Action, payload: ?Object }
 ) {
   switch (action.type) {
+    case "GOT_FORM":
+      return model.set("form", action.payload);
     case "MOVE_QUESTION":
       return moveQuestion(model, action.payload);
     case "MOVE_SECTION":

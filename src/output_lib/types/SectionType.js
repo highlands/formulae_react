@@ -13,7 +13,7 @@ export default class SectionType
     order: 0,
     questions: List()
   }) {
-  id: string;
+  id: number | string;
   form_id: string;
   name: string;
   content: string;

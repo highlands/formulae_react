@@ -179,7 +179,16 @@ function deleteQuestion(sectionId: number, questionId: number) {
 function saveForm() {
   return (dispatch, getState) => {
     const { form } = getState();
-    Form.findOrCreate(form).then(console.log);
+    Form.findOrCreate(form).then(form => {
+      dispatch(gotForm(form));
+    });
+  };
+}
+
+function gotForm(form: FormType) {
+  return {
+    type: "GOT_FORM",
+    payload: form
   };
 }
 

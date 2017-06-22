@@ -21,6 +21,7 @@ type ApiFormSubmission = {
 };
 
 type ApiQuestion = {
+  id: ?number,
   key: string,
   label: string,
   content: string,
@@ -30,13 +31,14 @@ type ApiQuestion = {
 };
 
 type ApiSection = {
-  form_id: ?number,
+  id: ?number,
   name: ?string,
   order: ?number,
   content: ?string
 };
 
 type ApiForm = {
+  id: ?number,
   application_id: ?number,
   completion_content: ?string,
   sections: Array<ApiSection>
@@ -67,7 +69,7 @@ function encodeFormSubmission(
 
 function encodeQuestion(question: QuestionType): ApiQuestion {
   return {
-    id: question.id,
+    id: typeof question.id === "number" ? question.id : undefined,
     key: question.key,
     label: question.label,
     content: question.content,
@@ -81,8 +83,7 @@ function encodeQuestion(question: QuestionType): ApiQuestion {
 
 function encodeSection(section: QuestionType): ApiSection {
   return {
-    id: section.id,
-    form_id: undefined,
+    id: typeof section.id === "number" ? section.id : undefined,
     name: section.name,
     order: section.order,
     questions: section.questions.map(encodeQuestion).toArray(),
@@ -92,7 +93,7 @@ function encodeSection(section: QuestionType): ApiSection {
 
 function encodeForm(form: FormType): ApiForm {
   return {
-    id: form.id,
+    id: typeof form.id === "number" ? form.id : undefined,
     application_id: 1,
     completion_content: form.completionContent,
     sections: form.sections.toArray().map(encodeSection)
