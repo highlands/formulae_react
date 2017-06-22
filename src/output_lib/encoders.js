@@ -35,7 +35,8 @@ type ApiSection = {
   id: ?number,
   name: ?string,
   order: ?number,
-  content: ?string
+  content: ?string,
+  _destroy: ?boolean
 };
 
 type ApiForm = {
@@ -89,7 +90,8 @@ function encodeSection(section: QuestionType): ApiSection {
     name: section.name,
     order: section.order,
     questions: section.questions.map(encodeQuestion).toArray(),
-    content: section.content
+    content: section.content,
+    _destroy: section.deleted
   };
 }
 

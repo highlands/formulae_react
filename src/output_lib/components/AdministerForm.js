@@ -27,7 +27,8 @@ type Props = {
   addChoice: Function,
   moveChoice: Function,
   setChoiceLabel: Function,
-  deleteChoice: Function
+  deleteChoice: Function,
+  deleteSection: Function
 };
 
 export default function AdministerForm(props: Props) {
@@ -53,10 +54,12 @@ export default function AdministerForm(props: Props) {
     addChoice,
     moveChoice,
     setChoiceLabel,
-    deleteChoice
+    deleteChoice,
+    deleteSection
   } = props;
   const sectionsToRender = model.form.sections
     .sortBy(s => s.order)
+    .filter(s => !s.deleted)
     .map((s, i) => (
       <SectionAdmin
         setSectionName={setSectionName}
@@ -81,6 +84,7 @@ export default function AdministerForm(props: Props) {
         moveChoice={moveChoice}
         setChoiceLabel={setChoiceLabel}
         deleteChoice={deleteChoice}
+        deleteSection={deleteSection}
       />
     ));
   return (

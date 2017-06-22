@@ -59,6 +59,8 @@ export default function AdministerFormReducer(
       return moveChoice(model, action.payload);
     case "DELETE_CHOICE":
       return deleteChoice(model, action.payload);
+    case "DELETE_SECTION":
+      return deleteSection(model, action.payload);
     default:
       return model;
   }
@@ -375,6 +377,16 @@ function deleteQuestion(model, payload) {
         }
       });
     });
+  } else {
+    return model;
+  }
+}
+
+function deleteSection(model, payload) {
+  if (payload) {
+    let { sectionId } = payload;
+    let sectionIndex = model.form.sections.findIndex(s => s.id === sectionId);
+    return model.setIn(["form", "sections", sectionIndex, "deleted"], true);
   } else {
     return model;
   }
