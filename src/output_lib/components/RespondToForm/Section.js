@@ -86,10 +86,8 @@ function getSubmission(
   question: QuestionType,
   submissions: QuestionSubmissionsMapType
 ): QuestionSubmissionMapValueType {
-  return (
-    submissions.get(question.get("id")) ||
-    List([getDefaultSubmission(question)])
-  );
+  return submissions.get(String(question.get("id"))) ||
+    List([getDefaultSubmission(question)]);
 }
 
 function getDefaultSubmission(question: QuestionType): QuestionSubmissionType {

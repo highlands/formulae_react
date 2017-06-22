@@ -81,7 +81,9 @@ function allRequiredQuestionsReplied(
   form: FormType,
   submissions: QuestionSubmissionsMapType
 ) {
-  const requiredQuestions = getRequiredQuestions(form).map(q => q.id).toArray();
+  const requiredQuestions = getRequiredQuestions(form)
+    .map(q => String(q.id))
+    .toArray();
   const repliedQuestions = submissions
     .flatMap((submission, key) => submission.map(s => [key, s.id]))
     .toSet()
@@ -123,7 +125,6 @@ export default function RespondToForm(props: Props) {
     errors,
     submitted
   } = props;
-
   const sections = form.get("sections");
 
   // displaySectionsAs:

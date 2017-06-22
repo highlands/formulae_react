@@ -9,6 +9,7 @@ export default class QuestionType
     id: "",
     key: "",
     label: "",
+    form_id: "",
     content: "",
     placeholder: "",
     type: "",
@@ -23,6 +24,7 @@ export default class QuestionType
   id: number | string;
   key: string;
   label: string;
+  form_id: string;
   content: string;
   placeholder: string;
   type: string;
