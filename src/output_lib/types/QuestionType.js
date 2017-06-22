@@ -17,7 +17,8 @@ export default class QuestionType
     section_id: 0,
     validateAs: "",
     choices: List(),
-    questionDependency: null
+    questionDependency: null,
+    deleted: false
   }) {
   id: number | string;
   key: string;
@@ -31,4 +32,5 @@ export default class QuestionType
   validateAs: string;
   choices: List<ChoiceType>;
   questionDependency: ?QuestionDependencyType;
+  deleted: boolean;
 }

@@ -369,7 +369,7 @@ function deleteQuestion(model, payload) {
       return sections.map(s => {
         if (s.id === sectionId) {
           let index = s.questions.findIndex(q => q.id === questionId);
-          return s.deleteIn(["questions", index]);
+          return s.setIn(["questions", index, "deleted"], true);
         } else {
           return s;
         }

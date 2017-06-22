@@ -27,7 +27,8 @@ type ApiQuestion = {
   content: string,
   question_type: string,
   validate_as: string,
-  order: number
+  order: number,
+  _destroy: ?boolean
 };
 
 type ApiSection = {
@@ -77,7 +78,8 @@ function encodeQuestion(question: QuestionType): ApiQuestion {
     placeholder: question.placeholder,
     question_type: question.type,
     validate_as: question.validateAs,
-    order: question.order
+    order: question.order,
+    _destroy: question.deleted
   };
 }
 
