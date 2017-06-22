@@ -4,7 +4,8 @@ import {
   QuestionType,
   FormType,
   FormSubmissionType,
-  FormQuestionSubmissionType
+  FormQuestionSubmissionType,
+  ChoiceType
 } from "./types";
 
 type ApiQuestionSubmission = {
@@ -20,6 +21,13 @@ type ApiFormSubmission = {
   question_submissions: Array<ApiQuestionSubmission>
 };
 
+type ApiChoice = {
+  id: ?number,
+  label: string,
+  metadata: ?Object,
+  maximum_chosen: ?number
+};
+
 type ApiQuestion = {
   id: ?number,
   key: string,
@@ -28,7 +36,8 @@ type ApiQuestion = {
   question_type: string,
   validate_as: string,
   order: number,
-  _destroy: ?boolean
+  _destroy: ?boolean,
+  choices: Array<ApiChoice>
 };
 
 type ApiSection = {
@@ -80,7 +89,18 @@ function encodeQuestion(question: QuestionType): ApiQuestion {
     question_type: question.type,
     validate_as: question.validateAs,
     order: question.order,
-    _destroy: question.deleted
+    _destroy: question.deleted,
+    choices: question.choices.map(encodeChoice).toArray()
+  };
+}
+
+function encodeChoice(choice: ChoiceType): ApiChoice {
+  return {
+    id: typeof choice.id === "number" ? choice.id : undefined,
+    label: choice.label,
+    _destroy: choice.deleted,
+    metadata: choice.metadata,
+    maximum_chosen: choice.maximumChosen
   };
 }
 

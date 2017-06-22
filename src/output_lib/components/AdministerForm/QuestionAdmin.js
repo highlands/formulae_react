@@ -32,6 +32,8 @@ function renderQuestionType(props) {
   const makeAddress = () => setQuestionType(section.id, question.id, "address");
   const makeContent = () => setQuestionType(section.id, question.id, "content");
   const makeSelect = () => setQuestionType(section.id, question.id, "select");
+  const makeMultiSelect = () =>
+    setQuestionType(section.id, question.id, "multiselect");
 
   if (question.type === "") {
     return (
@@ -59,6 +61,10 @@ function renderQuestionType(props) {
         <button className="pure-button" onClick={makeSelect}>
           <i className="fa fa-cog" />
           Select
+        </button>
+        <button className="pure-button" onClick={makeMultiSelect}>
+          <i className="fa fa-cog" />
+          Multi-Select
         </button>
       </div>
     );
@@ -235,6 +241,22 @@ function renderQuestionAdminType(
   }
 
   if (question.type === "select") {
+    return (
+      <div>
+        {descriptionTextArea}
+        <ChoicesAdmin
+          sectionId={section.id}
+          question={question}
+          addChoice={addChoice}
+          moveChoice={moveChoice}
+          setChoiceLabel={setChoiceLabel}
+          deleteChoice={deleteChoice}
+        />
+      </div>
+    );
+  }
+
+  if (question.type === "multiselect") {
     return (
       <div>
         {descriptionTextArea}

@@ -5,18 +5,18 @@ import { Record } from "immutable";
 export default class ChoiceType
   extends Record({
     id: "",
-    question_id: 0,
-    question_dependency_id: 0,
-    metadata: "",
+    questionId: 0,
+    questionDependencyId: 0,
+    metadata: {},
     order: 1,
-    maximum_chosen: 0,
+    maximumChosen: 0,
     label: ""
   }) {
   id: string;
-  question_id: number;
-  question_dependency_id: number;
-  metadata: string;
+  questionId: number;
+  questionDependencyId: number;
+  metadata: Object;
   choice: number;
-  maximum_chosen: number;
+  maximumChosen: number;
   label: string;
 }
