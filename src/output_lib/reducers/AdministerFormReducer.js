@@ -142,10 +142,12 @@ function setChoiceLabel(model, payload) {
 
 function moveChoice(model, payload) {
   const { questionId, sectionId, choiceId, direction } = payload;
-  const sectionIndex = model.form.sections.findIndex(s => s.id === sectionId);
+  const sectionIndex = model.form.sections.findIndex(
+    s => `${s.id}` === `${sectionId}`
+  );
   const questionIndex = model.form.sections
     .get(sectionIndex)
-    .questions.findIndex(q => q.id === questionId);
+    .questions.findIndex(q => `${q.id}` === `${questionId}`);
   return moveThing(
     model,
     ["sections", sectionIndex, "questions", questionIndex, "choices"],
@@ -173,11 +175,11 @@ function moveQuestion(model, payload) {
 function moveThing(model, key, thingId, direction) {
   const things = model.getIn(["form"].concat(key));
   const maxOrder = things.map(s => s.order).sort().max();
-  const section = things.find(s => s.id === thingId);
+  const section = things.find(s => `${s.id}` === `${thingId}`);
   if (section) {
     const nextOrder = section.order + direction;
     const nextThings = things.map((value, index) => {
-      if (value.id === thingId) {
+      if (`${value.id}` === `${thingId}`) {
         if (1 <= nextOrder && nextOrder <= maxOrder) {
           return value.set("order", nextOrder);
         } else {
@@ -216,7 +218,7 @@ function setFormCompletionContent(model, payload) {
 }
 
 function toggleExpandQuestion(model, payload) {
-  let { id } = payload;
+  let id = `${payload.id}`;
   if (model.getIn(["expandedQuestions", id])) {
     return model.set("expandedQuestions", model.expandedQuestions.delete(id));
   } else {
@@ -252,15 +254,15 @@ function setChoiceField(model, sectionId, questionId, choiceId, key, value) {
     return sections.map(s => {
       if (s.id === sectionId) {
         const sectionIndex = model.form.sections.findIndex(
-          s => s.id === sectionId
+          s => `${s.id}` === `${sectionId}`
         );
         const questionIndex = model.form.sections
           .get(sectionIndex)
-          .questions.findIndex(q => q.id === questionId);
+          .questions.findIndex(q => `${q.id}` === `${questionId}`);
         const choiceIndex = model.form.sections
           .get(sectionIndex)
           .questions.get(questionIndex)
-          .choices.findIndex(c => c.id === choiceId);
+          .choices.findIndex(c => `${c.id}` === `${choiceId}`);
         return s.setIn(
           ["questions", questionIndex, "choices", choiceIndex, key],
           value
@@ -287,7 +289,7 @@ function addQuestion(model, payload) {
     return model.updateIn(["form", "sections"], sections => {
       return sections.map(s => {
         const maxOrder = s.questions.map(q => q.order).max() || 0;
-        if (s.id === sectionId) {
+        if (`${s.id}` === `${sectionId}`) {
           return s.set(
             "questions",
             s.questions.push(
@@ -369,8 +371,8 @@ function deleteQuestion(model, payload) {
     let { sectionId, questionId } = payload;
     return model.updateIn(["form", "sections"], sections => {
       return sections.map(s => {
-        if (s.id === sectionId) {
-          let index = s.questions.findIndex(q => q.id === questionId);
+        if (`${s.id}` === `${sectionId}`) {
+          let index = s.questions.findIndex(q => `${q.id}` === `${questionId}`);
           return s.setIn(["questions", index, "deleted"], true);
         } else {
           return s;
@@ -385,7 +387,9 @@ function deleteQuestion(model, payload) {
 function deleteSection(model, payload) {
   if (payload) {
     let { sectionId } = payload;
-    let sectionIndex = model.form.sections.findIndex(s => s.id === sectionId);
+    let sectionIndex = model.form.sections.findIndex(
+      s => `${s.id}` === `${sectionId}`
+    );
     return model.setIn(["form", "sections", sectionIndex, "deleted"], true);
   } else {
     return model;
@@ -411,7 +415,7 @@ function setQuestionField(model, sectionId, questionId, key, value) {
   return model.updateIn(["form", "sections"], sections => {
     return sections.map(s => {
       if (s.id === sectionId) {
-        let index = s.questions.findIndex(q => q.id === questionId);
+        let index = s.questions.findIndex(q => `${q.id}` === `${questionId}`);
         return s.setIn(["questions", index, key], value);
       } else {
         return s;
@@ -423,7 +427,7 @@ function setQuestionField(model, sectionId, questionId, key, value) {
 function setSectionField(model, sectionId, key, value) {
   return model.updateIn(["form", "sections"], sections => {
     return sections.map(s => {
-      if (s.id === sectionId) {
+      if (`${s.id}` === `${sectionId}`) {
         return s.set(key, value);
       } else {
         return s;
