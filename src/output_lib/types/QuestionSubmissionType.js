@@ -6,11 +6,11 @@ type QuestionType = "string" | "text" | "boolean" | "address";
 
 export default class QuestionSubmissionType
   extends Record({
-    id: 0,
+    id: "",
     value: "",
     questionType: "string"
   }) {
-  id: number;
+  id: number | string;
   value: Object; // This is awful
   questionType: QuestionType;
 }
