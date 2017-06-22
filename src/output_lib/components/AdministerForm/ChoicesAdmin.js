@@ -5,7 +5,7 @@ import { QuestionType } from "../../types";
 import ChoiceAdmin from "./ChoiceAdmin";
 
 type Props = {
-  sectionId: string,
+  sectionId: number | string,
   question: QuestionType,
   addChoice: Function,
   moveChoice: Function,

@@ -67,7 +67,7 @@ export default function SectionAdmin(props: Props) {
         question={q}
         section={section}
         key={i}
-        expanded={expandedQuestions.get(q.id) !== undefined}
+        expanded={expandedQuestions.get(String(q.id)) !== undefined}
         toggleExpandQuestion={() => toggleExpandQuestion(q.id)}
         moveQuestion={direction => moveQuestion(q.id, direction)}
         addChoice={addChoice}

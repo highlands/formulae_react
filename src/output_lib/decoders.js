@@ -109,7 +109,7 @@ function decodeQuestion(question: ApiQuestion): QuestionType {
     question.question_dependency
   );
   return new QuestionType({
-    id: `${question.id}`,
+    id: question.id,
     key: question.key,
     label: question.label,
     content: question.content,
