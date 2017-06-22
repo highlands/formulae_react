@@ -53,6 +53,7 @@ export default function SectionAdmin(props: Props) {
   } = props;
   const questionsToRender = section.questions
     .sortBy(q => q.order)
+    .filter(q => !q.deleted)
     .map((q, i) => (
       <QuestionAdmin
         addQuestion={addQuestion}
