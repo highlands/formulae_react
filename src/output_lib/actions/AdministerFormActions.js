@@ -256,6 +256,15 @@ function deleteChoice(sectionId: string, questionId: string, choiceId: string) {
   };
 }
 
+function deleteSection(sectionId: string) {
+  return {
+    type: "DELETE_SECTION",
+    payload: {
+      sectionId
+    }
+  };
+}
+
 export default {
   addSection,
   setSectionName,
@@ -277,5 +286,6 @@ export default {
   addChoice,
   moveChoice,
   setChoiceLabel,
-  deleteChoice
+  deleteChoice,
+  deleteSection
 };

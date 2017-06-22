@@ -25,7 +25,8 @@ type Props = {
   addChoice: Function,
   moveChoice: Function,
   setChoiceLabel: Function,
-  deleteChoice: Function
+  deleteChoice: Function,
+  deleteSection: Function
 };
 
 export default function SectionAdmin(props: Props) {
@@ -49,7 +50,8 @@ export default function SectionAdmin(props: Props) {
     addChoice,
     moveChoice,
     setChoiceLabel,
-    deleteChoice
+    deleteChoice,
+    deleteSection
   } = props;
   const questionsToRender = section.questions
     .sortBy(q => q.order)
@@ -102,6 +104,7 @@ export default function SectionAdmin(props: Props) {
             onChange={e => setSectionContent(section.id, e.target.value)}
           />
         </label>
+        <button onClick={() => deleteSection(section.id)}>Delete</button>
       </div>
       <div className="question-container">
         {questionsToRender}
