@@ -25,7 +25,7 @@ To publish a new version of this package:
 ```sh
 ./publish.sh 0.2.0
 # Use the version number here. It should already be the new version number in
-# package.json
+# package.json, and the commit with that version bump should already be pushed.
 ```
 
 ### Environment Variables
