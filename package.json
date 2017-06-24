@@ -1,8 +1,9 @@
 {
   "name": "@dailydrip/formulae_react",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "main": "lib/index.js",
+  "files": ["lib/"],
   "author": "Josh Adams <josh@dailydrip.com",
   "contributors": [
     {
