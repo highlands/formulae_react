@@ -1,7 +1,7 @@
 {
   "name": "formulae_react",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "main": "lib/index.js",
   "author": "Josh Adams <josh@dailydrip.com",
   "contributors": [
