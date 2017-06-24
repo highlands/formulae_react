@@ -18,6 +18,16 @@ npm install @dailydrip/formulae_react --save
 
 ## Development
 
+### Publishing
+
+To publish a new version of this package:
+
+```sh
+./publish.sh 0.2.0
+# Use the version number here. It should already be the new version number in
+# package.json
+```
+
 ### Environment Variables
 
 The following Environment Variables are a good start for development
