@@ -4,6 +4,18 @@
 
 [![Build Status](https://semaphoreci.com/api/v1/dailydrip/formulae_react/branches/master/badge.svg)](https://semaphoreci.com/dailydrip/formulae_react)
 
+## Install
+
+To use this package:
+
+```sh
+yarn add @dailydrip/formulae_react
+
+# OR
+
+npm install @dailydrip/formulae_react --save
+```
+
 ## Development
 
 ### Environment Variables
