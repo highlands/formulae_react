@@ -37,6 +37,7 @@ function renderQuestionType(props) {
   const makeCheckboxes = () =>
     setQuestionType(section.id, question.id, "checkboxes");
   const makeRadio = () => setQuestionType(section.id, question.id, "radio");
+  const makeButtons = () => setQuestionType(section.id, question.id, "buttons");
 
   if (question.type === "") {
     return (
@@ -76,6 +77,10 @@ function renderQuestionType(props) {
         <button className="pure-button" onClick={makeRadio}>
           <i className="fa fa-cog" />
           Radio
+        </button>
+        <button className="pure-button" onClick={makeButtons}>
+          <i className="fa fa-cog" />
+          Buttons
         </button>
       </div>
     );
@@ -270,7 +275,8 @@ function renderQuestionAdminType(
   if (
     question.type === "multiselect" ||
     question.type === "checkboxes" ||
-    question.type === "radio"
+    question.type === "radio" ||
+    question.type === "buttons"
   ) {
     return (
       <div>
