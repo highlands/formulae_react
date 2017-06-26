@@ -2,4 +2,18 @@
   > .content {
     color: $subtle-text-color;
   }
+
+  // Radio
+  input[type=radio] {
+      display:none;
+  }
+
+  input[type=radio] + label {
+    background: lightgrey;
+    padding: 1rem;
+  }
+
+  input[type=radio]:checked + label {
+    background: darkgrey;
+  }
 }
