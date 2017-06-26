@@ -18,7 +18,7 @@ export default function Radio(props: Props) {
     const choiceId = `${name}-${choice.get("id")}`;
     const value = choice.get("id");
     return (
-      <div key={i}>
+      <span key={i}>
         <input
           type="radio"
           name={name}
@@ -30,14 +30,14 @@ export default function Radio(props: Props) {
         <label key={i} htmlFor={choiceId}>
           {choice.get("label")}
         </label>
-      </div>
+      </span>
     );
   });
 
   return (
-    <div>
+    <span>
       {options}
       {content}
-    </div>
+    </span>
   );
 }
