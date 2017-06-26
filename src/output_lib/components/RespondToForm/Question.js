@@ -216,7 +216,7 @@ function getQuestionWidget(
           choices={choices}
         />
       );
-    case "multi_select":
+    case "multiselect":
       return (
         <MultiSelect
           content={content}
