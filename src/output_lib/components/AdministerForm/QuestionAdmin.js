@@ -34,6 +34,9 @@ function renderQuestionType(props) {
   const makeSelect = () => setQuestionType(section.id, question.id, "select");
   const makeMultiSelect = () =>
     setQuestionType(section.id, question.id, "multiselect");
+  const makeCheckboxes = () =>
+    setQuestionType(section.id, question.id, "checkboxes");
+  const makeRadio = () => setQuestionType(section.id, question.id, "radio");
 
   if (question.type === "") {
     return (
@@ -65,6 +68,14 @@ function renderQuestionType(props) {
         <button className="pure-button" onClick={makeMultiSelect}>
           <i className="fa fa-cog" />
           Multi-Select
+        </button>
+        <button className="pure-button" onClick={makeCheckboxes}>
+          <i className="fa fa-cog" />
+          Checkboxes
+        </button>
+        <button className="pure-button" onClick={makeRadio}>
+          <i className="fa fa-cog" />
+          Radio
         </button>
       </div>
     );
@@ -256,7 +267,11 @@ function renderQuestionAdminType(
     );
   }
 
-  if (question.type === "multiselect") {
+  if (
+    question.type === "multiselect" ||
+    question.type === "checkboxes" ||
+    question.type === "radio"
+  ) {
     return (
       <div>
         {descriptionTextArea}
