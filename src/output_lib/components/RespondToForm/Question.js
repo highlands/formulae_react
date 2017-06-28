@@ -16,6 +16,7 @@ import {
   Select,
   MultiSelect,
   Checkboxes,
+  Buttons,
   Radio
 } from "./widgets";
 import { List } from "immutable";
@@ -228,6 +229,8 @@ function getQuestionWidget(
       );
     case "checkboxes":
       return <Checkboxes choices={choices} />;
+    case "buttons":
+      return <Buttons choices={choices} />;
     case "radio":
       return (
         <Radio

@@ -8,6 +8,7 @@ import MultiSelect from "./widgets/MultiSelect";
 import Radio from "./widgets/Radio";
 import Checkboxes from "./widgets/Checkboxes";
 import Content from "./widgets/Content";
+import Buttons from "./widgets/Buttons";
 
 export {
   String,
@@ -17,5 +18,6 @@ export {
   MultiSelect,
   Radio,
   Checkboxes,
-  Content
+  Content,
+  Buttons
 };

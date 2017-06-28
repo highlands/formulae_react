@@ -18,7 +18,7 @@ export default function Radio(props: Props) {
     const choiceId = `${name}-${choice.get("id")}`;
     const value = choice.get("id");
     return (
-      <label key={i} htmlFor={choiceId}>
+      <span key={i}>
         <input
           type="radio"
           name={name}
@@ -27,15 +27,17 @@ export default function Radio(props: Props) {
           checked={value === choice.get("id")}
           onChange={() => onChange(choiceId)}
         />
-        {choice.get("label")}
-      </label>
+        <label key={i} htmlFor={choiceId}>
+          {choice.get("label")}
+        </label>
+      </span>
     );
   });
 
   return (
-    <div>
+    <span>
       {options}
-      <p>{content}</p>
-    </div>
+      {content}
+    </span>
   );
 }

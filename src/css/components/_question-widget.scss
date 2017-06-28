@@ -2,4 +2,34 @@
   > .content {
     color: $subtle-text-color;
   }
+
+  // Multiselect
+  input[type=checkbox] {
+      display:none;
+  }
+
+  input[type=checkbox] + label {
+    background: lightgrey;
+    display: inline-block;
+    padding: 1rem;
+  }
+
+  input[type=checkbox]:checked + label {
+    background: darkgrey;
+  }
+
+  // Radio
+  input[type=radio] {
+      display:none;
+  }
+
+  input[type=radio] + label {
+    background: lightgrey;
+    display: inline-block;
+    padding: 1rem;
+  }
+
+  input[type=radio]:checked + label {
+    background: darkgrey;
+  }
 }
