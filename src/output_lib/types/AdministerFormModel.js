@@ -6,8 +6,10 @@ import FormType from "./FormType";
 export default class AdministerFormModel
   extends Record({
     form: new FormType(),
-    expandedQuestions: new Set()
+    expandedQuestions: new Set(),
+    apiKey: ""
   }) {
   form: FormType;
   expandedQuestions: Set<string>;
+  apiKey: string;
 }

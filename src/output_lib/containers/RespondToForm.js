@@ -9,13 +9,15 @@ export const RespondToForm = connect(
       submissions: state.get("submissions"),
       currentStep: state.get("currentStep"),
       errors: state.get("errors"),
-      submitted: state.get("submitted")
+      submitted: state.get("submitted"),
+      apiKey: state.get("apiKey")
     };
   },
   function mapDispatchToProps(dispatch) {
     return {
       loadExampleForm: () => dispatch(RespondToFormActions.loadExampleForm()),
-      getForm: id => dispatch(RespondToFormActions.getForm(id)),
+      getForm: (apiKey, id) =>
+        dispatch(RespondToFormActions.getForm(apiKey, id)),
       setTotalSteps: totalSteps =>
         dispatch(RespondToFormActions.setTotalSteps(totalSteps)),
       setCurrentStep: currentStep =>
@@ -25,8 +27,8 @@ export const RespondToForm = connect(
           RespondToFormActions.setQuestionSubmission(key, value, questionType)
         );
       },
-      submitForm: formSubmission =>
-        dispatch(RespondToFormActions.submitForm(formSubmission)),
+      submitForm: (apiKey, formSubmission) =>
+        dispatch(RespondToFormActions.submitForm(apiKey, formSubmission)),
       nextStep: () => dispatch(RespondToFormActions.nextStep()),
       prevStep: () => dispatch(RespondToFormActions.prevStep()),
       addError: (id, message) =>

@@ -28,7 +28,8 @@ type Props = {
   moveChoice: Function,
   setChoiceLabel: Function,
   deleteChoice: Function,
-  deleteSection: Function
+  deleteSection: Function,
+  apiKey: string
 };
 
 export default function AdministerForm(props: Props) {
@@ -55,7 +56,8 @@ export default function AdministerForm(props: Props) {
     moveChoice,
     setChoiceLabel,
     deleteChoice,
-    deleteSection
+    deleteSection,
+    apiKey
   } = props;
   const sectionsToRender = model.form.sections
     .sortBy(s => s.order)
@@ -106,7 +108,7 @@ export default function AdministerForm(props: Props) {
         </button>
       </div>
       <hr />
-      <button className="pure-button" onClick={() => saveForm()}>
+      <button className="pure-button" onClick={() => saveForm(apiKey)}>
         Save Form
       </button>
     </form>

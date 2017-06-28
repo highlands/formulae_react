@@ -10,9 +10,11 @@ export default class Model
     submissions: new Map(),
     currentStep: 0,
     submitted: false,
-    errors: new Map()
+    errors: new Map(),
+    apiKey: ""
   }) {
   form: FormType;
   submissions: Map<string, QuestionSubmissionType>;
   currentStep: number;
+  apiKey: string;
 }

@@ -1,4 +1,4 @@
-import { Form } from "../api";
+import { createFormApi } from "../api";
 
 function moveQuestion(
   sectionId: string,
@@ -176,9 +176,10 @@ function deleteQuestion(sectionId: number, questionId: number) {
   };
 }
 
-function saveForm() {
+function saveForm(apiKey: string) {
   return (dispatch, getState) => {
     const { form } = getState();
+    const Form = createFormApi(apiKey);
     Form.findOrCreate(form).then(form => {
       dispatch(gotForm(form));
     });

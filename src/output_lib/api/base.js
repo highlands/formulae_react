@@ -30,5 +30,7 @@ function createConfig(resourcePath: string) {
 }
 
 export function createApi(resourcePath: string) {
-  return create(createConfig(resourcePath));
+  let api = create(createConfig(resourcePath));
+  api.setHeader("Authorization", `Bearer ${config.apiToken}`);
+  return api;
 }

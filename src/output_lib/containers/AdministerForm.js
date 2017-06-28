@@ -28,7 +28,7 @@ export const AdministerForm = connect(
         dispatch(
           AdministerFormActions.setQuestionKey(sectionId, questionId, key)
         ),
-      saveForm: () => dispatch(AdministerFormActions.saveForm()),
+      saveForm: apiKey => dispatch(AdministerFormActions.saveForm(apiKey)),
       setQuestionRequired: (sectionId, questionId, required) =>
         dispatch(
           AdministerFormActions.setQuestionRequired(
