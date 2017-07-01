@@ -29,8 +29,8 @@ function createConfig(resourcePath: string) {
   return defaultConfig.set("baseURL", resourceUrl).toJS();
 }
 
-export function createApi(resourcePath: string) {
-  let api = create(createConfig(resourcePath));
-  api.setHeader("Authorization", `Bearer ${config.apiToken}`);
+export function createApi(resourcePath: string, apiKey: string) {
+  const api = create(createConfig(resourcePath));
+  api.setHeader("Authorization", `Bearer ${apiKey}`);
   return api;
 }
