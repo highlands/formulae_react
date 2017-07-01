@@ -28,8 +28,7 @@ type Props = {
   moveChoice: Function,
   setChoiceLabel: Function,
   deleteChoice: Function,
-  deleteSection: Function,
-  apiKey: string
+  deleteSection: Function
 };
 
 export default function AdministerForm(props: Props) {
@@ -56,9 +55,9 @@ export default function AdministerForm(props: Props) {
     moveChoice,
     setChoiceLabel,
     deleteChoice,
-    deleteSection,
-    apiKey
+    deleteSection
   } = props;
+  const { apiKey } = model;
   const sectionsToRender = model.form.sections
     .sortBy(s => s.order)
     .filter(s => !s.deleted)
