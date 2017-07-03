@@ -24,5 +24,5 @@ export default function Checkboxes(props: Props) {
     );
   });
 
-  return <div>{checkboxes}</div>;
+  return <div className="checkboxes">{checkboxes}</div>;
 }

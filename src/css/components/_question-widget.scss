@@ -3,20 +3,40 @@
     color: $subtle-text-color;
   }
 
-  // Multiselect
-  input[type=checkbox] {
-      display:none;
+  .multiselect {
+    // Multiselect
+    input[type=checkbox] {
+        display:none;
+    }
+
+    input[type=checkbox] + label {
+      background: lightgrey;
+      display: inline-block;
+      padding: 1rem;
+    }
+
+    input[type=checkbox]:checked + label {
+      background: darkgrey;
+    }
   }
 
-  input[type=checkbox] + label {
-    background: lightgrey;
-    display: inline-block;
-    padding: 1rem;
+  .checkboxes {
+    /* Checkboxes
+    input[type=checkbox] {
+        display:none;
+    }
+
+    input[type=checkbox] + label {
+      background: lightgrey;
+      display: inline-block;
+      padding: 1rem;
+    }
+
+    input[type=checkbox]:checked + label {
+      background: darkgrey;
+    } */
   }
 
-  input[type=checkbox]:checked + label {
-    background: darkgrey;
-  }
 
   // Radio
   input[type=radio] {
