@@ -13,13 +13,15 @@ export default function Checkboxes(props: Props) {
   const checkboxes = choices.map((choice, i) => {
     return (
       <span key={i}>
-        <input
-          type="checkbox"
-          key={i}
-          name={choice.get("label")}
-          value={choice.get("id")}
-        />
-        <label>{choice.get("label")}</label>
+        <label>
+          <input
+            type="checkbox"
+            key={i}
+            name={choice.get("label")}
+            value={choice.get("id")}
+          />
+          {choice.get("label")}
+        </label>
       </span>
     );
   });
