@@ -30,7 +30,6 @@ function submitForm(apiKey, formSubmissionType) {
     const FormSubmission = createFormSubmissionApi(apiKey);
     FormSubmission.post(formSubmissionType).then(response => {
       dispatch(setAsSubmitted());
-      console.log(response);
     });
   };
 }
@@ -71,7 +70,7 @@ function prevStep() {
   };
 }
 
-function addError(id: string, message: string) {
+function addError(id: string | number, message: string) {
   return {
     type: "ADD_ERROR",
     payload: {

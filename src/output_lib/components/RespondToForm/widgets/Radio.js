@@ -8,26 +8,27 @@ type Props = {
   name: string,
   content: string,
   choices: List<ChoiceType>,
-  onChange: Function
+  onChange: Function,
+  value: string
 };
 
 export default function Radio(props: Props) {
-  const { name, content, choices, onChange } = props;
+  const { value, name, content, choices, onChange } = props;
 
   const options = choices.map((choice, i) => {
-    const choiceId = `${name}-${choice.get("id")}`;
-    const value = choice.get("id");
+    const choiceValue = choice.get("id");
+    const choiceId = `${name}-${choiceValue}`;
     return (
       <span key={i}>
         <input
           type="radio"
           name={name}
           id={choiceId}
-          value={value}
-          checked={value === choice.get("id")}
+          value={choiceValue}
+          checked={value === choiceId}
           onChange={() => onChange(choiceId)}
         />
-        <label key={i} htmlFor={choiceId}>
+        <label htmlFor={choiceId}>
           {choice.get("label")}
         </label>
       </span>

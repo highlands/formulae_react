@@ -66,18 +66,20 @@ function generateQuestions(
   } else {
     return questions
       .sortBy(question => question.order)
-      .map((question, i) => (
-        <Question
-          key={i}
-          question={question}
-          submission={getSubmission(question, submissions)}
-          submissions={submissions}
-          setSubmission={setSubmission}
-          addError={addError}
-          removeError={removeError}
-          errorMessage={errors.get(question.get("id"))}
-        />
-      ))
+      .map((question, i) => {
+        return (
+          <Question
+            key={i}
+            question={question}
+            submission={getSubmission(question, submissions)}
+            submissions={submissions}
+            setSubmission={setSubmission}
+            addError={addError}
+            removeError={removeError}
+            errorMessage={errors.get(`${question.get("id")}`)}
+          />
+        );
+      })
       .toJS();
   }
 }
@@ -86,8 +88,10 @@ function getSubmission(
   question: QuestionType,
   submissions: QuestionSubmissionsMapType
 ): QuestionSubmissionMapValueType {
-  return submissions.get(String(question.get("id"))) ||
-    List([getDefaultSubmission(question)]);
+  return (
+    submissions.get(String(question.get("id"))) ||
+    List([getDefaultSubmission(question)])
+  );
 }
 
 function getDefaultSubmission(question: QuestionType): QuestionSubmissionType {

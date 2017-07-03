@@ -54,10 +54,11 @@
 
   // Radio
   input[type=radio] {
-      display:none;
+    display:none;
   }
 
   input[type=radio] + label {
+    cursor: pointer;
     display: inline-block;
     border: $border-width solid $border-color;
     border-radius: $border-radius;

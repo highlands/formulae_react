@@ -234,7 +234,7 @@ function getQuestionWidget(
     case "radio":
       return (
         <Radio
-          name={"radio-1"}
+          name={`radio-${id}`}
           content={content}
           id={id}
           value={submission.get(0) ? submission.get(0).get("value") : ""}
