@@ -14,12 +14,16 @@ type Props = {
 
 export default function Select(props: Props) {
   const { id, value, content, choices, onChange } = props;
-  const options = choices.map((choice, i) => {
+  let newChoices = choices.unshift(
+    new ChoiceType({ label: "Select", value: "", disabled: true })
+  );
+  const options = newChoices.map((choice, i) => {
     return (
       <option
         key={i}
         name={choice.get("label")}
         value={choice.get("id")}
+        disabled={choice.get("disabled")}
         checked={value === choice.get("id")}
       >
         {choice.get("label")}
