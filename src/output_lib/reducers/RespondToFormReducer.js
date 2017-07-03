@@ -123,7 +123,7 @@ export default function RespondToFormReducer(
   } else if (action.type === "SET_CURRENT_STEP") {
     return model.setIn(["currentStep"], action.payload.currentStep);
   } else if (action.type === "GOT_FORM") {
-    return new Model({ form: action.payload.form });
+    return model.setIn(["form"], action.payload.form);
   } else if (action.type === "SET_QUESTION_SUBMISSION") {
     let { key, values, questionType } = action.payload;
     return model.setIn(
