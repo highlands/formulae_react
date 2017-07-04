@@ -31,8 +31,7 @@ export default function Checkboxes(props: Props) {
             name={choice.get("label")}
             value={choice.get("id")}
             onChange={onChangeMulti}
-          />
-          {choice.get("label")}
+          /> {choice.get("label")}
         </label>
       </span>
     );
