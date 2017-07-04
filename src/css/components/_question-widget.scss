@@ -5,12 +5,11 @@
 }
 
 .question-widget {
-
   input[type="text"] {
     border: $border-width solid $border-color;
     border-radius: $border-radius;
     box-shadow: none;
-    padding: 1.4rem;
+    padding: $padding-input;
   }
 
   > .content {
@@ -93,5 +92,12 @@
     > .headinglabel {
       @include question-label();
     }
+  }
+
+  select {
+    height: $height-select;
+    border: $border-width solid $border-color;
+    border-radius: $border-radius;
+    box-shadow: none;
   }
 }
