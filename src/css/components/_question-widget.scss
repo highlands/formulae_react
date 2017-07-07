@@ -1,35 +1,103 @@
+@mixin question-label() {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
 .question-widget {
+  input[type="text"] {
+    border: $border-width solid $border-color;
+    border-radius: $border-radius;
+    box-shadow: none;
+    padding: $padding-input;
+  }
+
   > .content {
     color: $subtle-text-color;
   }
 
-  // Multiselect
-  input[type=checkbox] {
-      display:none;
+  > label {
+    @include question-label();
   }
 
-  input[type=checkbox] + label {
-    background: lightgrey;
-    display: inline-block;
-    padding: 1rem;
+  .multiselect {
+    // Multiselect
+    input[type=checkbox] {
+        display:none;
+    }
+
+    input[type=checkbox] + label {
+      background: lightgrey;
+      display: inline-block;
+      padding: 1rem;
+    }
+
+    input[type=checkbox]:checked + label {
+      background: darkgrey;
+    }
   }
 
-  input[type=checkbox]:checked + label {
-    background: darkgrey;
+  .checkboxes {
+    @extend .pure-g;
+
+    > .headinglabel {
+      @include question-label();
+      @extend .pure-u-1;
+      > i {
+        font-weight: normal;
+        font-style: oblique;
+      }
+    }
+
+    span {
+      // FIXME : The medium size should be uncommented, but it is not working
+      // currently
+      @extend .pure-u-1;
+      //@extend .pure-u-md-1-2;
+    }
+
+    input[type="checkbox"] + label {
+      display: inline-block;
+      margin-left: 1rem;
+    }
+
   }
+
 
   // Radio
   input[type=radio] {
-      display:none;
+    display:none;
   }
 
   input[type=radio] + label {
-    background: lightgrey;
+    cursor: pointer;
     display: inline-block;
-    padding: 1rem;
+    border: $border-width solid $border-color;
+    border-radius: $border-radius;
+    width: 10rem;
+    vertical-align: middle;
+    padding: 1rem 2rem;
+    margin-right: 1rem;
+    text-align: center;
   }
 
   input[type=radio]:checked + label {
-    background: darkgrey;
+    background: $lochmara;
+    border-color: $lochmara;
+    color: white;
+  }
+
+  // Boolean
+  > .boolean {
+    > .headinglabel {
+      @include question-label();
+    }
+  }
+
+  select {
+    height: $height-select;
+    border: $border-width solid $border-color;
+    border-radius: $border-radius;
+    box-shadow: none;
   }
 }

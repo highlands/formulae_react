@@ -10,7 +10,8 @@ export default class ChoiceType
     metadata: {},
     order: 1,
     maximumChosen: 0,
-    label: ""
+    label: "",
+    disabled: false
   }) {
   id: string;
   questionId: number;
@@ -19,4 +20,5 @@ export default class ChoiceType
   choice: number;
   maximumChosen: number;
   label: string;
+  disabled: boolean;
 }

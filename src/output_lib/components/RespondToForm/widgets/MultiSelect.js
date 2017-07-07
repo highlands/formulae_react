@@ -35,7 +35,7 @@ export default function MultiSelect(props: Props) {
     );
   });
   return (
-    <div>
+    <div className="multiselect">
       <select
         ref={input => {
           selectInput = input;

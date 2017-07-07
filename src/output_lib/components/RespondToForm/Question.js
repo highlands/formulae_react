@@ -82,6 +82,8 @@ function renderQuestion(props: Props) {
 function labelForElement(question: QuestionType) {
   if (question.get("type") === "boolean") {
     return "";
+  } else if (question.get("type") === "checkboxes") {
+    return "";
   } else {
     return question.get("label");
   }
@@ -228,13 +230,19 @@ function getQuestionWidget(
         />
       );
     case "checkboxes":
-      return <Checkboxes choices={choices} />;
+      return (
+        <Checkboxes
+          choices={choices}
+          label={label}
+          onChange={onChangeMultiSelect}
+        />
+      );
     case "buttons":
       return <Buttons choices={choices} />;
     case "radio":
       return (
         <Radio
-          name={"radio-1"}
+          name={`radio-${id}`}
           content={content}
           id={id}
           value={submission.get(0) ? submission.get(0).get("value") : ""}

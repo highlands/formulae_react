@@ -15,19 +15,23 @@ export default function Boolean(props: Props) {
   if (label !== "" && content !== "") {
     return (
       <div className="boolean">
-        <label className="labelinput" htmlFor={id}>
+        <div className="headinglabel">
           {label}
+        </div>
+        <label className="labelinput">
+          <input id={id} type="checkbox" value={value} onChange={onChange} />
+          {content}
         </label>
-        <input id={id} type="checkbox" value={value} onChange={onChange} />
-        {content}
+      </div>
+    );
+  } else {
+    return (
+      <div className="boolean">
+        <label className="labelinput">
+          <input id={id} type="checkbox" value={value} onChange={onChange} />
+          {content}
+        </label>
       </div>
     );
   }
-
-  return (
-    <div className="boolean">
-      <input id={id} type="checkbox" value={value} onChange={onChange} />
-      {label}
-    </div>
-  );
 }
