@@ -103,7 +103,7 @@ function submitFormWithValidation(
   if (allRequiredQuestionsReplied(form, submissions) && errors.isEmpty()) {
     submitForm(apiKey, generateFormSubmission(form, submissions));
   } else if (!errors.isEmpty()) {
-    console.log("There are erros in the form");
+    console.log("There are errors in the form");
   } else {
     console.log("There is at least one required question not replied.");
   }

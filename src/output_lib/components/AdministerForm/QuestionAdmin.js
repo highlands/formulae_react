@@ -78,10 +78,6 @@ function renderQuestionType(props) {
           <i className="fa fa-cog" />
           Radio
         </button>
-        <button className="pure-button" onClick={makeButtons}>
-          <i className="fa fa-cog" />
-          Buttons
-        </button>
       </div>
     );
   } else {
@@ -103,7 +99,7 @@ function renderQuestionFields(props) {
   return (
     <fieldset className="admin-question">
       <header>
-        <i onClick={toggleExpandQuestion} className="fa fa-bars grippy" />
+        <i className="fa fa-bars grippy" />
         <button onClick={() => moveQuestion(-1)}>Up</button>
         <button onClick={() => moveQuestion(1)}>Down</button>
         <input
@@ -115,10 +111,11 @@ function renderQuestionFields(props) {
             setQuestionLabel(section.id, question.id, e.target.value)}
         />
         <div className="controls">
-          <button id={`save-button-${question.id}`} className="pure-button">
-            Save
-          </button>
-          <i id={`edit-${question.id}`} className="fa fa-pencil edit" />
+          <i
+            id={`edit-${question.id}`}
+            onClick={toggleExpandQuestion}
+            className="fa fa-pencil edit"
+          />
           <i
             onClick={e => deleteQuestion(section.id, question.id)}
             className="fa fa-times-circle-o"
