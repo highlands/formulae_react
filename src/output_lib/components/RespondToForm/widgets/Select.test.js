@@ -24,7 +24,7 @@ it("renders a select field with the specified options and the correct option che
     <Select id={1} value={1} onChange={() => {}} choices={choices} />
   );
 
-  expect(subject.find("option").length).toBe(2);
+  expect(subject.find("option").length).toBe(3);
   expect(subject.find("option[value=1]").props().checked).toBe(true);
   expect(subject.find("option[value=1]").text()).toBe("first");
 });
