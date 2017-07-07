@@ -26,7 +26,12 @@ it("renders without crashing", () => {
 it("renders a radio group with the specified options and the correct option checked", () => {
   const div = document.createElement("div");
   const subject = shallow(
-    <Radio name="radio-1" value={1} onChange={() => {}} choices={choices} />
+    <Radio
+      name="radio-1"
+      value={"radio-1-1"}
+      onChange={() => {}}
+      choices={choices}
+    />
   );
 
   expect(subject.find("input[type='radio']").length).toBe(2);
