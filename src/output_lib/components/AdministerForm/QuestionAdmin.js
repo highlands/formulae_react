@@ -3,8 +3,10 @@
 import React from "react";
 import { SectionType, QuestionType } from "../../types";
 import ChoicesAdmin from "./ChoicesAdmin";
+import QuestionDependencyAdmin from "./QuestionDependencyAdmin";
 
 type Props = {
+  form: Object,
   section: Object,
   question: QuestionType,
   setQuestionType: Function,
@@ -21,7 +23,8 @@ type Props = {
   addChoice: Function,
   moveChoice: Function,
   setChoiceLabel: Function,
-  deleteChoice: Function
+  deleteChoice: Function,
+  addQuestionDependency: Function
 };
 
 function renderQuestionType(props) {
@@ -135,6 +138,7 @@ function renderQuestionAdminType(
   props: Props
 ) {
   const {
+    form,
     setQuestionRequired,
     setQuestionPlaceholder,
     setQuestionContent,
@@ -142,8 +146,31 @@ function renderQuestionAdminType(
     addChoice,
     moveChoice,
     setChoiceLabel,
-    deleteChoice
+    deleteChoice,
+    addQuestionDependency
   } = props;
+
+  const questionDependency = question.questionDependency;
+
+  const questionDependencies = (
+    <div>
+      <h3>Question Dependencies</h3>
+      <button
+        className="pure-button"
+        onClick={() => addQuestionDependency(section.id, question.id)}
+      >
+        Add Question Dependency
+      </button>
+      <div>
+        <QuestionDependencyAdmin
+          form={form}
+          section={section}
+          question={question}
+          questionDependency={questionDependency}
+        />
+      </div>
+    </div>
+  );
 
   const descriptionTextArea = (
     <div>
@@ -213,6 +240,7 @@ function renderQuestionAdminType(
         {placeholder}
         {validateAs}
         {requiredField}
+        {questionDependencies}
       </div>
     );
   }

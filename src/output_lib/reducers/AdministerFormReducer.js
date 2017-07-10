@@ -4,6 +4,7 @@ import {
   AdministerFormModel,
   SectionType,
   QuestionType,
+  QuestionDependencyType,
   ChoiceType
 } from "../types";
 
@@ -61,6 +62,8 @@ export default function AdministerFormReducer(
       return deleteChoice(model, action.payload);
     case "DELETE_SECTION":
       return deleteSection(model, action.payload);
+    case "ADD_QUESTION_DEPENDENCY":
+      return addQuestionDependency(model, action.payload);
     default:
       return model;
   }
@@ -296,6 +299,37 @@ function addQuestion(model, payload) {
               new QuestionType({ id: uuidV4(), order: maxOrder + 1 })
             )
           );
+        } else {
+          return s;
+        }
+      });
+    });
+  } else {
+    return model;
+  }
+}
+
+function addQuestionDependency(model, payload) {
+  debugger;
+  if (payload) {
+    const { sectionId, questionId } = payload;
+    return model.updateIn(["form", "sections"], sections => {
+      return sections.map(s => {
+        if (s.id === sectionId) {
+          return s.updateIn(["questions"], questions => {
+            return questions.map(q => {
+              if (q.id === questionId) {
+                return q.set(
+                  "questionDependency",
+                  new QuestionDependencyType({
+                    id: uuidV4()
+                  })
+                );
+              } else {
+                return q;
+              }
+            });
+          });
         } else {
           return s;
         }

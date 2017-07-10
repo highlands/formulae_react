@@ -18,7 +18,7 @@ export default class QuestionType
     section_id: 0,
     validateAs: "",
     choices: List(),
-    questionDependency: null,
+    questionDependency: QuestionDependencyType,
     deleted: false
   }) {
   id: number | string;

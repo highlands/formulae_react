@@ -104,7 +104,11 @@ export const AdministerForm = connect(
           AdministerFormActions.deleteChoice(sectionId, questionId, choiceId)
         ),
       deleteSection: sectionId =>
-        dispatch(AdministerFormActions.deleteSection(sectionId))
+        dispatch(AdministerFormActions.deleteSection(sectionId)),
+      addQuestionDependency: (sectionId, questionId) =>
+        dispatch(
+          AdministerFormActions.addQuestionDependency(sectionId, questionId)
+        )
     };
   }
 )(components.AdministerForm);
