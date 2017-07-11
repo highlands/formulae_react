@@ -291,6 +291,21 @@ function createQuestionDependency(
   };
 }
 
+function deleteQuestionDependency(
+  sectionId: number,
+  questionId: number,
+  choiceId: number
+) {
+  return {
+    type: "DELETE_QUESTION_DEPENDENCY",
+    payload: {
+      sectionId,
+      questionId,
+      choiceId
+    }
+  };
+}
+
 export default {
   addSection,
   setSectionName,
@@ -315,5 +330,6 @@ export default {
   deleteChoice,
   deleteSection,
   addQuestionDependency,
-  createQuestionDependency
+  createQuestionDependency,
+  deleteQuestionDependency
 };

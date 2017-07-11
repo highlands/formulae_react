@@ -66,6 +66,8 @@ export default function AdministerFormReducer(
       return addQuestionDependency(model, action.payload);
     case "CREATE_QUESTION_DEPENDENCY":
       return createQuestionDependency(model, action.payload);
+    case "DELETE_QUESTION_DEPENDENCY":
+      return deleteQuestionDependency(model, action.payload);
     default:
       return model;
   }
@@ -359,6 +361,34 @@ function createQuestionDependency(model, payload) {
               }
             });
           });
+        } else {
+          return s;
+        }
+      });
+    });
+  } else {
+    return model;
+  }
+}
+
+function deleteQuestionDependency(model, payload) {
+  if (payload) {
+    let { sectionId, questionId, choiceId } = payload;
+    return model.updateIn(["form", "sections"], sections => {
+      return sections.map(s => {
+        if (s.id === sectionId) {
+          const indexQuestion = s.questions.findIndex(q => q.id === questionId);
+          const indexChoice = s.questions
+            .get(indexQuestion)
+            .questionDependency.choices.findIndex(c => c.id === choiceId);
+
+          return s.deleteIn([
+            "questions",
+            indexQuestion,
+            "questionDependency",
+            "choices",
+            indexChoice
+          ]);
         } else {
           return s;
         }

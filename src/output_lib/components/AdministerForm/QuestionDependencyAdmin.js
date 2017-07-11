@@ -8,7 +8,8 @@ type Props = {
   section: Object,
   question: QuestionType,
   questionDependency: QuestionDependencyType,
-  createQuestionDependency: Function
+  createQuestionDependency: Function,
+  deleteQuestionDependency: Function
 };
 
 function renderAllChoices(
@@ -46,13 +47,30 @@ function renderAllChoices(
   return <div>{renderedChoices}</div>;
 }
 
-function renderChosenQuestionDependencyChoices(questionDependency) {
+function renderChosenQuestionDependencyChoices(
+  currentSection,
+  currentQuestion,
+  questionDependency,
+  deleteQuestionDependency
+) {
   if (questionDependency.choices !== null) {
     return questionDependency.choices
-      .map((c, i) => {
+      .map((choice, i) => {
         return (
           <div key={i}>
-            {c.label}
+            {choice.label}
+            <button
+              className="pure-button"
+              onClick={() => {
+                deleteQuestionDependency(
+                  currentSection.id,
+                  currentQuestion.id,
+                  choice.id
+                );
+              }}
+            >
+              x
+            </button>
           </div>
         );
       })
@@ -66,7 +84,8 @@ export default function QuestionDependencyAdmin(props: Props) {
     form,
     section,
     question,
-    createQuestionDependency
+    createQuestionDependency,
+    deleteQuestionDependency
   } = props;
 
   if (questionDependency !== null && questionDependency.id !== "") {
@@ -76,7 +95,12 @@ export default function QuestionDependencyAdmin(props: Props) {
         <p>And: {questionDependency.and ? "true" : "false"} </p>
         <p>
           Chosen Choices:
-          {renderChosenQuestionDependencyChoices(questionDependency)}
+          {renderChosenQuestionDependencyChoices(
+            section,
+            question,
+            questionDependency,
+            deleteQuestionDependency
+          )}
         </p>
         All Choices:
         <div>

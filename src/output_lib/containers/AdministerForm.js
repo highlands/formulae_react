@@ -116,6 +116,14 @@ export const AdministerForm = connect(
             questionId,
             choice
           )
+        ),
+      deleteQuestionDependency: (sectionId, questionId, choiceId) =>
+        dispatch(
+          AdministerFormActions.deleteQuestionDependency(
+            sectionId,
+            questionId,
+            choiceId
+          )
         )
     };
   }

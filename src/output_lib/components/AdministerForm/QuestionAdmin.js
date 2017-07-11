@@ -25,7 +25,8 @@ type Props = {
   setChoiceLabel: Function,
   deleteChoice: Function,
   addQuestionDependency: Function,
-  createQuestionDependency: Function
+  createQuestionDependency: Function,
+  deleteQuestionDependency: Function
 };
 
 function renderQuestionType(props) {
@@ -148,7 +149,8 @@ function renderQuestionAdminType(
     setChoiceLabel,
     deleteChoice,
     addQuestionDependency,
-    createQuestionDependency
+    createQuestionDependency,
+    deleteQuestionDependency
   } = props;
 
   const questionDependency = question.questionDependency;
@@ -176,6 +178,7 @@ function renderQuestionAdminType(
           question={question}
           questionDependency={new QuestionDependencyType(questionDependency)}
           createQuestionDependency={createQuestionDependency}
+          deleteQuestionDependency={deleteQuestionDependency}
         />
       </div>
     </div>
