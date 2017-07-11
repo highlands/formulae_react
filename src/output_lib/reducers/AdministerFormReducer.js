@@ -56,6 +56,8 @@ export default function AdministerFormReducer(
       return addChoice(model, action.payload);
     case "SET_CHOICE_LABEL":
       return setChoiceLabel(model, action.payload);
+    case "SET_CHOICE_METADATA":
+      return setChoiceMetadata(model, action.payload);
     case "MOVE_CHOICE":
       return moveChoice(model, action.payload);
     case "DELETE_CHOICE":
@@ -145,6 +147,22 @@ function setChoiceLabel(model, payload) {
       choiceId,
       "label",
       label
+    );
+  } else {
+    return model;
+  }
+}
+
+function setChoiceMetadata(model, payload) {
+  if (payload) {
+    const { sectionId, questionId, choiceId, metadata } = payload;
+    return setChoiceField(
+      model,
+      sectionId,
+      questionId,
+      choiceId,
+      "metadata",
+      metadata
     );
   } else {
     return model;

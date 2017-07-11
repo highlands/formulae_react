@@ -33,7 +33,8 @@ type Props = {
   createQuestionDependency: Function,
   deleteQuestionDependency: Function,
   setDisplayQuestionDependency: Function,
-  setAndQuestionDependency: Function
+  setAndQuestionDependency: Function,
+  setChoiceMetadata: Function
 };
 
 export default function AdministerForm(props: Props) {
@@ -65,7 +66,8 @@ export default function AdministerForm(props: Props) {
     createQuestionDependency,
     deleteQuestionDependency,
     setDisplayQuestionDependency,
-    setAndQuestionDependency
+    setAndQuestionDependency,
+    setChoiceMetadata
   } = props;
   const { apiKey } = model;
   const sectionsToRender = model.form.sections
@@ -102,6 +104,7 @@ export default function AdministerForm(props: Props) {
         deleteQuestionDependency={deleteQuestionDependency}
         setDisplayQuestionDependency={setDisplayQuestionDependency}
         setAndQuestionDependency={setAndQuestionDependency}
+        setChoiceMetadata={setChoiceMetadata}
       />
     ));
   return (
