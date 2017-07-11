@@ -4,6 +4,7 @@ import {
   AdministerFormModel,
   SectionType,
   QuestionType,
+  QuestionDependencyType,
   ChoiceType
 } from "../types";
 
@@ -61,6 +62,16 @@ export default function AdministerFormReducer(
       return deleteChoice(model, action.payload);
     case "DELETE_SECTION":
       return deleteSection(model, action.payload);
+    case "ADD_QUESTION_DEPENDENCY":
+      return addQuestionDependency(model, action.payload);
+    case "CREATE_QUESTION_DEPENDENCY":
+      return createQuestionDependency(model, action.payload);
+    case "DELETE_QUESTION_DEPENDENCY":
+      return deleteQuestionDependency(model, action.payload);
+    case "SET_AND_QUESTION_DEPENDENCY":
+      return setAndQuestionDependency(model, action.payload);
+    case "SET_DISPLAY_QUESTION_DEPENDENCY":
+      return setDisplayQuestionDependency(model, action.payload);
     default:
       return model;
   }
@@ -304,6 +315,129 @@ function addQuestion(model, payload) {
   } else {
     return model;
   }
+}
+
+function addQuestionDependency(model, payload) {
+  if (payload) {
+    const { sectionId, questionId } = payload;
+    return model.updateIn(["form", "sections"], sections => {
+      return sections.map(s => {
+        if (s.id === sectionId) {
+          return s.updateIn(["questions"], questions => {
+            return questions.map(q => {
+              if (q.id === questionId) {
+                return q.set(
+                  "questionDependency",
+                  new QuestionDependencyType({
+                    id: uuidV4()
+                  })
+                );
+              } else {
+                return q;
+              }
+            });
+          });
+        } else {
+          return s;
+        }
+      });
+    });
+  } else {
+    return model;
+  }
+}
+
+function createQuestionDependency(model, payload) {
+  if (payload) {
+    const { sectionId, questionId, choice } = payload;
+    return model.updateIn(["form", "sections"], sections => {
+      return sections.map(s => {
+        if (s.id === sectionId) {
+          return s.updateIn(["questions"], questions => {
+            return questions.map(q => {
+              if (q.id === questionId) {
+                return q.setIn(
+                  ["questionDependency", "choices"],
+                  q.questionDependency.choices.push(choice)
+                );
+              } else {
+                return q;
+              }
+            });
+          });
+        } else {
+          return s;
+        }
+      });
+    });
+  } else {
+    return model;
+  }
+}
+
+function deleteQuestionDependency(model, payload) {
+  if (payload) {
+    let { sectionId, questionId, choiceId } = payload;
+    return model.updateIn(["form", "sections"], sections => {
+      return sections.map(s => {
+        if (s.id === sectionId) {
+          const indexQuestion = s.questions.findIndex(q => q.id === questionId);
+          const indexChoice = s.questions
+            .get(indexQuestion)
+            .questionDependency.choices.findIndex(c => c.id === choiceId);
+
+          return s.deleteIn([
+            "questions",
+            indexQuestion,
+            "questionDependency",
+            "choices",
+            indexChoice
+          ]);
+        } else {
+          return s;
+        }
+      });
+    });
+  } else {
+    return model;
+  }
+}
+
+function setAndQuestionDependency(model, payload) {
+  if (payload) {
+    let { sectionId, questionId, and } = payload;
+    return setQuestionDependencyField(model, sectionId, questionId, "and", and);
+  } else {
+    return model;
+  }
+}
+
+function setDisplayQuestionDependency(model, payload) {
+  if (payload) {
+    let { sectionId, questionId, display } = payload;
+    return setQuestionDependencyField(
+      model,
+      sectionId,
+      questionId,
+      "display",
+      display
+    );
+  } else {
+    return model;
+  }
+}
+
+function setQuestionDependencyField(model, sectionId, questionId, key, value) {
+  return model.updateIn(["form", "sections"], sections => {
+    return sections.map(s => {
+      if (s.id === sectionId) {
+        let index = s.questions.findIndex(q => `${q.id}` === `${questionId}`);
+        return s.setIn(["questions", index, "questionDependency", key], value);
+      } else {
+        return s;
+      }
+    });
+  });
 }
 
 function setQuestionType(model, payload) {

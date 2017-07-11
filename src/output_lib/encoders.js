@@ -2,6 +2,7 @@
 
 import {
   QuestionType,
+  QuestionDependencyType,
   FormType,
   FormSubmissionType,
   FormQuestionSubmissionType,
@@ -28,6 +29,13 @@ type ApiChoice = {
   maximum_chosen: ?number
 };
 
+type ApiQuestionDependency = {
+  id: ?number,
+  and: boolean,
+  display: boolean,
+  choices: Array<ApiChoice>
+};
+
 type ApiQuestion = {
   id: ?number,
   key: string,
@@ -36,6 +44,7 @@ type ApiQuestion = {
   question_type: string,
   validate_as: string,
   order: number,
+  question_dependency: ?ApiQuestionDependency,
   _destroy: ?boolean,
   choices: Array<ApiChoice>
 };
@@ -89,9 +98,26 @@ function encodeQuestion(question: QuestionType): ApiQuestion {
     question_type: question.type,
     validate_as: question.validateAs,
     order: question.order,
+    question_dependency: encodeQuestionDependency(question.questionDependency),
     _destroy: question.deleted,
     choices: question.choices.map(encodeChoice).toArray()
   };
+}
+
+function encodeQuestionDependency(questionDependency): ApiQuestionDependency {
+  if (questionDependency === undefined) {
+    return new QuestionDependencyType();
+  }
+  return {
+    id: questionDependency.id,
+    and: questionDependency.and,
+    display: questionDependency.boolean,
+    choices: encodeChoices(questionDependency.choices)
+  };
+}
+
+function encodeChoices(choices: Array<ChoiceType>): Array<ApiChoice> {
+  return choices.map(encodeChoice);
 }
 
 function encodeChoice(choice: ChoiceType): ApiChoice {

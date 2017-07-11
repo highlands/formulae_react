@@ -104,7 +104,43 @@ export const AdministerForm = connect(
           AdministerFormActions.deleteChoice(sectionId, questionId, choiceId)
         ),
       deleteSection: sectionId =>
-        dispatch(AdministerFormActions.deleteSection(sectionId))
+        dispatch(AdministerFormActions.deleteSection(sectionId)),
+      addQuestionDependency: (sectionId, questionId) =>
+        dispatch(
+          AdministerFormActions.addQuestionDependency(sectionId, questionId)
+        ),
+      deleteQuestionDependency: (sectionId, questionId, choiceId) =>
+        dispatch(
+          AdministerFormActions.deleteQuestionDependency(
+            sectionId,
+            questionId,
+            choiceId
+          )
+        ),
+      createQuestionDependency: (sectionId, questionId, choice) =>
+        dispatch(
+          AdministerFormActions.createQuestionDependency(
+            sectionId,
+            questionId,
+            choice
+          )
+        ),
+      setDisplayQuestionDependency: (sectionId, questionId, display) =>
+        dispatch(
+          AdministerFormActions.setDisplayQuestionDependency(
+            sectionId,
+            questionId,
+            display
+          )
+        ),
+      setAndQuestionDependency: (sectionId, questionId, and) =>
+        dispatch(
+          AdministerFormActions.setAndQuestionDependency(
+            sectionId,
+            questionId,
+            and
+          )
+        )
     };
   }
 )(components.AdministerForm);

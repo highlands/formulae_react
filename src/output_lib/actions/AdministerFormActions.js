@@ -266,6 +266,76 @@ function deleteSection(sectionId: string) {
   };
 }
 
+function addQuestionDependency(sectionId: number, questionId: number) {
+  return {
+    type: "ADD_QUESTION_DEPENDENCY",
+    payload: {
+      sectionId,
+      questionId
+    }
+  };
+}
+
+function createQuestionDependency(
+  sectionId: number,
+  questionId: number,
+  choice: Object
+) {
+  return {
+    type: "CREATE_QUESTION_DEPENDENCY",
+    payload: {
+      sectionId,
+      questionId,
+      choice
+    }
+  };
+}
+
+function deleteQuestionDependency(
+  sectionId: number,
+  questionId: number,
+  choiceId: number
+) {
+  return {
+    type: "DELETE_QUESTION_DEPENDENCY",
+    payload: {
+      sectionId,
+      questionId,
+      choiceId
+    }
+  };
+}
+
+function setAndQuestionDependency(
+  sectionId: number,
+  questionId: number,
+  and: boolean
+) {
+  return {
+    type: "SET_AND_QUESTION_DEPENDENCY",
+    payload: {
+      sectionId,
+      questionId,
+      and
+    }
+  };
+}
+
+function setDisplayQuestionDependency(
+  sectionId: number,
+  questionId: number,
+  display: boolean
+) {
+  return {
+    type: "SET_DISPLAY_QUESTION_DEPENDENCY",
+    payload: {
+      sectionId,
+      questionId,
+      display
+    }
+  };
+}
+
 export default {
   addSection,
   setSectionName,
@@ -288,5 +358,10 @@ export default {
   moveChoice,
   setChoiceLabel,
   deleteChoice,
-  deleteSection
+  deleteSection,
+  addQuestionDependency,
+  createQuestionDependency,
+  deleteQuestionDependency,
+  setDisplayQuestionDependency,
+  setAndQuestionDependency
 };

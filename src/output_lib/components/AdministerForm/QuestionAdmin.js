@@ -1,10 +1,12 @@
 // @flow
 
 import React from "react";
-import { SectionType, QuestionType } from "../../types";
+import { QuestionDependencyType, SectionType, QuestionType } from "../../types";
 import ChoicesAdmin from "./ChoicesAdmin";
+import QuestionDependencyAdmin from "./QuestionDependencyAdmin";
 
 type Props = {
+  form: Object,
   section: Object,
   question: QuestionType,
   setQuestionType: Function,
@@ -21,7 +23,12 @@ type Props = {
   addChoice: Function,
   moveChoice: Function,
   setChoiceLabel: Function,
-  deleteChoice: Function
+  deleteChoice: Function,
+  addQuestionDependency: Function,
+  createQuestionDependency: Function,
+  deleteQuestionDependency: Function,
+  setDisplayQuestionDependency: Function,
+  setAndQuestionDependency: Function
 };
 
 function renderQuestionType(props) {
@@ -37,7 +44,6 @@ function renderQuestionType(props) {
   const makeCheckboxes = () =>
     setQuestionType(section.id, question.id, "checkboxes");
   const makeRadio = () => setQuestionType(section.id, question.id, "radio");
-  const makeButtons = () => setQuestionType(section.id, question.id, "buttons");
 
   if (question.type === "") {
     return (
@@ -135,6 +141,7 @@ function renderQuestionAdminType(
   props: Props
 ) {
   const {
+    form,
     setQuestionRequired,
     setQuestionPlaceholder,
     setQuestionContent,
@@ -142,8 +149,46 @@ function renderQuestionAdminType(
     addChoice,
     moveChoice,
     setChoiceLabel,
-    deleteChoice
+    deleteChoice,
+    addQuestionDependency,
+    createQuestionDependency,
+    deleteQuestionDependency,
+    setDisplayQuestionDependency,
+    setAndQuestionDependency
   } = props;
+
+  const questionDependency = question.questionDependency;
+
+  let buttonQuestionDependency;
+  if (questionDependency != null) {
+    buttonQuestionDependency = questionDependency.id === ""
+      ? <button
+          className="pure-button"
+          onClick={() => addQuestionDependency(section.id, question.id)}
+        >
+          Add Question Dependency
+        </button>
+      : "";
+  }
+
+  const questionDependencies = (
+    <div>
+      <p>Question Dependencies</p>
+      <div>
+        {buttonQuestionDependency}
+        <QuestionDependencyAdmin
+          form={form}
+          section={section}
+          question={question}
+          questionDependency={new QuestionDependencyType(questionDependency)}
+          createQuestionDependency={createQuestionDependency}
+          deleteQuestionDependency={deleteQuestionDependency}
+          setDisplayQuestionDependency={setDisplayQuestionDependency}
+          setAndQuestionDependency={setAndQuestionDependency}
+        />
+      </div>
+    </div>
+  );
 
   const descriptionTextArea = (
     <div>
@@ -213,6 +258,7 @@ function renderQuestionAdminType(
         {placeholder}
         {validateAs}
         {requiredField}
+        {questionDependencies}
       </div>
     );
   }

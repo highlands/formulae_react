@@ -6,6 +6,7 @@ import QuestionAdmin from "./QuestionAdmin";
 import { Set } from "immutable";
 
 type Props = {
+  form: Object,
   section: SectionType,
   setSectionName: Function,
   setSectionContent: Function,
@@ -26,11 +27,17 @@ type Props = {
   moveChoice: Function,
   setChoiceLabel: Function,
   deleteChoice: Function,
-  deleteSection: Function
+  deleteSection: Function,
+  addQuestionDependency: Function,
+  createQuestionDependency: Function,
+  deleteQuestionDependency: Function,
+  setDisplayQuestionDependency: Function,
+  setAndQuestionDependency: Function
 };
 
 export default function SectionAdmin(props: Props) {
   const {
+    form,
     section,
     setSectionName,
     setSectionContent,
@@ -51,13 +58,19 @@ export default function SectionAdmin(props: Props) {
     moveChoice,
     setChoiceLabel,
     deleteChoice,
-    deleteSection
+    deleteSection,
+    addQuestionDependency,
+    createQuestionDependency,
+    deleteQuestionDependency,
+    setDisplayQuestionDependency,
+    setAndQuestionDependency
   } = props;
   const questionsToRender = section.questions
     .sortBy(q => q.order)
     .filter(q => !q.deleted)
     .map((q, i) => (
       <QuestionAdmin
+        form={form}
         addQuestion={addQuestion}
         setQuestionType={setQuestionType}
         setQuestionKey={setQuestionKey}
@@ -77,6 +90,11 @@ export default function SectionAdmin(props: Props) {
         moveChoice={moveChoice}
         setChoiceLabel={setChoiceLabel}
         deleteChoice={deleteChoice}
+        addQuestionDependency={addQuestionDependency}
+        createQuestionDependency={createQuestionDependency}
+        deleteQuestionDependency={deleteQuestionDependency}
+        setDisplayQuestionDependency={setDisplayQuestionDependency}
+        setAndQuestionDependency={setAndQuestionDependency}
       />
     ));
 
