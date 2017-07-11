@@ -1,13 +1,13 @@
 // @flow
 
 import React from "react";
-import { QuestionType } from "../../types";
+import { QuestionType, QuestionDependencyType } from "../../types";
 
 type Props = {
   form: Object,
   section: Object,
   question: QuestionType,
-  questionDependency: ?Object,
+  questionDependency: QuestionDependencyType,
   createQuestionDependency: Function
 };
 
@@ -47,15 +47,17 @@ function renderAllChoices(
 }
 
 function renderChosenQuestionDependencyChoices(questionDependency) {
-  return questionDependency.choices
-    .map((c, i) => {
-      return (
-        <div key={i}>
-          {c.label}
-        </div>
-      );
-    })
-    .toJS();
+  if (questionDependency.choices !== null) {
+    return questionDependency.choices
+      .map((c, i) => {
+        return (
+          <div key={i}>
+            {c.label}
+          </div>
+        );
+      })
+      .toJS();
+  }
 }
 
 export default function QuestionDependencyAdmin(props: Props) {
@@ -67,7 +69,7 @@ export default function QuestionDependencyAdmin(props: Props) {
     createQuestionDependency
   } = props;
 
-  if (questionDependency) {
+  if (questionDependency !== null && questionDependency.id !== "") {
     return (
       <div>
         <p>Display: {questionDependency.display ? "true" : "false"} </p>

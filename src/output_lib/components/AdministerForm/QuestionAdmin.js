@@ -1,7 +1,7 @@
 // @flow
 
 import React from "react";
-import { SectionType, QuestionType } from "../../types";
+import { QuestionDependencyType, SectionType, QuestionType } from "../../types";
 import ChoicesAdmin from "./ChoicesAdmin";
 import QuestionDependencyAdmin from "./QuestionDependencyAdmin";
 
@@ -153,21 +153,28 @@ function renderQuestionAdminType(
 
   const questionDependency = question.questionDependency;
 
+  let buttonQuestionDependency;
+  if (questionDependency != null) {
+    buttonQuestionDependency = questionDependency.id === ""
+      ? <button
+          className="pure-button"
+          onClick={() => addQuestionDependency(section.id, question.id)}
+        >
+          Add Question Dependency
+        </button>
+      : "";
+  }
+
   const questionDependencies = (
     <div>
-      <h3>Question Dependencies</h3>
-      <button
-        className="pure-button"
-        onClick={() => addQuestionDependency(section.id, question.id)}
-      >
-        Add Question Dependency
-      </button>
+      <p>Question Dependencies</p>
       <div>
+        {buttonQuestionDependency}
         <QuestionDependencyAdmin
           form={form}
           section={section}
           question={question}
-          questionDependency={questionDependency}
+          questionDependency={new QuestionDependencyType(questionDependency)}
           createQuestionDependency={createQuestionDependency}
         />
       </div>
