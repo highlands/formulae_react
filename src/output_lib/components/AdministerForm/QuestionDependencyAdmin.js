@@ -8,37 +8,40 @@ type Props = {
   form: Object,
   section: Object,
   question: QuestionType,
-  questionDependency: ?Object
+  questionDependency: ?Object,
+  createQuestionDependency: Function
 };
 
-function renderAllChoices(form) {
-  let allChoices = form.sections.groupBy(s => s.name);
-
-  let renderedChoices = allChoices.map((value, key) => {
-    let questions = value.flatMap(q => q.questions);
-    let choices = value.flatMap(q => q.questions).flatMap(c => c.choices);
-
-    let renderedChoices = value.map(s => {
-      return s.questions.map(q => {
-        return q.choices.map((c, i) => {
+function renderAllChoices(
+  form,
+  sectionReal,
+  questionReal,
+  createQuestionDependency
+) {
+  let renderedChoices = form.sections.map(section => {
+    return section.questions
+      .map(question => {
+        return question.choices.map((choice, i) => {
           return (
             <div key={i}>
-              {c.label}
-              <button className="pure-button" onClick={() => {}}>
+              {question.label} - {choice.label}
+              <button
+                className="pure-button"
+                onClick={() => {
+                  createQuestionDependency(
+                    sectionReal.id,
+                    questionReal.id,
+                    choice
+                  );
+                }}
+              >
                 Add
               </button>
             </div>
           );
         });
-      });
-    });
-
-    return (
-      <div key={key}>
-        <h3>{key.name}</h3>
-        {renderedChoices}
-      </div>
-    );
+      })
+      .toJS();
   });
 
   return <div>{renderedChoices}</div>;
@@ -46,18 +49,26 @@ function renderAllChoices(form) {
 
 function renderQuestionDependencyChoices(questionDependency) {
   if (questionDependency.choices !== undefined) {
-    return questionDependency.choices.map((c, i) => {
-      return (
-        <div key={i}>
-          {c.label}
-        </div>
-      );
-    });
+    return questionDependency.choices
+      .map((c, i) => {
+        return (
+          <div key={i}>
+            {c.label}
+          </div>
+        );
+      })
+      .toJS();
   }
 }
 
 export default function QuestionDependencyAdmin(props: Props) {
-  const { questionDependency, form } = props;
+  const {
+    questionDependency,
+    form,
+    section,
+    question,
+    createQuestionDependency
+  } = props;
 
   if (questionDependency != undefined) {
     return (
@@ -65,12 +76,12 @@ export default function QuestionDependencyAdmin(props: Props) {
         <p>Display: {questionDependency.display ? "true" : "false"} </p>
         <p>And: {questionDependency.and ? "true" : "false"} </p>
         <p>
-          Choices choosen:
+          Choices chosen:
           {renderQuestionDependencyChoices(questionDependency)}
         </p>
         All Choices:
         <div>
-          {renderAllChoices(form)}
+          {renderAllChoices(form, section, question, createQuestionDependency)}
         </div>
       </div>
     );

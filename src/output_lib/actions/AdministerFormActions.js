@@ -276,6 +276,21 @@ function addQuestionDependency(sectionId: number, questionId: number) {
   };
 }
 
+function createQuestionDependency(
+  sectionId: number,
+  questionId: number,
+  choice: Object
+) {
+  return {
+    type: "CREATE_QUESTION_DEPENDENCY",
+    payload: {
+      sectionId,
+      questionId,
+      choice
+    }
+  };
+}
+
 export default {
   addSection,
   setSectionName,
@@ -299,5 +314,6 @@ export default {
   setChoiceLabel,
   deleteChoice,
   deleteSection,
-  addQuestionDependency
+  addQuestionDependency,
+  createQuestionDependency
 };

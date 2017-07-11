@@ -64,6 +64,8 @@ export default function AdministerFormReducer(
       return deleteSection(model, action.payload);
     case "ADD_QUESTION_DEPENDENCY":
       return addQuestionDependency(model, action.payload);
+    case "CREATE_QUESTION_DEPENDENCY":
+      return createQuestionDependency(model, action.payload);
     default:
       return model;
   }
@@ -310,7 +312,6 @@ function addQuestion(model, payload) {
 }
 
 function addQuestionDependency(model, payload) {
-  debugger;
   if (payload) {
     const { sectionId, questionId } = payload;
     return model.updateIn(["form", "sections"], sections => {
@@ -324,6 +325,34 @@ function addQuestionDependency(model, payload) {
                   new QuestionDependencyType({
                     id: uuidV4()
                   })
+                );
+              } else {
+                return q;
+              }
+            });
+          });
+        } else {
+          return s;
+        }
+      });
+    });
+  } else {
+    return model;
+  }
+}
+
+function createQuestionDependency(model, payload) {
+  if (payload) {
+    const { sectionId, questionId, choice } = payload;
+    return model.updateIn(["form", "sections"], sections => {
+      return sections.map(s => {
+        if (s.id === sectionId) {
+          return s.updateIn(["questions"], questions => {
+            return questions.map(q => {
+              if (q.id === questionId) {
+                return q.setIn(
+                  ["questionDependency", "choices"],
+                  q.questionDependency.choices.push(choice)
                 );
               } else {
                 return q;

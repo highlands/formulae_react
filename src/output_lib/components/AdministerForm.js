@@ -57,7 +57,8 @@ export default function AdministerForm(props: Props) {
     setChoiceLabel,
     deleteChoice,
     deleteSection,
-    addQuestionDependency
+    addQuestionDependency,
+    createQuestionDependency
   } = props;
   const { apiKey } = model;
   const sectionsToRender = model.form.sections
@@ -90,6 +91,7 @@ export default function AdministerForm(props: Props) {
         deleteChoice={deleteChoice}
         deleteSection={deleteSection}
         addQuestionDependency={addQuestionDependency}
+        createQuestionDependency={createQuestionDependency}
       />
     ));
   return (

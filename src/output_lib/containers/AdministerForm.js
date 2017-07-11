@@ -108,6 +108,14 @@ export const AdministerForm = connect(
       addQuestionDependency: (sectionId, questionId) =>
         dispatch(
           AdministerFormActions.addQuestionDependency(sectionId, questionId)
+        ),
+      createQuestionDependency: (sectionId, questionId, choice) =>
+        dispatch(
+          AdministerFormActions.createQuestionDependency(
+            sectionId,
+            questionId,
+            choice
+          )
         )
     };
   }
