@@ -1,8 +1,7 @@
 // @flow
 
 import React from "react";
-import { QuestionDependencyType, SectionType, QuestionType } from "../../types";
-import ChoicesAdmin from "./ChoicesAdmin";
+import { QuestionType } from "../../types";
 
 type Props = {
   form: Object,
@@ -14,8 +13,8 @@ type Props = {
 
 function renderAllChoices(
   form,
-  sectionReal,
-  questionReal,
+  currentSection,
+  currentQuestion,
   createQuestionDependency
 ) {
   let renderedChoices = form.sections.map(section => {
@@ -29,8 +28,8 @@ function renderAllChoices(
                 className="pure-button"
                 onClick={() => {
                   createQuestionDependency(
-                    sectionReal.id,
-                    questionReal.id,
+                    currentSection.id,
+                    currentQuestion.id,
                     choice
                   );
                 }}
@@ -47,18 +46,16 @@ function renderAllChoices(
   return <div>{renderedChoices}</div>;
 }
 
-function renderQuestionDependencyChoices(questionDependency) {
-  if (questionDependency.choices !== undefined) {
-    return questionDependency.choices
-      .map((c, i) => {
-        return (
-          <div key={i}>
-            {c.label}
-          </div>
-        );
-      })
-      .toJS();
-  }
+function renderChosenQuestionDependencyChoices(questionDependency) {
+  return questionDependency.choices
+    .map((c, i) => {
+      return (
+        <div key={i}>
+          {c.label}
+        </div>
+      );
+    })
+    .toJS();
 }
 
 export default function QuestionDependencyAdmin(props: Props) {
@@ -70,14 +67,14 @@ export default function QuestionDependencyAdmin(props: Props) {
     createQuestionDependency
   } = props;
 
-  if (questionDependency != undefined) {
+  if (questionDependency) {
     return (
       <div>
         <p>Display: {questionDependency.display ? "true" : "false"} </p>
         <p>And: {questionDependency.and ? "true" : "false"} </p>
         <p>
-          Choices chosen:
-          {renderQuestionDependencyChoices(questionDependency)}
+          Chosen Choices:
+          {renderChosenQuestionDependencyChoices(questionDependency)}
         </p>
         All Choices:
         <div>

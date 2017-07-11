@@ -29,7 +29,8 @@ type Props = {
   setChoiceLabel: Function,
   deleteChoice: Function,
   deleteSection: Function,
-  addQuestionDependency: Function
+  addQuestionDependency: Function,
+  createQuestionDependency: Function
 };
 
 export default function AdministerForm(props: Props) {

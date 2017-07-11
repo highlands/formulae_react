@@ -41,7 +41,6 @@ function renderQuestionType(props) {
   const makeCheckboxes = () =>
     setQuestionType(section.id, question.id, "checkboxes");
   const makeRadio = () => setQuestionType(section.id, question.id, "radio");
-  const makeButtons = () => setQuestionType(section.id, question.id, "buttons");
 
   if (question.type === "") {
     return (
