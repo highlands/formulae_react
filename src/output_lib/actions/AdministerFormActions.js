@@ -336,6 +336,23 @@ function setDisplayQuestionDependency(
   };
 }
 
+function setChoiceMetadata(
+  sectionId: number,
+  questionId: number,
+  choiceId: number,
+  metadata: object
+) {
+  return {
+    type: "SET_CHOICE_METADATA",
+    payload: {
+      sectionId,
+      questionId,
+      choiceId,
+      metadata
+    }
+  };
+}
+
 export default {
   addSection,
   setSectionName,
@@ -363,5 +380,6 @@ export default {
   createQuestionDependency,
   deleteQuestionDependency,
   setDisplayQuestionDependency,
-  setAndQuestionDependency
+  setAndQuestionDependency,
+  setChoiceMetadata
 };

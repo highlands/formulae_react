@@ -140,6 +140,15 @@ export const AdministerForm = connect(
             questionId,
             and
           )
+        ),
+      setChoiceMetadata: (sectionId, questionId, choiceId, metadata) =>
+        dispatch(
+          AdministerFormActions.setChoiceMetadata(
+            sectionId,
+            questionId,
+            choiceId,
+            metadata
+          )
         )
     };
   }
