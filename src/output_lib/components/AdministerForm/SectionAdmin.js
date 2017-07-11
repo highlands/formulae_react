@@ -30,7 +30,9 @@ type Props = {
   deleteSection: Function,
   addQuestionDependency: Function,
   createQuestionDependency: Function,
-  deleteQuestionDependency: Function
+  deleteQuestionDependency: Function,
+  setDisplayQuestionDependency: Function,
+  setAndQuestionDependency: Function
 };
 
 export default function SectionAdmin(props: Props) {
@@ -59,7 +61,9 @@ export default function SectionAdmin(props: Props) {
     deleteSection,
     addQuestionDependency,
     createQuestionDependency,
-    deleteQuestionDependency
+    deleteQuestionDependency,
+    setDisplayQuestionDependency,
+    setAndQuestionDependency
   } = props;
   const questionsToRender = section.questions
     .sortBy(q => q.order)
@@ -89,6 +93,8 @@ export default function SectionAdmin(props: Props) {
         addQuestionDependency={addQuestionDependency}
         createQuestionDependency={createQuestionDependency}
         deleteQuestionDependency={deleteQuestionDependency}
+        setDisplayQuestionDependency={setDisplayQuestionDependency}
+        setAndQuestionDependency={setAndQuestionDependency}
       />
     ));
 

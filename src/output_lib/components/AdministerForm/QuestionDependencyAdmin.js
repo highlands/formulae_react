@@ -9,7 +9,9 @@ type Props = {
   question: QuestionType,
   questionDependency: QuestionDependencyType,
   createQuestionDependency: Function,
-  deleteQuestionDependency: Function
+  deleteQuestionDependency: Function,
+  setDisplayQuestionDependency: Function,
+  setAndQuestionDependency: Function
 };
 
 function renderAllChoices(
@@ -78,6 +80,41 @@ function renderChosenQuestionDependencyChoices(
   }
 }
 
+function renderAndQuestionDependency(
+  section,
+  question,
+  questionDependency,
+  setAndQuestionDependency
+) {
+  const and = questionDependency.and;
+  return (
+    <input
+      type="checkbox"
+      checked={and ? "checked" : ""}
+      value={and}
+      onChange={() => setAndQuestionDependency(section.id, question.id, !and)}
+    />
+  );
+}
+
+function renderDisplayQuestionDependency(
+  section,
+  question,
+  questionDependency,
+  setDisplayQuestionDependency
+) {
+  const display = questionDependency.display;
+  return (
+    <input
+      type="checkbox"
+      checked={display ? "checked" : ""}
+      value={display}
+      onChange={() =>
+        setDisplayQuestionDependency(section.id, question.id, !display)}
+    />
+  );
+}
+
 export default function QuestionDependencyAdmin(props: Props) {
   const {
     questionDependency,
@@ -85,14 +122,32 @@ export default function QuestionDependencyAdmin(props: Props) {
     section,
     question,
     createQuestionDependency,
-    deleteQuestionDependency
+    deleteQuestionDependency,
+    setDisplayQuestionDependency,
+    setAndQuestionDependency
   } = props;
 
   if (questionDependency !== null && questionDependency.id !== "") {
     return (
       <div>
-        <p>Display: {questionDependency.display ? "true" : "false"} </p>
-        <p>And: {questionDependency.and ? "true" : "false"} </p>
+        <p>
+          Display:
+          {renderDisplayQuestionDependency(
+            section,
+            question,
+            questionDependency,
+            setDisplayQuestionDependency
+          )}
+        </p>
+        <p>
+          And:
+          {renderAndQuestionDependency(
+            section,
+            question,
+            questionDependency,
+            setAndQuestionDependency
+          )}
+        </p>
         <p>
           Chosen Choices:
           {renderChosenQuestionDependencyChoices(

@@ -306,6 +306,36 @@ function deleteQuestionDependency(
   };
 }
 
+function setAndQuestionDependency(
+  sectionId: number,
+  questionId: number,
+  and: boolean
+) {
+  return {
+    type: "SET_AND_QUESTION_DEPENDENCY",
+    payload: {
+      sectionId,
+      questionId,
+      and
+    }
+  };
+}
+
+function setDisplayQuestionDependency(
+  sectionId: number,
+  questionId: number,
+  display: boolean
+) {
+  return {
+    type: "SET_DISPLAY_QUESTION_DEPENDENCY",
+    payload: {
+      sectionId,
+      questionId,
+      display
+    }
+  };
+}
+
 export default {
   addSection,
   setSectionName,
@@ -331,5 +361,7 @@ export default {
   deleteSection,
   addQuestionDependency,
   createQuestionDependency,
-  deleteQuestionDependency
+  deleteQuestionDependency,
+  setDisplayQuestionDependency,
+  setAndQuestionDependency
 };

@@ -68,6 +68,10 @@ export default function AdministerFormReducer(
       return createQuestionDependency(model, action.payload);
     case "DELETE_QUESTION_DEPENDENCY":
       return deleteQuestionDependency(model, action.payload);
+    case "SET_AND_QUESTION_DEPENDENCY":
+      return setAndQuestionDependency(model, action.payload);
+    case "SET_DISPLAY_QUESTION_DEPENDENCY":
+      return setDisplayQuestionDependency(model, action.payload);
     default:
       return model;
   }
@@ -397,6 +401,43 @@ function deleteQuestionDependency(model, payload) {
   } else {
     return model;
   }
+}
+
+function setAndQuestionDependency(model, payload) {
+  if (payload) {
+    let { sectionId, questionId, and } = payload;
+    return setQuestionDependencyField(model, sectionId, questionId, "and", and);
+  } else {
+    return model;
+  }
+}
+
+function setDisplayQuestionDependency(model, payload) {
+  if (payload) {
+    let { sectionId, questionId, display } = payload;
+    return setQuestionDependencyField(
+      model,
+      sectionId,
+      questionId,
+      "display",
+      display
+    );
+  } else {
+    return model;
+  }
+}
+
+function setQuestionDependencyField(model, sectionId, questionId, key, value) {
+  return model.updateIn(["form", "sections"], sections => {
+    return sections.map(s => {
+      if (s.id === sectionId) {
+        let index = s.questions.findIndex(q => `${q.id}` === `${questionId}`);
+        return s.setIn(["questions", index, "questionDependency", key], value);
+      } else {
+        return s;
+      }
+    });
+  });
 }
 
 function setQuestionType(model, payload) {

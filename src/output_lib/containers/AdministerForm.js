@@ -117,12 +117,20 @@ export const AdministerForm = connect(
             choice
           )
         ),
-      deleteQuestionDependency: (sectionId, questionId, choiceId) =>
+      setDisplayQuestionDependency: (sectionId, questionId, display) =>
         dispatch(
-          AdministerFormActions.deleteQuestionDependency(
+          AdministerFormActions.setDisplayQuestionDependency(
             sectionId,
             questionId,
-            choiceId
+            display
+          )
+        ),
+      setAndQuestionDependency: (sectionId, questionId, and) =>
+        dispatch(
+          AdministerFormActions.setAndQuestionDependency(
+            sectionId,
+            questionId,
+            and
           )
         )
     };
