@@ -1,5 +1,4 @@
 // @flow
-const uuidV4 = require("uuid/v4");
 
 import {
   QuestionType,
@@ -27,26 +26,29 @@ type ApiFormSubmission = {
 };
 
 type ApiChoice = {
-  id: string,
+  id: ?string,
   label: string,
   metadata: ?Object,
-  maximum_chosen: ?number
+  maximum_chosen: ?number,
+  uuid: ?string
 };
 
 type ApiQuestionDependencyChoice = {
-  id: string,
-  choice_id: string
+  id: ?string,
+  choice_id: string,
+  uuid: ?string
 };
 
 type ApiQuestionDependency = {
-  id: string,
+  id: ?string,
   and: boolean,
   display: boolean,
-  question_dependency_choices: Array<ApiQuestionDependencyChoice>
+  question_dependency_choices: Array<ApiQuestionDependencyChoice>,
+  uuid: ?string
 };
 
 type ApiQuestion = {
-  id: string,
+  id: ?string,
   key: string,
   label: string,
   content: string,
@@ -55,22 +57,25 @@ type ApiQuestion = {
   order: number,
   question_dependency: ?ApiQuestionDependency,
   _destroy: ?boolean,
-  choices: Array<ApiChoice>
+  choices: Array<ApiChoice>,
+  uuid: ?string
 };
 
 type ApiSection = {
-  id: string,
+  id: ?string,
   name: ?string,
   order: ?number,
   content: ?string,
-  _destroy: ?boolean
+  _destroy: ?boolean,
+  uuid: ?string
 };
 
 type ApiForm = {
-  id: string,
+  id: ?string,
   application_id: string,
   completion_content: ?string,
-  sections: Array<ApiSection>
+  sections: Array<ApiSection>,
+  uuid: ?string
 };
 
 function encodeFormQuestionSubmission(
@@ -98,7 +103,7 @@ function encodeFormSubmission(
 
 function encodeQuestion(question: QuestionType): ApiQuestion {
   return {
-    id: question.id,
+    id: question.persisted ? question.id : undefined,
     key: question.key,
     label: question.label,
     content: question.content,
@@ -111,7 +116,8 @@ function encodeQuestion(question: QuestionType): ApiQuestion {
       ? encodeQuestionDependency(question.questionDependency)
       : undefined,
     _destroy: question.deleted,
-    choices: question.choices.map(encodeChoice).toArray()
+    choices: question.choices.map(encodeChoice).toArray(),
+    uuid: question.persisted ? undefined : question.id
   };
 }
 
@@ -119,12 +125,13 @@ function encodeQuestionDependency(
   questionDependency: QuestionDependencyType
 ): ApiQuestionDependency {
   return {
-    id: questionDependency.id,
+    id: questionDependency.persisted ? questionDependency.id : undefined,
     and: questionDependency.and,
     display: questionDependency.boolean,
     question_dependency_choices: encodeQuestionDependencyChoices(
       questionDependency.questionDependencyChoices
-    )
+    ),
+    uuid: questionDependency.persisted ? undefined : questionDependency.id
   };
 }
 
@@ -138,39 +145,47 @@ function encodeQuestionDependencyChoice(
   questionDependencyChoice: QuestionDependencyChoiceType
 ): ApiQuestionDependencyChoice {
   return {
-    id: questionDependencyChoice.id,
+    id: questionDependencyChoice.persisted
+      ? questionDependencyChoice.id
+      : undefined,
     choice_id: questionDependencyChoice.choiceId,
-    _destroy: questionDependencyChoice.deleted
+    _destroy: questionDependencyChoice.deleted,
+    uuid: questionDependencyChoice.persisted
+      ? undefined
+      : questionDependencyChoice.id
   };
 }
 
 function encodeChoice(choice: ChoiceType): ApiChoice {
   return {
-    id: choice.id,
+    id: choice.persisted ? choice.id : undefined,
     label: choice.label,
     _destroy: choice.deleted,
     metadata: choice.metadata,
-    maximum_chosen: choice.maximumChosen
+    maximum_chosen: choice.maximumChosen,
+    uuid: choice.persisted ? undefined : choice.id
   };
 }
 
 function encodeSection(section: QuestionType): ApiSection {
   return {
-    id: section.id,
+    id: section.persisted ? section.id : undefined,
     name: section.name,
     order: section.order,
     questions: section.questions.map(encodeQuestion).toArray(),
     content: section.content,
-    _destroy: section.deleted
+    _destroy: section.deleted,
+    uuid: section.persisted ? undefined : section.id
   };
 }
 
 function encodeForm(form: FormType): ApiForm {
   return {
-    id: form.id === "" ? uuidV4() : form.id,
+    id: form.persisted ? form.id : undefined,
     application_id: form.applicationId,
     completion_content: form.completionContent,
-    sections: form.sections.toArray().map(encodeSection)
+    sections: form.sections.toArray().map(encodeSection),
+    uuid: form.persisted ? undefined : form.id
   };
 }
 

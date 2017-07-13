@@ -8,10 +8,12 @@ export default class FormType
     id: "",
     applicationId: "",
     sections: List(),
-    completionContent: ""
+    completionContent: "",
+    persisted: false
   }) {
   id: string;
   applicationId: string;
   sections: List<SectionType>;
   completionContent: string;
+  persisted: boolean;
 }

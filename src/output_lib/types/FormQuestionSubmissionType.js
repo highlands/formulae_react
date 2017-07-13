@@ -8,11 +8,13 @@ export default class FormQuestionSubmissionType
     string: undefined,
     text: undefined,
     boolean: undefined,
-    composite: undefined
+    composite: undefined,
+    persisted: false
   }) {
   questionId: string;
   string: ?string;
   text: ?string;
   boolean: ?boolean;
   composite: ?Object;
+  persisted: boolean;
 }

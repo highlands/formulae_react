@@ -379,6 +379,7 @@ function createQuestionDependency(model, payload) {
                   ["questionDependency", "questionDependencyChoices"],
                   q.questionDependency.questionDependencyChoices.push(
                     new QuestionDependencyChoiceType({
+                      id: uuidV4(),
                       choiceId: choiceId,
                       questionId: q.id
                     })

@@ -107,7 +107,8 @@ function decodeSection(
       questions.filter(question => {
         return question.get("section_id") === section.id;
       })
-    )
+    ),
+    persisted: true
   });
 }
 
@@ -127,7 +128,8 @@ function decodeQuestion(question: ApiQuestion): QuestionType {
     placeholder: question.placeholder,
     section_id: question.section_id,
     choices: decodeChoices(question.choices),
-    questionDependency: questionDependency
+    questionDependency: questionDependency,
+    persisted: true
   });
 }
 
@@ -142,7 +144,8 @@ function decodeQuestionDependency(
     questionDependencyChoices: decodeQuestionDependencyChoices(
       questionDependency.question_dependency_choices
     ),
-    and: questionDependency.and
+    and: questionDependency.and,
+    persisted: true
   });
 }
 
@@ -154,7 +157,8 @@ function decodeQuestionDependencyChoices(
       return new QuestionDependencyChoiceType({
         id: choice.id,
         questionDependencyId: choice.question_dependency_id,
-        choiceId: choice.choice_id
+        choiceId: choice.choice_id,
+        persisted: true
       });
     })
   );
@@ -169,7 +173,8 @@ function decodeChoices(choices: Array<ApiChoice>): List<ChoiceType> {
         question_dependency_id: choice.question_dependency_id,
         metadata: choice.metadata,
         maximum_chosen: choice.maximum_chosen,
-        label: choice.label
+        label: choice.label,
+        persisted: true
       });
     })
   );
@@ -185,14 +190,16 @@ function decodeForm(data: ApiForm): FormType {
       data.sections.map(section => {
         return decodeSection(section, questions);
       })
-    )
+    ),
+    persisted: true
   });
 }
 
 function decodeFormResponse(data: ApiFormResponse): FormResponseType {
   return new FormResponseType({
     id: data.id,
-    applicationId: data.application_id
+    applicationId: data.application_id,
+    persisted: true
   });
 }
 
@@ -202,7 +209,8 @@ function decodeQuestionSubmissions(data: Array<ApiQuestionSubmissionResponse>) {
       new QuestionSubmissionType({
         id: qs.id,
         value: qs.value,
-        questionType: qs.question_type
+        questionType: qs.question_type,
+        persisted: true
       })
   );
 }
@@ -213,7 +221,8 @@ function decodeFormSubmissionResponse(
   return new FormSubmissionResponseType({
     id: data.id,
     formResponse: decodeFormResponse(data.form),
-    questionSubmissions: decodeQuestionSubmissions(data.question_submissions)
+    questionSubmissions: decodeQuestionSubmissions(data.question_submissions),
+    persisted: true
   });
 }
 

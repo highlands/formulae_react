@@ -8,9 +8,11 @@ export default class QuestionSubmissionType
   extends Record({
     id: "",
     value: "",
-    questionType: "string"
+    questionType: "string",
+    persisted: false
   }) {
   id: string;
   value: Object; // This is awful
   questionType: QuestionType;
+  persisted: boolean;
 }

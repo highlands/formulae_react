@@ -19,7 +19,8 @@ export default class QuestionType
     validateAs: "",
     choices: List(),
     questionDependency: new QuestionDependencyType(),
-    deleted: false
+    deleted: false,
+    persisted: false
   }) {
   id: string;
   key: string;
@@ -35,4 +36,5 @@ export default class QuestionType
   choices: List<ChoiceType>;
   questionDependency: ?QuestionDependencyType;
   deleted: boolean;
+  persisted: boolean;
 }

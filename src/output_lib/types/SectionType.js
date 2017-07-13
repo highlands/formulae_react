@@ -12,7 +12,8 @@ export default class SectionType
     content: "",
     order: 0,
     questions: List(),
-    deleted: false
+    deleted: false,
+    persisted: false
   }) {
   id: string;
   form_id: string;
@@ -21,4 +22,5 @@ export default class SectionType
   order: number;
   questions: List<QuestionType>;
   deleted: boolean;
+  persisted: boolean;
 }

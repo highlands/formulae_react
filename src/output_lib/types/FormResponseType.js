@@ -7,10 +7,12 @@ export default class FormResponseType
     id: "",
     applicationId: "",
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
+    persisted: false
   }) {
   id: string;
   applicationId: string;
   createdAt: Date;
   updatedAt: Date;
+  persisted: boolean;
 }

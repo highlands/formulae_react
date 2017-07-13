@@ -7,10 +7,12 @@ export default class QuestionDependencyChoiceType
     id: "",
     questionDependencyId: "",
     choiceId: "",
-    deleted: false
+    deleted: false,
+    persisted: false
   }) {
   id: string;
   questionDependencyId: string;
   choiceId: string;
   deleted: boolean;
+  persisted: boolean;
 }

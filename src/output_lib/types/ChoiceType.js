@@ -10,7 +10,8 @@ export default class ChoiceType
     order: 1,
     maximumChosen: 0,
     label: "",
-    disabled: false
+    disabled: false,
+    persisted: false
   }) {
   id: string;
   questionId: string;
@@ -18,4 +19,5 @@ export default class ChoiceType
   maximumChosen: number;
   label: string;
   disabled: boolean;
+  persisted: boolean;
 }
