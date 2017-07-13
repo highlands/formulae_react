@@ -7,6 +7,7 @@ import FormSubmissionType from "./types/FormSubmissionType";
 import FormSubmissionResponseType from "./types/FormSubmissionResponseType";
 import QuestionType from "./types/QuestionType";
 import QuestionDependencyType from "./types/QuestionDependencyType";
+import QuestionDependencyChoiceType from "./types/QuestionDependencyChoiceType";
 import QuestionSubmissionType from "./types/QuestionSubmissionType";
 import FormQuestionSubmissionType from "./types/FormQuestionSubmissionType";
 import Model from "./types/Model";
@@ -23,6 +24,7 @@ export {
   FormSubmissionResponseType,
   QuestionType,
   QuestionDependencyType,
+  QuestionDependencyChoiceType,
   QuestionSubmissionType,
   FormQuestionSubmissionType,
   Model,

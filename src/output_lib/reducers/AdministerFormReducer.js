@@ -5,6 +5,7 @@ import {
   SectionType,
   QuestionType,
   QuestionDependencyType,
+  QuestionDependencyChoiceType,
   ChoiceType
 } from "../types";
 
@@ -367,7 +368,7 @@ function addQuestionDependency(model, payload) {
 
 function createQuestionDependency(model, payload) {
   if (payload) {
-    const { sectionId, questionId, choice } = payload;
+    const { sectionId, questionId, choiceId } = payload;
     return model.updateIn(["form", "sections"], sections => {
       return sections.map(s => {
         if (s.id === sectionId) {
@@ -376,7 +377,12 @@ function createQuestionDependency(model, payload) {
               if (q.id === questionId) {
                 return q.setIn(
                   ["questionDependency", "choices"],
-                  q.questionDependency.choices.push(choice)
+                  q.questionDependency.choices.push(
+                    new QuestionDependencyChoiceType({
+                      choiceId: choiceId,
+                      questionId: q.id
+                    })
+                  )
                 );
               } else {
                 return q;

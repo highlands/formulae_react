@@ -7,6 +7,7 @@ import {
   ChoiceType,
   QuestionType,
   QuestionDependencyType,
+  QuestionDependencyChoiceType,
   QuestionSubmissionType,
   FormSubmissionResponseType
 } from "./types";
@@ -37,10 +38,16 @@ type ApiChoice = {
   label: string
 };
 
+type ApiQuestionDependencyChoice = {
+  id: string,
+  question_dependency_id: number,
+  choice_id: number
+};
+
 type ApiQuestionDependency = {
   id: string,
   display: boolean,
-  choices: Array<ApiChoice>,
+  question_dependency_choices: Array<ApiQuestionDependencyChoice>,
   and: boolean
 };
 
@@ -132,9 +139,25 @@ function decodeQuestionDependency(
   }
   return new QuestionDependencyType({
     display: questionDependency.display,
-    choices: decodeChoices(questionDependency.choices),
+    questionDependencyChoices: decodeQuestionDependencyChoices(
+      questionDependency.question_dependency_choices
+    ),
     and: questionDependency.and
   });
+}
+
+function decodeQuestionDependencyChoices(
+  questionDependencyChoices: Array<ApiQuestionDependencyChoice>
+): List<QuestionDependencyChoiceType> {
+  return List(
+    questionDependencyChoices.map(choice => {
+      return new QuestionDependencyChoiceType({
+        id: choice.id,
+        questionDependencyId: choice.question_dependency_id,
+        choiceId: choice.choice_id
+      });
+    })
+  );
 }
 
 function decodeChoices(choices: Array<ApiChoice>): List<ChoiceType> {

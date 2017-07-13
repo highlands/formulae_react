@@ -3,11 +3,14 @@
 import {
   QuestionType,
   QuestionDependencyType,
+  QuestionDependencyChoiceType,
   FormType,
   FormSubmissionType,
   FormQuestionSubmissionType,
   ChoiceType
 } from "./types";
+
+import { List } from "immutable";
 
 type ApiQuestionSubmission = {
   question_id: number,
@@ -29,11 +32,16 @@ type ApiChoice = {
   maximum_chosen: ?number
 };
 
+type ApiQuestionDependencyChoice = {
+  id: ?number,
+  choice_id: number | string
+};
+
 type ApiQuestionDependency = {
   id: ?number,
   and: boolean,
   display: boolean,
-  choices: Array<number | string>
+  question_dependency_choices: Array<ApiQuestionDependencyChoice>
 };
 
 type ApiQuestion = {
@@ -115,12 +123,32 @@ function encodeQuestionDependency(
       : undefined,
     and: questionDependency.and,
     display: questionDependency.boolean,
-    choices: questionDependency.choices.toJS()
+    question_dependency_choices: encodeQuestionDependencyChoices(
+      questionDependency.questionDependencyChoices
+    )
   };
 }
 
-function encodeChoices(choices: Array<ChoiceType>): Array<ApiChoice> {
-  return choices.map(encodeChoice);
+function encodeQuestionDependencyChoices(
+  questionDependencyChoices: List<QuestionDependencyChoiceType>
+): Array<ApiQuestionDependencyChoice> {
+  return questionDependencyChoices.map(encodeQuestionDependencyChoice).toJS();
+}
+
+function encodeQuestionDependencyChoice(
+  questionDependencyChoice: QuestionDependencyChoiceType
+): ApiQuestionDependencyChoice {
+  return {
+    id: typeof questionDependencyChoice.id === "number"
+      ? questionDependencyChoice.id
+      : undefined,
+    choice_id: questionDependencyChoice.choiceId,
+    _destroy: questionDependencyChoice.deleted
+  };
+}
+
+function encodeChoices(choices: List<ChoiceType>): Array<ApiChoice> {
+  return choices.map(encodeChoice).toJS();
 }
 
 function encodeChoice(choice: ChoiceType): ApiChoice {
