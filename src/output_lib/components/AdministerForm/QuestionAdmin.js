@@ -334,6 +334,7 @@ function renderQuestionAdminType(
           moveChoice={moveChoice}
           setChoiceLabel={setChoiceLabel}
           deleteChoice={deleteChoice}
+          setChoiceMetadata={setChoiceMetadata}
         />
       </div>
     );

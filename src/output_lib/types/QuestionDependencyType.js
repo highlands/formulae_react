@@ -10,8 +10,8 @@ export default class QuestionDependencyType
     choices: List(),
     and: false
   }) {
-  id: string;
+  id: number | string;
   display: boolean;
-  choices: List<ChoiceType>;
+  choices: List<string | number>;
   and: boolean;
 }

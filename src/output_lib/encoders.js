@@ -33,7 +33,7 @@ type ApiQuestionDependency = {
   id: ?number,
   and: boolean,
   display: boolean,
-  choices: Array<ApiChoice>
+  choices: Array<number | string>
 };
 
 type ApiQuestion = {
@@ -98,21 +98,24 @@ function encodeQuestion(question: QuestionType): ApiQuestion {
     question_type: question.type,
     validate_as: question.validateAs,
     order: question.order,
-    question_dependency: encodeQuestionDependency(question.questionDependency),
+    question_dependency: question.questionDependency
+      ? encodeQuestionDependency(question.questionDependency)
+      : undefined,
     _destroy: question.deleted,
     choices: question.choices.map(encodeChoice).toArray()
   };
 }
 
-function encodeQuestionDependency(questionDependency): ApiQuestionDependency {
-  if (questionDependency === undefined) {
-    return new QuestionDependencyType();
-  }
+function encodeQuestionDependency(
+  questionDependency: QuestionDependencyType
+): ApiQuestionDependency {
   return {
-    id: questionDependency.id,
+    id: typeof questionDependency.id === "number"
+      ? questionDependency.id
+      : undefined,
     and: questionDependency.and,
     display: questionDependency.boolean,
-    choices: encodeChoices(questionDependency.choices)
+    choices: questionDependency.choices.toJS()
   };
 }
 
