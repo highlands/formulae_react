@@ -10,7 +10,7 @@ export default class QuestionSubmissionType
     value: "",
     questionType: "string"
   }) {
-  id: number | string;
+  id: string;
   value: Object; // This is awful
   questionType: QuestionType;
 }

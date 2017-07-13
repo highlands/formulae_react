@@ -5,9 +5,9 @@ import QuestionSubmissionType from "./QuestionSubmissionType";
 
 export default class FormSubmissionType
   extends Record({
-    formId: 0,
+    formId: "",
     questionSubmissions: new List()
   }) {
-  form_id: number;
+  form_id: string;
   questionSubmissions: List<QuestionSubmissionType>;
 }

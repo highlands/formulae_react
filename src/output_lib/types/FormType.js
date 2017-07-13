@@ -5,11 +5,13 @@ import SectionType from "./SectionType";
 
 export default class FormType
   extends Record({
-    id: "0",
+    id: "",
+    applicationId: "",
     sections: List(),
     completionContent: ""
   }) {
-  id: number | string;
+  id: string;
+  applicationId: string;
   sections: List<SectionType>;
   completionContent: string;
 }

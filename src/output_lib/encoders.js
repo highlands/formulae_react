@@ -1,4 +1,5 @@
 // @flow
+const uuidV4 = require("uuid/v4");
 
 import {
   QuestionType,
@@ -13,7 +14,7 @@ import {
 import { List } from "immutable";
 
 type ApiQuestionSubmission = {
-  question_id: number,
+  question_id: string,
   string: ?string,
   text: ?string,
   boolean: ?boolean,
@@ -21,31 +22,31 @@ type ApiQuestionSubmission = {
 };
 
 type ApiFormSubmission = {
-  form_id: number,
+  form_id: string,
   question_submissions: Array<ApiQuestionSubmission>
 };
 
 type ApiChoice = {
-  id: ?number,
+  id: string,
   label: string,
   metadata: ?Object,
   maximum_chosen: ?number
 };
 
 type ApiQuestionDependencyChoice = {
-  id: ?number,
-  choice_id: number | string
+  id: string,
+  choice_id: string
 };
 
 type ApiQuestionDependency = {
-  id: ?number,
+  id: string,
   and: boolean,
   display: boolean,
   question_dependency_choices: Array<ApiQuestionDependencyChoice>
 };
 
 type ApiQuestion = {
-  id: ?number,
+  id: string,
   key: string,
   label: string,
   content: string,
@@ -58,7 +59,7 @@ type ApiQuestion = {
 };
 
 type ApiSection = {
-  id: ?number,
+  id: string,
   name: ?string,
   order: ?number,
   content: ?string,
@@ -66,8 +67,8 @@ type ApiSection = {
 };
 
 type ApiForm = {
-  id: ?number,
-  application_id: ?number,
+  id: string,
+  application_id: string,
   completion_content: ?string,
   sections: Array<ApiSection>
 };
@@ -97,7 +98,7 @@ function encodeFormSubmission(
 
 function encodeQuestion(question: QuestionType): ApiQuestion {
   return {
-    id: typeof question.id === "number" ? question.id : undefined,
+    id: question.id,
     key: question.key,
     label: question.label,
     content: question.content,
@@ -118,9 +119,7 @@ function encodeQuestionDependency(
   questionDependency: QuestionDependencyType
 ): ApiQuestionDependency {
   return {
-    id: typeof questionDependency.id === "number"
-      ? questionDependency.id
-      : undefined,
+    id: questionDependency.id,
     and: questionDependency.and,
     display: questionDependency.boolean,
     question_dependency_choices: encodeQuestionDependencyChoices(
@@ -139,21 +138,15 @@ function encodeQuestionDependencyChoice(
   questionDependencyChoice: QuestionDependencyChoiceType
 ): ApiQuestionDependencyChoice {
   return {
-    id: typeof questionDependencyChoice.id === "number"
-      ? questionDependencyChoice.id
-      : undefined,
+    id: questionDependencyChoice.id,
     choice_id: questionDependencyChoice.choiceId,
     _destroy: questionDependencyChoice.deleted
   };
 }
 
-function encodeChoices(choices: List<ChoiceType>): Array<ApiChoice> {
-  return choices.map(encodeChoice).toJS();
-}
-
 function encodeChoice(choice: ChoiceType): ApiChoice {
   return {
-    id: typeof choice.id === "number" ? choice.id : undefined,
+    id: choice.id,
     label: choice.label,
     _destroy: choice.deleted,
     metadata: choice.metadata,
@@ -163,7 +156,7 @@ function encodeChoice(choice: ChoiceType): ApiChoice {
 
 function encodeSection(section: QuestionType): ApiSection {
   return {
-    id: typeof section.id === "number" ? section.id : undefined,
+    id: section.id,
     name: section.name,
     order: section.order,
     questions: section.questions.map(encodeQuestion).toArray(),
@@ -174,8 +167,8 @@ function encodeSection(section: QuestionType): ApiSection {
 
 function encodeForm(form: FormType): ApiForm {
   return {
-    id: typeof form.id === "number" ? form.id : undefined,
-    application_id: 1,
+    id: form.id === "" ? uuidV4() : form.id,
+    application_id: form.applicationId,
     completion_content: form.completionContent,
     sections: form.sections.toArray().map(encodeSection)
   };

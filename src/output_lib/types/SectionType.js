@@ -14,7 +14,7 @@ export default class SectionType
     questions: List(),
     deleted: false
   }) {
-  id: number | string;
+  id: string;
   form_id: string;
   name: string;
   content: string;

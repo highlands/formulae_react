@@ -55,8 +55,8 @@ function renderChosenQuestionDependencyChoices(
   questionDependency,
   deleteQuestionDependency
 ) {
-  if (questionDependency.choices !== null) {
-    return questionDependency.choices
+  if (questionDependency.questionDependencyChoices !== null) {
+    return questionDependency.questionDependencyChoices
       .map((choice, i) => {
         return (
           <div key={i}>

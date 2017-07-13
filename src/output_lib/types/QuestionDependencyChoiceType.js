@@ -5,12 +5,12 @@ import { Record } from "immutable";
 export default class QuestionDependencyChoiceType
   extends Record({
     id: "",
-    questionDependencyId: 0,
-    choiceId: 0,
+    questionDependencyId: "",
+    choiceId: "",
     deleted: false
   }) {
-  id: number | string;
-  questionDependencyId: number | string;
-  choiceId: number | string;
+  id: string;
+  questionDependencyId: string;
+  choiceId: string;
   deleted: boolean;
 }

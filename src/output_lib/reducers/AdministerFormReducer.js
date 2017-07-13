@@ -376,8 +376,8 @@ function createQuestionDependency(model, payload) {
             return questions.map(q => {
               if (q.id === questionId) {
                 return q.setIn(
-                  ["questionDependency", "choices"],
-                  q.questionDependency.choices.push(
+                  ["questionDependency", "questionDependencyChoices"],
+                  q.questionDependency.questionDependencyChoices.push(
                     new QuestionDependencyChoiceType({
                       choiceId: choiceId,
                       questionId: q.id
@@ -408,13 +408,15 @@ function deleteQuestionDependency(model, payload) {
           const indexQuestion = s.questions.findIndex(q => q.id === questionId);
           const indexChoice = s.questions
             .get(indexQuestion)
-            .questionDependency.choices.findIndex(c => c.id === choiceId);
+            .questionDependency.questionDependencyChoices.findIndex(
+              c => c.id === choiceId
+            );
 
           return s.deleteIn([
             "questions",
             indexQuestion,
             "questionDependency",
-            "choices",
+            "questionDependencyChoices",
             indexChoice
           ]);
         } else {
