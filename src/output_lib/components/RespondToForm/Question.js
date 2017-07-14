@@ -63,7 +63,7 @@ function renderQuestion(props: Props) {
 
   let requiredElement;
   if (required) {
-    requiredElement = <i> (required)</i>;
+    requiredElement = <i className="instruction"> (Required)</i>;
   } else {
     requiredElement = "";
   }
