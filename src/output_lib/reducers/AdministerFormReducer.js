@@ -5,6 +5,7 @@ import {
   SectionType,
   QuestionType,
   QuestionDependencyType,
+  QuestionDependencyChoiceType,
   ChoiceType
 } from "../types";
 
@@ -367,7 +368,7 @@ function addQuestionDependency(model, payload) {
 
 function createQuestionDependency(model, payload) {
   if (payload) {
-    const { sectionId, questionId, choice } = payload;
+    const { sectionId, questionId, choiceId } = payload;
     return model.updateIn(["form", "sections"], sections => {
       return sections.map(s => {
         if (s.id === sectionId) {
@@ -375,8 +376,14 @@ function createQuestionDependency(model, payload) {
             return questions.map(q => {
               if (q.id === questionId) {
                 return q.setIn(
-                  ["questionDependency", "choices"],
-                  q.questionDependency.choices.push(choice)
+                  ["questionDependency", "questionDependencyChoices"],
+                  q.questionDependency.questionDependencyChoices.push(
+                    new QuestionDependencyChoiceType({
+                      id: uuidV4(),
+                      choiceId: choiceId,
+                      questionId: q.id
+                    })
+                  )
                 );
               } else {
                 return q;
@@ -402,13 +409,15 @@ function deleteQuestionDependency(model, payload) {
           const indexQuestion = s.questions.findIndex(q => q.id === questionId);
           const indexChoice = s.questions
             .get(indexQuestion)
-            .questionDependency.choices.findIndex(c => c.id === choiceId);
+            .questionDependency.questionDependencyChoices.findIndex(
+              c => c.id === choiceId
+            );
 
           return s.deleteIn([
             "questions",
             indexQuestion,
             "questionDependency",
-            "choices",
+            "questionDependencyChoices",
             indexChoice
           ]);
         } else {

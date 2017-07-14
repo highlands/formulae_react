@@ -12,13 +12,15 @@ export default class SectionType
     content: "",
     order: 0,
     questions: List(),
-    deleted: false
+    deleted: false,
+    persisted: false
   }) {
-  id: number | string;
+  id: string;
   form_id: string;
   name: string;
   content: string;
   order: number;
   questions: List<QuestionType>;
   deleted: boolean;
+  persisted: boolean;
 }

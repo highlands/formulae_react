@@ -15,13 +15,14 @@ export default class QuestionType
     type: "",
     order: 0,
     required: false,
-    section_id: 0,
+    section_id: "",
     validateAs: "",
     choices: List(),
     questionDependency: new QuestionDependencyType(),
-    deleted: false
+    deleted: false,
+    persisted: false
   }) {
-  id: number | string;
+  id: string;
   key: string;
   label: string;
   form_id: string;
@@ -30,9 +31,10 @@ export default class QuestionType
   type: string;
   order: number;
   required: boolean;
-  section_id: number;
+  section_id: string;
   validateAs: string;
   choices: List<ChoiceType>;
   questionDependency: ?QuestionDependencyType;
   deleted: boolean;
+  persisted: boolean;
 }

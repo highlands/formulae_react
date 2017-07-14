@@ -3,14 +3,17 @@
 import {
   QuestionType,
   QuestionDependencyType,
+  QuestionDependencyChoiceType,
   FormType,
   FormSubmissionType,
   FormQuestionSubmissionType,
   ChoiceType
 } from "./types";
 
+import { List } from "immutable";
+
 type ApiQuestionSubmission = {
-  question_id: number,
+  question_id: string,
   string: ?string,
   text: ?string,
   boolean: ?boolean,
@@ -18,26 +21,34 @@ type ApiQuestionSubmission = {
 };
 
 type ApiFormSubmission = {
-  form_id: number,
+  form_id: string,
   question_submissions: Array<ApiQuestionSubmission>
 };
 
 type ApiChoice = {
-  id: ?number,
+  id: ?string,
   label: string,
-  metadata: ?Object,
-  maximum_chosen: ?number
+  //metadata: ?Object,
+  maximum_chosen: ?number,
+  uuid: ?string
+};
+
+type ApiQuestionDependencyChoice = {
+  id: ?string,
+  choice_id: string,
+  uuid: ?string
 };
 
 type ApiQuestionDependency = {
-  id: ?number,
+  id: ?string,
   and: boolean,
   display: boolean,
-  choices: Array<number | string>
+  question_dependency_choices: Array<ApiQuestionDependencyChoice>,
+  uuid: ?string
 };
 
 type ApiQuestion = {
-  id: ?number,
+  id: ?string,
   key: string,
   label: string,
   content: string,
@@ -46,22 +57,25 @@ type ApiQuestion = {
   order: number,
   question_dependency: ?ApiQuestionDependency,
   _destroy: ?boolean,
-  choices: Array<ApiChoice>
+  choices: Array<ApiChoice>,
+  uuid: ?string
 };
 
 type ApiSection = {
-  id: ?number,
+  id: ?string,
   name: ?string,
   order: ?number,
   content: ?string,
-  _destroy: ?boolean
+  _destroy: ?boolean,
+  uuid: ?string
 };
 
 type ApiForm = {
-  id: ?number,
-  application_id: ?number,
+  id: ?string,
+  application_id: string,
   completion_content: ?string,
-  sections: Array<ApiSection>
+  sections: Array<ApiSection>,
+  uuid: ?string
 };
 
 function encodeFormQuestionSubmission(
@@ -88,8 +102,18 @@ function encodeFormSubmission(
 }
 
 function encodeQuestion(question: QuestionType): ApiQuestion {
+  let questionDependency;
+  if (
+    question.questionDependency &&
+    question.questionDependency.questionDependencyChoices.size > 0
+  ) {
+    questionDependency = encodeQuestionDependency(question.questionDependency);
+  } else {
+    questionDependency = undefined;
+  }
+
   return {
-    id: typeof question.id === "number" ? question.id : undefined,
+    id: question.persisted ? question.id : undefined,
     key: question.key,
     label: question.label,
     content: question.content,
@@ -98,11 +122,10 @@ function encodeQuestion(question: QuestionType): ApiQuestion {
     question_type: question.type,
     validate_as: question.validateAs,
     order: question.order,
-    question_dependency: question.questionDependency
-      ? encodeQuestionDependency(question.questionDependency)
-      : undefined,
+    question_dependency: questionDependency,
     _destroy: question.deleted,
-    choices: question.choices.map(encodeChoice).toArray()
+    choices: question.choices.map(encodeChoice).toArray(),
+    uuid: question.persisted ? undefined : question.id
   };
 }
 
@@ -110,46 +133,67 @@ function encodeQuestionDependency(
   questionDependency: QuestionDependencyType
 ): ApiQuestionDependency {
   return {
-    id: typeof questionDependency.id === "number"
-      ? questionDependency.id
-      : undefined,
+    id: questionDependency.persisted ? questionDependency.id : undefined,
     and: questionDependency.and,
-    display: questionDependency.boolean,
-    choices: questionDependency.choices.toJS()
+    display: questionDependency.display,
+    question_dependency_choices: encodeQuestionDependencyChoices(
+      questionDependency.questionDependencyChoices
+    ),
+    uuid: questionDependency.persisted ? undefined : questionDependency.id
   };
 }
 
-function encodeChoices(choices: Array<ChoiceType>): Array<ApiChoice> {
-  return choices.map(encodeChoice);
+function encodeQuestionDependencyChoices(
+  questionDependencyChoices: List<QuestionDependencyChoiceType>
+): Array<ApiQuestionDependencyChoice> {
+  return questionDependencyChoices.map(encodeQuestionDependencyChoice).toJS();
+}
+
+function encodeQuestionDependencyChoice(
+  questionDependencyChoice: QuestionDependencyChoiceType
+): ApiQuestionDependencyChoice {
+  return {
+    id: questionDependencyChoice.persisted
+      ? questionDependencyChoice.id
+      : undefined,
+    choice_id: questionDependencyChoice.choiceId,
+    _destroy: questionDependencyChoice.deleted,
+    uuid: questionDependencyChoice.persisted
+      ? undefined
+      : questionDependencyChoice.id
+  };
 }
 
 function encodeChoice(choice: ChoiceType): ApiChoice {
   return {
-    id: typeof choice.id === "number" ? choice.id : undefined,
+    id: choice.persisted ? choice.id : undefined,
     label: choice.label,
     _destroy: choice.deleted,
-    metadata: choice.metadata,
-    maximum_chosen: choice.maximumChosen
+    //metadata: choice.metadata,
+    maximum_chosen: choice.maximumChosen,
+    uuid: choice.persisted ? undefined : choice.id
   };
 }
 
 function encodeSection(section: QuestionType): ApiSection {
   return {
-    id: typeof section.id === "number" ? section.id : undefined,
+    id: section.persisted ? section.id : undefined,
     name: section.name,
     order: section.order,
     questions: section.questions.map(encodeQuestion).toArray(),
     content: section.content,
-    _destroy: section.deleted
+    _destroy: section.deleted,
+    uuid: section.persisted ? undefined : section.id
   };
 }
 
 function encodeForm(form: FormType): ApiForm {
   return {
-    id: typeof form.id === "number" ? form.id : undefined,
-    application_id: 1,
+    id: form.persisted ? form.id : undefined,
+    application_id: form.applicationId,
     completion_content: form.completionContent,
-    sections: form.sections.toArray().map(encodeSection)
+    sections: form.sections.toArray().map(encodeSection),
+    uuid: form.persisted ? undefined : form.id
   };
 }
 

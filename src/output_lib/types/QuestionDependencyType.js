@@ -1,17 +1,19 @@
 // @flow
 
 import { Record, List } from "immutable";
-import ChoiceType from "./ChoiceType";
+import QuestionDependencyChoiceType from "./QuestionDependencyChoiceType";
 
 export default class QuestionDependencyType
   extends Record({
     id: "",
     display: true,
-    choices: List(),
-    and: false
+    questionDependencyChoices: List(),
+    and: false,
+    persisted: false
   }) {
-  id: number | string;
+  id: string;
   display: boolean;
-  choices: List<string | number>;
+  questionDependencyChoices: List<QuestionDependencyChoiceType>;
   and: boolean;
+  persisted: boolean;
 }

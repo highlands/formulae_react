@@ -6,11 +6,13 @@ import QuestionSubmissionType from "./QuestionSubmissionType";
 
 export default class FormSubmissionResponseType
   extends Record({
-    id: 0,
+    id: "",
     formResponse: new FormResponseType(),
-    questionSubmissions: new List()
+    questionSubmissions: new List(),
+    persisted: false
   }) {
-  id: number;
+  id: string;
   formResponse: FormResponseType;
   questionSubmissions: Array<QuestionSubmissionType>;
+  persisted: boolean;
 }

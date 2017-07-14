@@ -7,6 +7,7 @@ import {
   ChoiceType,
   QuestionType,
   QuestionDependencyType,
+  QuestionDependencyChoiceType,
   QuestionSubmissionType,
   FormSubmissionResponseType
 } from "./types";
@@ -37,10 +38,16 @@ type ApiChoice = {
   label: string
 };
 
+type ApiQuestionDependencyChoice = {
+  id: string,
+  question_dependency_id: number,
+  choice_id: number
+};
+
 type ApiQuestionDependency = {
   id: string,
   display: boolean,
-  choices: Array<ApiChoice>,
+  question_dependency_choices: Array<ApiQuestionDependencyChoice>,
   and: boolean
 };
 
@@ -100,7 +107,8 @@ function decodeSection(
       questions.filter(question => {
         return question.get("section_id") === section.id;
       })
-    )
+    ),
+    persisted: true
   });
 }
 
@@ -120,7 +128,8 @@ function decodeQuestion(question: ApiQuestion): QuestionType {
     placeholder: question.placeholder,
     section_id: question.section_id,
     choices: decodeChoices(question.choices),
-    questionDependency: questionDependency
+    questionDependency: questionDependency,
+    persisted: true
   });
 }
 
@@ -131,10 +140,29 @@ function decodeQuestionDependency(
     return null;
   }
   return new QuestionDependencyType({
+    id: questionDependency.id,
     display: questionDependency.display,
-    choices: decodeChoices(questionDependency.choices),
-    and: questionDependency.and
+    questionDependencyChoices: decodeQuestionDependencyChoices(
+      questionDependency.question_dependency_choices
+    ),
+    and: questionDependency.and,
+    persisted: true
   });
+}
+
+function decodeQuestionDependencyChoices(
+  questionDependencyChoices: Array<ApiQuestionDependencyChoice>
+): List<QuestionDependencyChoiceType> {
+  return List(
+    questionDependencyChoices.map(choice => {
+      return new QuestionDependencyChoiceType({
+        id: choice.id,
+        questionDependencyId: choice.question_dependency_id,
+        choiceId: choice.choice_id,
+        persisted: true
+      });
+    })
+  );
 }
 
 function decodeChoices(choices: Array<ApiChoice>): List<ChoiceType> {
@@ -146,7 +174,8 @@ function decodeChoices(choices: Array<ApiChoice>): List<ChoiceType> {
         question_dependency_id: choice.question_dependency_id,
         metadata: choice.metadata,
         maximum_chosen: choice.maximum_chosen,
-        label: choice.label
+        label: choice.label,
+        persisted: true
       });
     })
   );
@@ -162,14 +191,16 @@ function decodeForm(data: ApiForm): FormType {
       data.sections.map(section => {
         return decodeSection(section, questions);
       })
-    )
+    ),
+    persisted: true
   });
 }
 
 function decodeFormResponse(data: ApiFormResponse): FormResponseType {
   return new FormResponseType({
     id: data.id,
-    applicationId: data.application_id
+    applicationId: data.application_id,
+    persisted: true
   });
 }
 
@@ -179,7 +210,8 @@ function decodeQuestionSubmissions(data: Array<ApiQuestionSubmissionResponse>) {
       new QuestionSubmissionType({
         id: qs.id,
         value: qs.value,
-        questionType: qs.question_type
+        questionType: qs.question_type,
+        persisted: true
       })
   );
 }
@@ -190,7 +222,8 @@ function decodeFormSubmissionResponse(
   return new FormSubmissionResponseType({
     id: data.id,
     formResponse: decodeFormResponse(data.form),
-    questionSubmissions: decodeQuestionSubmissions(data.question_submissions)
+    questionSubmissions: decodeQuestionSubmissions(data.question_submissions),
+    persisted: true
   });
 }
 

@@ -33,7 +33,7 @@ function renderAllChoices(
                   createQuestionDependency(
                     currentSection.id,
                     currentQuestion.id,
-                    choice
+                    choice.id
                   );
                 }}
               >
@@ -55,19 +55,19 @@ function renderChosenQuestionDependencyChoices(
   questionDependency,
   deleteQuestionDependency
 ) {
-  if (questionDependency.choices !== null) {
-    return questionDependency.choices
-      .map((choiceId, i) => {
+  if (questionDependency.questionDependencyChoices !== null) {
+    return questionDependency.questionDependencyChoices
+      .map((choice, i) => {
         return (
           <div key={i}>
-            {choiceId}
+            {choice.choiceId}
             <button
               className="pure-button"
               onClick={() => {
                 deleteQuestionDependency(
                   currentSection.id,
                   currentQuestion.id,
-                  choiceId
+                  choice.id
                 );
               }}
             >

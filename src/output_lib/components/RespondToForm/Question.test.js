@@ -5,6 +5,7 @@ import {
   QuestionType,
   QuestionSubmissionType,
   QuestionDependencyType,
+  QuestionDependencyChoiceType,
   ChoiceType
 } from "../../types";
 import { List, Map } from "immutable";
@@ -91,8 +92,9 @@ describe("Required Questions", () => {
 });
 
 describe("QuestionDependency", () => {
-  const choice1 = new ChoiceType({
-    id: "10",
+  const questionDependencyChoice1 = new QuestionDependencyChoiceType({
+    questionDependencyId: "1",
+    choiceId: "10",
     name: "first"
   });
 
@@ -100,7 +102,7 @@ describe("QuestionDependency", () => {
     const questionDependencyDisplayTrue = new QuestionDependencyType({
       id: "1",
       display: true,
-      choices: List([choice1]),
+      questionDependencyChoices: List([questionDependencyChoice1]),
       and: false
     });
 
@@ -131,42 +133,36 @@ describe("QuestionDependency", () => {
   });
 
   describe("display: false", () => {
-    const questionDependencyDisplayTrue = new QuestionDependencyType({
+    const questionDependencyDisplayFalse = new QuestionDependencyType({
       id: "1",
       display: false,
-      choices: List([choice1]),
+      choices: List([questionDependencyChoice1]),
       and: false
     });
 
-    const questionWithDependencyDisplayTrue = new QuestionType({
+    const questionWithDependencyDisplayFalse = new QuestionType({
       key: "first",
       label: "firstWithDependency",
       type: "string",
       required: false,
-      questionDependency: questionDependencyDisplayTrue
+      questionDependency: questionDependencyDisplayFalse
     });
 
     const submissions = new Map({
-      "1": List([
-        new QuestionSubmissionType({
-          id: 1,
-          value: "10",
-          questionType: "string"
-        })
-      ])
+      "1": new List([new QuestionSubmissionType({ id: "1", value: "10" })])
     });
 
     it("hides the question if its dependencies are satisfied", () => {
       const subject = shallow(
         <Question
-          question={questionWithDependencyDisplayTrue}
+          question={questionWithDependencyDisplayFalse}
           submission={new QuestionSubmissionType()}
           submissions={submissions}
           setSubmission={() => {}}
         />
       );
 
-      expect(subject.find("label").length).toEqual(0);
+      expect(subject.find("input").length).toEqual(0);
     });
   });
 });

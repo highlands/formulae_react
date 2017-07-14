@@ -4,15 +4,17 @@ import { Record } from "immutable";
 
 export default class FormQuestionSubmissionType
   extends Record({
-    questionId: 0,
+    questionId: "",
     string: undefined,
     text: undefined,
     boolean: undefined,
-    composite: undefined
+    composite: undefined,
+    persisted: false
   }) {
-  questionId: number;
+  questionId: string;
   string: ?string;
   text: ?string;
   boolean: ?boolean;
   composite: ?Object;
+  persisted: boolean;
 }
