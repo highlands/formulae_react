@@ -140,6 +140,7 @@ function decodeQuestionDependency(
     return null;
   }
   return new QuestionDependencyType({
+    id: questionDependency.id,
     display: questionDependency.display,
     questionDependencyChoices: decodeQuestionDependencyChoices(
       questionDependency.question_dependency_choices

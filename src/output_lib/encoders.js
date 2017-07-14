@@ -28,7 +28,7 @@ type ApiFormSubmission = {
 type ApiChoice = {
   id: ?string,
   label: string,
-  metadata: ?Object,
+  //metadata: ?Object,
   maximum_chosen: ?number,
   uuid: ?string
 };
@@ -102,6 +102,16 @@ function encodeFormSubmission(
 }
 
 function encodeQuestion(question: QuestionType): ApiQuestion {
+  let questionDependency;
+  if (
+    question.questionDependency &&
+    question.questionDependency.questionDependencyChoices.size > 0
+  ) {
+    questionDependency = encodeQuestionDependency(question.questionDependency);
+  } else {
+    questionDependency = undefined;
+  }
+
   return {
     id: question.persisted ? question.id : undefined,
     key: question.key,
@@ -112,9 +122,7 @@ function encodeQuestion(question: QuestionType): ApiQuestion {
     question_type: question.type,
     validate_as: question.validateAs,
     order: question.order,
-    question_dependency: question.questionDependency
-      ? encodeQuestionDependency(question.questionDependency)
-      : undefined,
+    question_dependency: questionDependency,
     _destroy: question.deleted,
     choices: question.choices.map(encodeChoice).toArray(),
     uuid: question.persisted ? undefined : question.id
@@ -127,7 +135,7 @@ function encodeQuestionDependency(
   return {
     id: questionDependency.persisted ? questionDependency.id : undefined,
     and: questionDependency.and,
-    display: questionDependency.boolean,
+    display: questionDependency.display,
     question_dependency_choices: encodeQuestionDependencyChoices(
       questionDependency.questionDependencyChoices
     ),
@@ -161,7 +169,7 @@ function encodeChoice(choice: ChoiceType): ApiChoice {
     id: choice.persisted ? choice.id : undefined,
     label: choice.label,
     _destroy: choice.deleted,
-    metadata: choice.metadata,
+    //metadata: choice.metadata,
     maximum_chosen: choice.maximumChosen,
     uuid: choice.persisted ? undefined : choice.id
   };
