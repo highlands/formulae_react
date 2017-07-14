@@ -40,7 +40,7 @@ export default function Checkboxes(props: Props) {
   return (
     <div className="checkboxes">
       <div className="headinglabel">
-        {label}: <i>(Check all that apply)</i>
+        {label}: <i className="instruction">(Check all that apply)</i>
       </div>
       {checkboxes}
     </div>

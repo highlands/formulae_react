@@ -45,11 +45,11 @@ export default function Section(props: Props) {
     errors
   );
   return (
-    <div>
+    <section className="form-section">
       <h2>{section.get("name")}</h2>
       <p>{section.get("content")}</p>
       {questions}
-    </div>
+    </section>
   );
 }
 
@@ -88,10 +88,8 @@ function getSubmission(
   question: QuestionType,
   submissions: QuestionSubmissionsMapType
 ): QuestionSubmissionMapValueType {
-  return (
-    submissions.get(String(question.get("id"))) ||
-    List([getDefaultSubmission(question)])
-  );
+  return submissions.get(String(question.get("id"))) ||
+    List([getDefaultSubmission(question)]);
 }
 
 function getDefaultSubmission(question: QuestionType): QuestionSubmissionType {
