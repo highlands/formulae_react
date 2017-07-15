@@ -20,6 +20,7 @@ type Props = {
   setQuestionValidateAs: Function,
   deleteQuestion: Function,
   expandedQuestions: Set<string>,
+  expandedSections: Set<string>,
   toggleExpandQuestion: Function,
   moveQuestion: Function,
   moveSection: Function,
@@ -33,7 +34,8 @@ type Props = {
   deleteQuestionDependency: Function,
   setDisplayQuestionDependency: Function,
   setAndQuestionDependency: Function,
-  setChoiceMetadata: Function
+  setChoiceMetadata: Function,
+  toggleExpandSection: Function
 };
 
 export default function SectionAdmin(props: Props) {
@@ -52,6 +54,7 @@ export default function SectionAdmin(props: Props) {
     setQuestionValidateAs,
     deleteQuestion,
     expandedQuestions,
+    expandedSections,
     toggleExpandQuestion,
     moveQuestion,
     moveSection,
@@ -65,8 +68,14 @@ export default function SectionAdmin(props: Props) {
     deleteQuestionDependency,
     setDisplayQuestionDependency,
     setAndQuestionDependency,
-    setChoiceMetadata
+    setChoiceMetadata,
+    toggleExpandSection
   } = props;
+
+  const expanded = expandedSections.get(String(section.id)) !== undefined;
+  const expandedClass = expanded ? "" : "hide";
+  const caretClass = expanded ? "fa-caret-down" : "fa-caret-up";
+
   const questionsToRender = section.questions
     .sortBy(q => q.order)
     .filter(q => !q.deleted)
@@ -128,8 +137,8 @@ export default function SectionAdmin(props: Props) {
         <div className="controls">
           <i
             id={`edit-${section.id}`}
-            onClick={() => {}}
-            className={`expand fa fa-caret-down`}
+            onClick={() => toggleExpandSection(section.id)}
+            className={`expand fa ${caretClass}`}
           />
           <i
             onClick={e => deleteSection(section.id)}
@@ -137,12 +146,12 @@ export default function SectionAdmin(props: Props) {
           />
         </div>
       </header>
-      <div className="question-container">
+      <div className={`question-container ${expandedClass}`}>
         {questionsToRender}
+        <button className="pure-button" onClick={() => addQuestion(section.id)}>
+          Add Question
+        </button>
       </div>
-      <button className="pure-button" onClick={() => addQuestion(section.id)}>
-        Add Question
-      </button>
     </section>
   );
 }

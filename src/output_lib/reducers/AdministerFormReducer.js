@@ -27,6 +27,8 @@ export default function AdministerFormReducer(
       return moveSection(model, action.payload);
     case "TOGGLE_EXPAND_QUESTION":
       return toggleExpandQuestion(model, action.payload);
+    case "TOGGLE_EXPAND_SECTION":
+      return toggleExpandSection(model, action.payload);
     case "ADD_SECTION":
       return addSection(model);
     case "SET_FORM_COMPLETION_CONTENT":
@@ -253,6 +255,15 @@ function toggleExpandQuestion(model, payload) {
     return model.set("expandedQuestions", model.expandedQuestions.delete(id));
   } else {
     return model.set("expandedQuestions", model.expandedQuestions.add(id));
+  }
+}
+
+function toggleExpandSection(model, payload) {
+  let id = `${payload.sectionId}`;
+  if (model.getIn(["expandedSections", id])) {
+    return model.set("expandedSections", model.expandedSections.delete(id));
+  } else {
+    return model.set("expandedSections", model.expandedSections.add(id));
   }
 }
 
