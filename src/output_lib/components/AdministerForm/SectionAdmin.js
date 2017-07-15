@@ -102,37 +102,47 @@ export default function SectionAdmin(props: Props) {
     ));
 
   return (
-    <div>
-      <div className="section">
-        <h6>{section.name}</h6>
+    <section className="admin-formsection">
+      <header className="section-header">
+        <i className="fa fa-bars grippy" />
         <button onClick={() => moveSection(-1)}>Up</button>
         <button onClick={() => moveSection(1)}>Down</button>
         <label>
-          Name:
           <input
             type="text"
             value={section.name}
             name="name"
+            placeholder="Name"
             onChange={e => setSectionName(section.id, e.target.value)}
           />
         </label>
         <label>
-          Content:
           <input
             type="text"
             value={section.content}
             name="content"
+            placeholder="Content"
             onChange={e => setSectionContent(section.id, e.target.value)}
           />
         </label>
-        <button onClick={() => deleteSection(section.id)}>Delete</button>
-      </div>
+        <div className="controls">
+          <i
+            id={`edit-${section.id}`}
+            onClick={() => {}}
+            className={`expand fa fa-caret-down`}
+          />
+          <i
+            onClick={e => deleteSection(section.id)}
+            className="fa fa-times-circle-o delete"
+          />
+        </div>
+      </header>
       <div className="question-container">
         {questionsToRender}
       </div>
       <button className="pure-button" onClick={() => addQuestion(section.id)}>
         Add Question
       </button>
-    </div>
+    </section>
   );
 }

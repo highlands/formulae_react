@@ -1,0 +1,34 @@
+@mixin admin-header {
+  padding: $padding-md;
+  display: flex;
+  > .grippy {
+    padding: $padding-lg;
+  }
+  > .labelinput {
+    margin-left: $margin-xl;
+    flex-grow: 1;
+  }
+  > .controls {
+    align-self: flex-end;
+    text-align: right;
+    display: flex;
+    > button, > i {
+      padding: $padding-lg;
+      margin-left: $margin-md;
+    }
+    > button {
+      color: $button-text-color;
+      background-color: $button-background-color;
+    }
+    > .expand {
+      color: $button-text-color;
+    }
+    > .delete {
+      color: $delete-color;
+    }
+    > i {
+      font-size: 2rem;
+      cursor: pointer;
+    }
+  }
+}

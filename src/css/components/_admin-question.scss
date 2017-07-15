@@ -1,41 +1,14 @@
 // NOTE: Added element here to fix specificity issue fighting with purecss
 fieldset.admin-question {
   border-color: $border-color;
-  border-width: 1px;
+  border-width: $border-width;
   border-radius: $border-radius;
   border-style: solid;
   padding: 0;
+  background-color: $catskill-white;
+  margin-bottom: $margin-lg;
   > header {
-    padding: $padding-md;
-    display: flex;
-    background-color: $catskill-white;
-    > .grippy {
-      padding: $padding-lg;
-    }
-    > .labelinput {
-      margin-left: $margin-xl;
-      flex-grow: 1;
-    }
-    > .controls {
-      align-self: flex-end;
-      text-align: right;
-      display: flex;
-      > button, > i {
-        padding: $padding-lg;
-        margin-left: $margin-md;
-      }
-      > button {
-        color: $button-text-color;
-        background-color: $button-background-color;
-      }
-      > .edit {
-        color: $button-text-color;
-      }
-      > i {
-        font-size: 2rem;
-        cursor: pointer;
-      }
-    }
+    @include admin-header();
   }
   > div {
     padding: $padding-xl;

@@ -1,0 +1,11 @@
+.admin-formsection {
+  border-color: $border-color;
+  border-width: $border-width;;
+  border-radius: $border-radius;
+  border-style: solid;
+  padding: $padding-lg;
+  background: $white-smoke;
+  > header {
+    @include admin-header();
+  }
+}

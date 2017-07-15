@@ -2,6 +2,7 @@
 $catskill-white: #f9fbfc;
 $mercury: #e6e6e6;
 $dusty-gray: #999999;
+$white-smoke: whitesmoke;
 $lochmara: #008ccc;
 $link-water: #e9f3f9;
 $alizarin-crimson: #e9322d;
@@ -15,3 +16,4 @@ $border-color-error-alert: desaturate($alizarin-crimson, 20%);
 $text-color-error-alert: $border-color-error-alert;
 $background-color-error-alert: lighten($border-color-error-alert, 40%);
 $subtle-text-color: #666;
+$delete-color: red;

@@ -103,6 +103,7 @@ function renderQuestionFields(props) {
     moveQuestion
   } = props;
 
+  let editActive = expanded ? "fa-caret-down" : "fa-caret-up";
   return (
     <fieldset className="admin-question">
       <header>
@@ -114,6 +115,7 @@ function renderQuestionFields(props) {
           className="labelinput"
           value={question.label}
           name="label"
+          placeholder="Question"
           onChange={e =>
             setQuestionLabel(section.id, question.id, e.target.value)}
         />
@@ -121,11 +123,11 @@ function renderQuestionFields(props) {
           <i
             id={`edit-${question.id}`}
             onClick={toggleExpandQuestion}
-            className="fa fa-pencil edit"
+            className={`expand fa ${editActive}`}
           />
           <i
             onClick={e => deleteQuestion(section.id, question.id)}
-            className="fa fa-times-circle-o"
+            className="fa fa-times-circle-o delete"
           />
         </div>
       </header>
