@@ -30,5 +30,8 @@
       font-size: 2rem;
       cursor: pointer;
     }
+    > small {
+      padding: $padding-lg 0 0 $padding-lg;
+    }
   }
 }
