@@ -110,6 +110,7 @@ function renderQuestionFields(props) {
         <i className="fa fa-bars grippy" />
         <button onClick={() => moveQuestion(-1)}>Up</button>
         <button onClick={() => moveQuestion(1)}>Down</button>
+        <small>{question.type}</small>
         <input
           type="text"
           className="labelinput"
@@ -120,7 +121,6 @@ function renderQuestionFields(props) {
             setQuestionLabel(section.id, question.id, e.target.value)}
         />
         <div className="controls">
-          <small>{question.type}</small>
           <i
             id={`edit-${question.id}`}
             onClick={toggleExpandQuestion}
