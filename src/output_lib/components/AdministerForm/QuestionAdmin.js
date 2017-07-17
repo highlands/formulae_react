@@ -120,6 +120,7 @@ function renderQuestionFields(props) {
             setQuestionLabel(section.id, question.id, e.target.value)}
         />
         <div className="controls">
+          <small>{question.type}</small>
           <i
             id={`edit-${question.id}`}
             onClick={toggleExpandQuestion}
