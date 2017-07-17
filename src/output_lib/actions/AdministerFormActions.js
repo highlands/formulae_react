@@ -353,6 +353,15 @@ function setChoiceMetadata(
   };
 }
 
+function toggleExpandSection(sectionId: string) {
+  return {
+    type: "TOGGLE_EXPAND_SECTION",
+    payload: {
+      sectionId
+    }
+  };
+}
+
 export default {
   addSection,
   setSectionName,
@@ -381,5 +390,6 @@ export default {
   deleteQuestionDependency,
   setDisplayQuestionDependency,
   setAndQuestionDependency,
-  setChoiceMetadata
+  setChoiceMetadata,
+  toggleExpandSection
 };

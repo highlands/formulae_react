@@ -149,7 +149,9 @@ export const AdministerForm = connect(
             choiceId,
             metadata
           )
-        )
+        ),
+      toggleExpandSection: sectionId =>
+        dispatch(AdministerFormActions.toggleExpandSection(sectionId))
     };
   }
 )(components.AdministerForm);

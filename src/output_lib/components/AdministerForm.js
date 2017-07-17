@@ -34,7 +34,8 @@ type Props = {
   deleteQuestionDependency: Function,
   setDisplayQuestionDependency: Function,
   setAndQuestionDependency: Function,
-  setChoiceMetadata: Function
+  setChoiceMetadata: Function,
+  toggleExpandSection: Function
 };
 
 export default function AdministerForm(props: Props) {
@@ -67,7 +68,8 @@ export default function AdministerForm(props: Props) {
     deleteQuestionDependency,
     setDisplayQuestionDependency,
     setAndQuestionDependency,
-    setChoiceMetadata
+    setChoiceMetadata,
+    toggleExpandSection
   } = props;
   const { apiKey } = model;
   const sectionsToRender = model.form.sections
@@ -89,6 +91,7 @@ export default function AdministerForm(props: Props) {
         deleteQuestion={deleteQuestion}
         section={s}
         expandedQuestions={model.expandedQuestions}
+        expandedSections={model.expandedSections}
         toggleExpandQuestion={toggleExpandQuestion}
         moveQuestion={(questionId, direction) =>
           moveQuestion(s.id, questionId, direction)}
@@ -105,6 +108,7 @@ export default function AdministerForm(props: Props) {
         setDisplayQuestionDependency={setDisplayQuestionDependency}
         setAndQuestionDependency={setAndQuestionDependency}
         setChoiceMetadata={setChoiceMetadata}
+        toggleExpandSection={toggleExpandSection}
       />
     ));
   return (
@@ -118,12 +122,14 @@ export default function AdministerForm(props: Props) {
         value={model.get("form").get("completionContent")}
         onChange={e => setFormCompletionContent(e.target.value)}
       />
-      <div>
+      <div className="admin-formcontainer">
         <h3>Sections</h3>
         {sectionsToRender}
-        <button className="pure-button" onClick={() => addSection()}>
-          Add Section
-        </button>
+        <div className="add-button">
+          <button className="pure-button" onClick={() => addSection()}>
+            Add Section
+          </button>
+        </div>
       </div>
       <hr />
       <button className="pure-button" onClick={() => saveForm(apiKey)}>
