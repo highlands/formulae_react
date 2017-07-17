@@ -8,6 +8,10 @@
     margin-left: $margin-xl;
     flex-grow: 1;
   }
+  > small {
+    padding: $padding-lg 0 0 $padding-lg;
+    text-transform: capitalize;
+  }
   > .controls {
     align-self: flex-end;
     text-align: right;
@@ -29,9 +33,6 @@
     > i {
       font-size: 2rem;
       cursor: pointer;
-    }
-    > small {
-      padding: $padding-lg 0 0 $padding-lg;
     }
   }
 }
