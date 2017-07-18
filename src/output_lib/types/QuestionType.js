@@ -18,6 +18,7 @@ export default class QuestionType
     sectionId: "",
     validateAs: "",
     choices: List(),
+    metadataFields: List(),
     questionDependency: new QuestionDependencyType(),
     deleted: false,
     persisted: false
@@ -34,6 +35,7 @@ export default class QuestionType
   sectionId: string;
   validateAs: string;
   choices: List<ChoiceType>;
+  metadataFields: List<string>;
   questionDependency: ?QuestionDependencyType;
   deleted: boolean;
   persisted: boolean;

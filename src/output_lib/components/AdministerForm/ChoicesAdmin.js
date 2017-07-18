@@ -11,7 +11,8 @@ type Props = {
   moveChoice: Function,
   setChoiceLabel: Function,
   deleteChoice: Function,
-  setChoiceMetadata: Function
+  setChoiceMetadata: Function,
+  addMetadataField: Function
 };
 
 export default function ChoicesAdmin(props: Props) {
@@ -22,7 +23,8 @@ export default function ChoicesAdmin(props: Props) {
     moveChoice,
     setChoiceLabel,
     deleteChoice,
-    setChoiceMetadata
+    setChoiceMetadata,
+    addMetadataField
   } = props;
   const choicesToRender = question.choices
     .sortBy(c => c.order)
@@ -41,18 +43,35 @@ export default function ChoicesAdmin(props: Props) {
       />
     ));
 
+  const metadataFieldHeaders = <th>Foo</th>;
+
   return (
     <div>
-      <div className="section">
-        <h6>Choice Name</h6>
-        <button
-          className="pure-button"
-          onClick={() => addChoice(sectionId, question.id)}
-        >
-          Add Choice
-        </button>
-        {choicesToRender}
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th />
+            <th>
+              Name
+            </th>
+            {metadataFieldHeaders}
+            <th>
+              <button onClick={addMetadataField}>
+                Add field
+              </button>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {choicesToRender}
+        </tbody>
+      </table>
+      <button
+        className="pure-button"
+        onClick={() => addChoice(sectionId, question.id)}
+      >
+        Add Choice
+      </button>
     </div>
   );
 }

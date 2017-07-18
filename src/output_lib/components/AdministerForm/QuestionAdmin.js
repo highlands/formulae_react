@@ -174,8 +174,6 @@ function renderQuestionFields(props) {
     <fieldset className={className}>
       <header>
         {connectDragSource(<i className="fa fa-bars grippy" />)}
-        <button onClick={() => moveQuestion(-1)}>Up</button>
-        <button onClick={() => moveQuestion(1)}>Down</button>
         <small>{question.type}</small>
         <input
           type="text"
@@ -404,6 +402,7 @@ function renderQuestionAdminType(
           setChoiceLabel={setChoiceLabel}
           deleteChoice={deleteChoice}
           setChoiceMetadata={setChoiceMetadata}
+          addMetadataField={() => addMetadataField(section.id, question.id)}
         />
       </div>
     );
