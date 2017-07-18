@@ -17,8 +17,13 @@ const questionSource = {
 };
 
 const questionTarget = {
+  canDrop(props, monitor) {
+    let { section } = props;
+    let item = monitor.getItem();
+    return section.id === item.sectionId;
+  },
+
   drop(props, monitor) {
-    console.log(props);
     let { reorderQuestion, question } = props;
     let { order } = question;
     let item = monitor.getItem();
@@ -29,13 +34,15 @@ const questionTarget = {
 function dropCollect(connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver()
+    isOver: monitor.isOver(),
+    canDrop: monitor.canDrop()
   };
 }
 
 function dragCollect(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging()
   };
 }
@@ -67,13 +74,21 @@ type Props = {
   setAndQuestionDependency: Function,
   setChoiceMetadata: Function,
   connectDragSource: Function,
+  connectDragPreview: Function,
   isDragging: boolean,
   connectDropTarget: Function,
-  isOver: boolean
+  isOver: boolean,
+  canDrop: boolean
 };
 
 function renderQuestionType(props) {
-  const { section, setQuestionType, question } = props;
+  const {
+    section,
+    setQuestionType,
+    question,
+    connectDragSource,
+    connectDragPreview
+  } = props;
   const makeString = () => setQuestionType(section.id, question.id, "string");
   const makeText = () => setQuestionType(section.id, question.id, "text");
   const makeBoolean = () => setQuestionType(section.id, question.id, "boolean");
@@ -140,14 +155,25 @@ function renderQuestionFields(props) {
     deleteQuestion,
     expanded,
     toggleExpandQuestion,
-    moveQuestion
+    moveQuestion,
+    isOver,
+    canDrop,
+    connectDragSource,
+    connectDragPreview
   } = props;
 
   let editActive = expanded ? "fa-caret-down" : "fa-caret-up";
-  return (
-    <fieldset className="admin-question">
+  let className = "admin-question";
+  if (isOver) {
+    className = className + " -is-over";
+  }
+  if (!canDrop) {
+    className = className + " -cannot-drop";
+  }
+  return connectDragPreview(
+    <fieldset className={className}>
       <header>
-        <i className="fa fa-bars grippy" />
+        {connectDragSource(<i className="fa fa-bars grippy" />)}
         <button onClick={() => moveQuestion(-1)}>Up</button>
         <button onClick={() => moveQuestion(1)}>Down</button>
         <small>{question.type}</small>
@@ -385,14 +411,12 @@ function renderQuestionAdminType(
 }
 
 function QuestionAdmin(props: Props) {
-  const { connectDragSource, isDragging, connectDropTarget, isOver } = props;
+  const { isDragging, connectDropTarget, isOver } = props;
 
   return connectDropTarget(
-    connectDragSource(
-      <div className="question">
-        {renderQuestionType(props)}
-      </div>
-    )
+    <div className="question">
+      {renderQuestionType(props)}
+    </div>
   );
 }
 

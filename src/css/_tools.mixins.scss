@@ -3,6 +3,7 @@
   display: flex;
   > .grippy {
     padding: $padding-lg;
+    cursor: move;
   }
   > .labelinput {
     margin-left: $margin-xl;
