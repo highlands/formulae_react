@@ -112,6 +112,14 @@ export default function SectionAdmin(props: Props) {
 
   return (
     <section className="admin-formsection">
+      <textarea
+        type="text"
+        value={section.content}
+        name="content"
+        className="pure-u-1-2 section-content"
+        placeholder="Section content"
+        onChange={e => setSectionContent(section.id, e.target.value)}
+      />
       <header className="section-header">
         <i className="fa fa-bars grippy" />
         <button onClick={() => moveSection(-1)}>Up</button>
@@ -122,16 +130,8 @@ export default function SectionAdmin(props: Props) {
             value={section.name}
             name="name"
             placeholder="Name"
+            className="section-name"
             onChange={e => setSectionName(section.id, e.target.value)}
-          />
-        </label>
-        <label>
-          <input
-            type="text"
-            value={section.content}
-            name="content"
-            placeholder="Content"
-            onChange={e => setSectionContent(section.id, e.target.value)}
           />
         </label>
         <div className="controls">

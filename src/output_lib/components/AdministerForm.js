@@ -115,13 +115,16 @@ export default function AdministerForm(props: Props) {
     <form onSubmit={e => e.preventDefault()} className="pure-form">
       <h2>Administer Form</h2>
       <hr />
-      CompletionContent:
-      <input
-        type="text"
-        placeholder="Completion content goes here"
-        value={model.get("form").get("completionContent")}
-        onChange={e => setFormCompletionContent(e.target.value)}
-      />
+      <div className="admin-formcompletioncontent">
+        <label><h3>Form Completion Content</h3></label>
+        <textarea
+          type="text"
+          className="pure-input-1-2"
+          placeholder="Text that shows when the form is submitted"
+          value={model.get("form").get("completionContent")}
+          onChange={e => setFormCompletionContent(e.target.value)}
+        />
+      </div>
       <div className="admin-formcontainer">
         <h3>Sections</h3>
         {sectionsToRender}

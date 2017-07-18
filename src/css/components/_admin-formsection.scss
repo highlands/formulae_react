@@ -8,4 +8,10 @@
   > header {
     @include admin-header();
   }
+  > .section-content {
+    margin: $margin-lg;
+  }
+  .section-name {
+    margin-left: $margin-lg;
+  }
 }
