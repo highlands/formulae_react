@@ -169,7 +169,7 @@ function encodeChoice(choice: ChoiceType): ApiChoice {
     id: choice.persisted ? choice.id : undefined,
     label: choice.label,
     _destroy: choice.deleted,
-    //metadata: choice.metadata,
+    metadata: choice.metadata.toJS(),
     maximum_chosen: choice.maximumChosen,
     uuid: choice.persisted ? undefined : choice.id
   };
