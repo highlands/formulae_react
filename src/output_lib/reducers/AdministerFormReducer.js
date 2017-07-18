@@ -228,6 +228,10 @@ function reorderThing(model, key, thingId, order) {
   const things = model.getIn(["form"].concat(key));
   const maxOrder = things.map(s => s.order).sort().max();
   const section = things.find(s => `${s.id}` === `${thingId}`);
+  // Can't reorder something before the '1' index because we start there
+  if (order < 1) {
+    return model;
+  }
   if (section) {
     const nextOrder = order;
     const nextThings = things.map((value, index) => {
@@ -239,7 +243,7 @@ function reorderThing(model, key, thingId, order) {
         }
       } else {
         if (value.order >= nextOrder) {
-          return value.set("order", value.order - 1);
+          return value.set("order", value.order + 1);
         } else {
           return value;
         }

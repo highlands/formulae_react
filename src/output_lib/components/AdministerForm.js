@@ -103,7 +103,7 @@ function AdministerForm(props: Props) {
           moveQuestion(s.id, questionId, direction)}
         reorderQuestion={(questionId, order) =>
           reorderQuestion(s.id, questionId, order)}
-        reorderSection={order => reorderSection(s.id, order)}
+        reorderSection={(sectionId, order) => reorderSection(sectionId, order)}
         moveSection={direction => moveSection(s.id, direction)}
         key={i}
         addChoice={addChoice}

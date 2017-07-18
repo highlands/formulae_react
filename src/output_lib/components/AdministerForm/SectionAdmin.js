@@ -171,18 +171,8 @@ function SectionAdmin(props: Props) {
   return connectDropTarget(
     connectDragPreview(
       <section className={className}>
-        <textarea
-          type="text"
-          value={section.content}
-          name="content"
-          className="pure-u-1-2 section-content"
-          placeholder="Section content"
-          onChange={e => setSectionContent(section.id, e.target.value)}
-        />
         <header className="section-header">
           {connectDragSource(<i className="fa fa-bars grippy" />)}
-          <button onClick={() => moveSection(-1)}>Up</button>
-          <button onClick={() => moveSection(1)}>Down</button>
           <label>
             <input
               type="text"
@@ -206,7 +196,16 @@ function SectionAdmin(props: Props) {
           </div>
         </header>
         <div className={`question-container ${expandedClass}`}>
+          <textarea
+            type="text"
+            value={section.content}
+            name="content"
+            className="pure-u-1-2 section-content"
+            placeholder="Section content"
+            onChange={e => setSectionContent(section.id, e.target.value)}
+          />
           {questionsToRender}
+          <br />
           <button
             className="pure-button"
             onClick={() => addQuestion(section.id)}
