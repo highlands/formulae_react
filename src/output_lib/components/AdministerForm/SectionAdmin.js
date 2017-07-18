@@ -23,6 +23,7 @@ type Props = {
   expandedSections: Set<string>,
   toggleExpandQuestion: Function,
   moveQuestion: Function,
+  reorderQuestion: Function,
   moveSection: Function,
   addChoice: Function,
   moveChoice: Function,
@@ -57,6 +58,7 @@ export default function SectionAdmin(props: Props) {
     expandedSections,
     toggleExpandQuestion,
     moveQuestion,
+    reorderQuestion,
     moveSection,
     addChoice,
     moveChoice,
@@ -97,6 +99,8 @@ export default function SectionAdmin(props: Props) {
         expanded={expandedQuestions.get(String(q.id)) !== undefined}
         toggleExpandQuestion={() => toggleExpandQuestion(q.id)}
         moveQuestion={direction => moveQuestion(q.id, direction)}
+        reorderQuestion={(questionId, order) =>
+          reorderQuestion(questionId, order)}
         addChoice={addChoice}
         moveChoice={moveChoice}
         setChoiceLabel={setChoiceLabel}

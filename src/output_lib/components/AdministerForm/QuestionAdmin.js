@@ -4,6 +4,48 @@ import React from "react";
 import { QuestionDependencyType, SectionType, QuestionType } from "../../types";
 import ChoicesAdmin from "./ChoicesAdmin";
 import QuestionDependencyAdmin from "./QuestionDependencyAdmin";
+import { DragTypes } from "./DragTypes";
+import { DragSource, DropTarget } from "react-dnd";
+
+const questionSource = {
+  beginDrag(props) {
+    return {
+      questionId: props.question.id,
+      sectionId: props.section.id
+    };
+  }
+};
+
+const questionTarget = {
+  canDrop(props, monitor) {
+    let { section } = props;
+    let item = monitor.getItem();
+    return section.id === item.sectionId;
+  },
+
+  drop(props, monitor) {
+    let { reorderQuestion, question } = props;
+    let { order } = question;
+    let item = monitor.getItem();
+    reorderQuestion(item.questionId, order);
+  }
+};
+
+function dropCollect(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver(),
+    canDrop: monitor.canDrop()
+  };
+}
+
+function dragCollect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
+    isDragging: monitor.isDragging()
+  };
+}
 
 type Props = {
   form: Object,
@@ -20,6 +62,7 @@ type Props = {
   expanded: boolean,
   toggleExpandQuestion: Function,
   moveQuestion: Function,
+  reorderQuestion: Function,
   addChoice: Function,
   moveChoice: Function,
   setChoiceLabel: Function,
@@ -29,11 +72,23 @@ type Props = {
   deleteQuestionDependency: Function,
   setDisplayQuestionDependency: Function,
   setAndQuestionDependency: Function,
-  setChoiceMetadata: Function
+  setChoiceMetadata: Function,
+  connectDragSource: Function,
+  connectDragPreview: Function,
+  isDragging: boolean,
+  connectDropTarget: Function,
+  isOver: boolean,
+  canDrop: boolean
 };
 
 function renderQuestionType(props) {
-  const { section, setQuestionType, question } = props;
+  const {
+    section,
+    setQuestionType,
+    question,
+    connectDragSource,
+    connectDragPreview
+  } = props;
   const makeString = () => setQuestionType(section.id, question.id, "string");
   const makeText = () => setQuestionType(section.id, question.id, "text");
   const makeBoolean = () => setQuestionType(section.id, question.id, "boolean");
@@ -100,14 +155,25 @@ function renderQuestionFields(props) {
     deleteQuestion,
     expanded,
     toggleExpandQuestion,
-    moveQuestion
+    moveQuestion,
+    isOver,
+    canDrop,
+    connectDragSource,
+    connectDragPreview
   } = props;
 
   let editActive = expanded ? "fa-caret-down" : "fa-caret-up";
-  return (
-    <fieldset className="admin-question">
+  let className = "admin-question";
+  if (isOver) {
+    className = className + " -is-over";
+  }
+  if (!canDrop) {
+    className = className + " -cannot-drop";
+  }
+  return connectDragPreview(
+    <fieldset className={className}>
       <header>
-        <i className="fa fa-bars grippy" />
+        {connectDragSource(<i className="fa fa-bars grippy" />)}
         <button onClick={() => moveQuestion(-1)}>Up</button>
         <button onClick={() => moveQuestion(1)}>Down</button>
         <small>{question.type}</small>
@@ -344,10 +410,16 @@ function renderQuestionAdminType(
   }
 }
 
-export default function QuestionAdmin(props: Props) {
-  return (
+function QuestionAdmin(props: Props) {
+  const { isDragging, connectDropTarget, isOver } = props;
+
+  return connectDropTarget(
     <div className="question">
       {renderQuestionType(props)}
     </div>
   );
 }
+
+export default DropTarget(DragTypes.QUESTION, questionTarget, dropCollect)(
+  DragSource(DragTypes.QUESTION, questionSource, dragCollect)(QuestionAdmin)
+);

@@ -1,5 +1,16 @@
 import { createFormApi } from "../api";
 
+function reorderQuestion(sectionId: string, questionId: string, order: number) {
+  return {
+    type: "REORDER_QUESTION",
+    payload: {
+      sectionId,
+      questionId,
+      order
+    }
+  };
+}
+
 function moveQuestion(
   sectionId: string,
   questionId: string,
@@ -378,6 +389,7 @@ export default {
   saveForm,
   toggleExpandQuestion,
   moveQuestion,
+  reorderQuestion,
   moveSection,
   setFormCompletionContent,
   addChoice,

@@ -105,7 +105,7 @@ function decodeSection(
     order: section.order,
     questions: List(
       questions.filter(question => {
-        return question.get("section_id") === section.id;
+        return question.get("sectionId") === section.id;
       })
     ),
     persisted: true
@@ -126,7 +126,7 @@ function decodeQuestion(question: ApiQuestion): QuestionType {
     order: question.order,
     required: question.required,
     placeholder: question.placeholder,
-    section_id: question.section_id,
+    sectionId: question.section_id,
     choices: decodeChoices(question.choices),
     questionDependency: questionDependency,
     persisted: true

@@ -7,6 +7,12 @@ fieldset.admin-question {
   padding: 0;
   background-color: $catskill-white;
   margin-bottom: $margin-lg;
+  &.-is-over {
+    background: yellow;
+    &.-cannot-drop {
+      background: red;
+    }
+  }
   > header {
     @include admin-header();
   }

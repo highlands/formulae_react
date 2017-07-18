@@ -15,7 +15,7 @@ export default class QuestionType
     type: "",
     order: 0,
     required: false,
-    section_id: "",
+    sectionId: "",
     validateAs: "",
     choices: List(),
     questionDependency: new QuestionDependencyType(),
@@ -31,7 +31,7 @@ export default class QuestionType
   type: string;
   order: number;
   required: boolean;
-  section_id: string;
+  sectionId: string;
   validateAs: string;
   choices: List<ChoiceType>;
   questionDependency: ?QuestionDependencyType;
