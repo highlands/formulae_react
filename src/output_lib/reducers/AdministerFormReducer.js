@@ -23,6 +23,8 @@ export default function AdministerFormReducer(
       return model.set("form", action.payload);
     case "MOVE_QUESTION":
       return moveQuestion(model, action.payload);
+    case "REORDER_QUESTION":
+      return reorderQuestion(model, action.payload);
     case "MOVE_SECTION":
       return moveSection(model, action.payload);
     case "TOGGLE_EXPAND_QUESTION":
@@ -202,6 +204,45 @@ function moveQuestion(model, payload) {
     questionId,
     direction
   );
+}
+
+function reorderQuestion(model, payload) {
+  const { questionId, sectionId, order } = payload;
+  const sectionIndex = model.form.sections.findIndex(q => q.id === sectionId);
+  return reorderThing(
+    model,
+    ["sections", sectionIndex, "questions"],
+    questionId,
+    order
+  );
+}
+
+function reorderThing(model, key, thingId, order) {
+  const things = model.getIn(["form"].concat(key));
+  const maxOrder = things.map(s => s.order).sort().max();
+  const section = things.find(s => `${s.id}` === `${thingId}`);
+  if (section) {
+    const nextOrder = order;
+    const nextThings = things.map((value, index) => {
+      if (`${value.id}` === `${thingId}`) {
+        if (1 <= nextOrder && nextOrder <= maxOrder) {
+          return value.set("order", nextOrder);
+        } else {
+          return value;
+        }
+      } else {
+        if (value.order >= nextOrder) {
+          return value.set("order", value.order - 1);
+        } else {
+          return value;
+        }
+      }
+    });
+    return model.setIn(["form"].concat(key), nextThings);
+  } else {
+    console.log("no thing", key, thingId);
+    return model;
+  }
 }
 
 function moveThing(model, key, thingId, direction) {

@@ -3,6 +3,8 @@
 import React from "react";
 import SectionAdmin from "./AdministerForm/SectionAdmin";
 import { AdministerFormModel } from "../types";
+import { DragDropContext } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
 
 type Props = {
   model: AdministerFormModel,
@@ -22,6 +24,7 @@ type Props = {
   deleteQuestion: Function,
   toggleExpandQuestion: Function,
   moveQuestion: Function,
+  reorderQuestion: Function,
   moveSection: Function,
   setFormCompletionContent: Function,
   addChoice: Function,
@@ -38,7 +41,7 @@ type Props = {
   toggleExpandSection: Function
 };
 
-export default function AdministerForm(props: Props) {
+function AdministerForm(props: Props) {
   const {
     model,
     addSection,
@@ -56,6 +59,7 @@ export default function AdministerForm(props: Props) {
     deleteQuestion,
     toggleExpandQuestion,
     moveQuestion,
+    reorderQuestion,
     moveSection,
     setFormCompletionContent,
     addChoice,
@@ -95,6 +99,8 @@ export default function AdministerForm(props: Props) {
         toggleExpandQuestion={toggleExpandQuestion}
         moveQuestion={(questionId, direction) =>
           moveQuestion(s.id, questionId, direction)}
+        reorderQuestion={(questionId, order) =>
+          reorderQuestion(s.id, questionId, order)}
         moveSection={direction => moveSection(s.id, direction)}
         key={i}
         addChoice={addChoice}
@@ -138,3 +144,5 @@ export default function AdministerForm(props: Props) {
     </form>
   );
 }
+
+export default DragDropContext(HTML5Backend)(AdministerForm);

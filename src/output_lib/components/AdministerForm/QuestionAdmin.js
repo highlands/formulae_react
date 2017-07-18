@@ -4,6 +4,41 @@ import React from "react";
 import { QuestionDependencyType, SectionType, QuestionType } from "../../types";
 import ChoicesAdmin from "./ChoicesAdmin";
 import QuestionDependencyAdmin from "./QuestionDependencyAdmin";
+import { DragTypes } from "./DragTypes";
+import { DragSource, DropTarget } from "react-dnd";
+
+const questionSource = {
+  beginDrag(props) {
+    return {
+      questionId: props.question.id,
+      sectionId: props.section.id
+    };
+  }
+};
+
+const questionTarget = {
+  drop(props, monitor) {
+    console.log(props);
+    let { reorderQuestion, question } = props;
+    let { order } = question;
+    let item = monitor.getItem();
+    reorderQuestion(item.questionId, order);
+  }
+};
+
+function dropCollect(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
+  };
+}
+
+function dragCollect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  };
+}
 
 type Props = {
   form: Object,
@@ -20,6 +55,7 @@ type Props = {
   expanded: boolean,
   toggleExpandQuestion: Function,
   moveQuestion: Function,
+  reorderQuestion: Function,
   addChoice: Function,
   moveChoice: Function,
   setChoiceLabel: Function,
@@ -29,7 +65,11 @@ type Props = {
   deleteQuestionDependency: Function,
   setDisplayQuestionDependency: Function,
   setAndQuestionDependency: Function,
-  setChoiceMetadata: Function
+  setChoiceMetadata: Function,
+  connectDragSource: Function,
+  isDragging: boolean,
+  connectDropTarget: Function,
+  isOver: boolean
 };
 
 function renderQuestionType(props) {
@@ -344,10 +384,18 @@ function renderQuestionAdminType(
   }
 }
 
-export default function QuestionAdmin(props: Props) {
-  return (
-    <div className="question">
-      {renderQuestionType(props)}
-    </div>
+function QuestionAdmin(props: Props) {
+  const { connectDragSource, isDragging, connectDropTarget, isOver } = props;
+
+  return connectDropTarget(
+    connectDragSource(
+      <div className="question">
+        {renderQuestionType(props)}
+      </div>
+    )
   );
 }
+
+export default DropTarget(DragTypes.QUESTION, questionTarget, dropCollect)(
+  DragSource(DragTypes.QUESTION, questionSource, dragCollect)(QuestionAdmin)
+);
