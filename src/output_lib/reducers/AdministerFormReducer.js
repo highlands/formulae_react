@@ -63,6 +63,10 @@ export default function AdministerFormReducer(
       return addChoice(model, action.payload);
     case "SET_CHOICE_LABEL":
       return setChoiceLabel(model, action.payload);
+    case "ADD_METADATA_FIELD":
+      return addMetadataField(model, action.payload);
+    case "SET_METADATA_FIELD_KEY":
+      return setMetadataFieldKey(model, action.payload);
     case "SET_CHOICE_METADATA":
       return setChoiceMetadata(model, action.payload);
     case "MOVE_CHOICE":
@@ -139,6 +143,41 @@ function deleteChoice(model, payload) {
         }
       });
     });
+  } else {
+    return model;
+  }
+}
+
+function addMetadataField(model, payload) {
+  if (payload) {
+    const { sectionId, questionId } = payload;
+    const updater = metadataFields => {
+      console.log(metadataFields);
+      return metadataFields.push("");
+    };
+    return updateQuestionField(
+      model,
+      sectionId,
+      questionId,
+      "metadataFields",
+      updater
+    );
+  } else {
+    return model;
+  }
+}
+
+function setMetadataFieldKey(model, payload) {
+  if (payload) {
+    const { sectionId, questionId, index, value } = payload;
+    return setQuestionField(
+      model,
+      sectionId,
+      questionId,
+      "metadataFields",
+      index,
+      value
+    );
   } else {
     return model;
   }
@@ -641,6 +680,19 @@ function setQuestionField(model, sectionId, questionId, key, value) {
       if (s.id === sectionId) {
         let index = s.questions.findIndex(q => `${q.id}` === `${questionId}`);
         return s.setIn(["questions", index, key], value);
+      } else {
+        return s;
+      }
+    });
+  });
+}
+
+function updateQuestionField(model, sectionId, questionId, key, updater) {
+  return model.updateIn(["form", "sections"], sections => {
+    return sections.map(s => {
+      if (s.id === sectionId) {
+        let index = s.questions.findIndex(q => `${q.id}` === `${questionId}`);
+        return s.updateIn(["questions", index, key], updater);
       } else {
         return s;
       }

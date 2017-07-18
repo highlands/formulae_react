@@ -2,6 +2,7 @@
 
 import React from "react";
 import { ChoiceType } from "../../types";
+import { List } from "immutable";
 
 type Props = {
   choice: ChoiceType,
@@ -10,7 +11,8 @@ type Props = {
   setChoiceLabel: Function,
   moveChoice: Function,
   deleteChoice: Function,
-  setChoiceMetadata: Function
+  setChoiceMetadata: Function,
+  metadataFields: List<string>
 };
 
 export default function ChoiceAdmin(props: Props) {
@@ -21,7 +23,8 @@ export default function ChoiceAdmin(props: Props) {
     setChoiceLabel,
     moveChoice,
     deleteChoice,
-    setChoiceMetadata
+    setChoiceMetadata,
+    metadataFields
   } = props;
 
   const metadata = <div />;
@@ -36,6 +39,11 @@ export default function ChoiceAdmin(props: Props) {
   //     />
   //   </div>
   // );
+  const metadataInputs = metadataFields.map((fieldName, i) => (
+    <td key={i}>
+      <input type="text" />
+    </td>
+  ));
   return (
     <tr>
       <td>
@@ -53,6 +61,7 @@ export default function ChoiceAdmin(props: Props) {
           />
         </label>
       </td>
+      {metadataInputs}
       <td>
         <button onClick={() => deleteChoice(sectionId, questionId, choice.id)}>
           Delete

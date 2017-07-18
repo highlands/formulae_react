@@ -3,6 +3,7 @@
 import React from "react";
 import { QuestionType } from "../../types";
 import ChoiceAdmin from "./ChoiceAdmin";
+import { List } from "immutable";
 
 type Props = {
   sectionId: number | string,
@@ -12,7 +13,9 @@ type Props = {
   setChoiceLabel: Function,
   deleteChoice: Function,
   setChoiceMetadata: Function,
-  addMetadataField: Function
+  addMetadataField: Function,
+  metadataFields: List<string>,
+  setMetadataFieldKey: Function
 };
 
 export default function ChoicesAdmin(props: Props) {
@@ -24,7 +27,9 @@ export default function ChoicesAdmin(props: Props) {
     setChoiceLabel,
     deleteChoice,
     setChoiceMetadata,
-    addMetadataField
+    addMetadataField,
+    metadataFields,
+    setMetadataFieldKey
   } = props;
   const choicesToRender = question.choices
     .sortBy(c => c.order)
@@ -40,10 +45,21 @@ export default function ChoicesAdmin(props: Props) {
         moveChoice={(choiceId, direction) =>
           moveChoice(sectionId, question.id, choiceId, direction)}
         setChoiceMetadata={setChoiceMetadata}
+        metadataFields={metadataFields}
       />
     ));
 
-  const metadataFieldHeaders = <th>Foo</th>;
+  const metadataFieldHeaders = metadataFields.map((fieldName, i) => (
+    <th key={i}>
+      <input
+        type="text"
+        value={fieldName}
+        onInput={() => {
+          setMetadataFieldKey(i);
+        }}
+      />
+    </th>
+  ));
 
   return (
     <div>

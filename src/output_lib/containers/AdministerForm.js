@@ -157,7 +157,18 @@ export const AdministerForm = connect(
           )
         ),
       toggleExpandSection: sectionId =>
-        dispatch(AdministerFormActions.toggleExpandSection(sectionId))
+        dispatch(AdministerFormActions.toggleExpandSection(sectionId)),
+      addMetadataField: (sectionId, questionId) =>
+        dispatch(AdministerFormActions.addMetadataField(sectionId, questionId)),
+      setMetadataFieldKey: (sectionId, questionId, index, value) =>
+        dispatch(
+          AdministerFormActions.setMetadataFieldKey(
+            sectionId,
+            questionId,
+            index,
+            value
+          )
+        )
     };
   }
 )(components.AdministerForm);

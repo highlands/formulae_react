@@ -55,6 +55,23 @@ function toggleExpandQuestion(id: string) {
   };
 }
 
+function setMetadataFieldKey(
+  sectionId: string,
+  questionId: string,
+  index: number,
+  value: string
+) {
+  return {
+    type: "SET_METADATA_FIELD_KEY",
+    payload: {
+      sectionId,
+      questionId,
+      index,
+      value
+    }
+  };
+}
+
 function addSection(section: SectionType, form_id: number) {
   return {
     type: "ADD_SECTION"
@@ -374,6 +391,16 @@ function setChoiceMetadata(
   };
 }
 
+function addMetadataField(sectionId: number, questionId: number) {
+  return {
+    type: "ADD_METADATA_FIELD",
+    payload: {
+      sectionId,
+      questionId
+    }
+  };
+}
+
 function toggleExpandSection(sectionId: string) {
   return {
     type: "TOGGLE_EXPAND_SECTION",
@@ -414,5 +441,7 @@ export default {
   setDisplayQuestionDependency,
   setAndQuestionDependency,
   setChoiceMetadata,
-  toggleExpandSection
+  addMetadataField,
+  toggleExpandSection,
+  setMetadataFieldKey
 };

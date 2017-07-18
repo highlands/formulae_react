@@ -44,7 +44,9 @@ type Props = {
   connectDragPreview: Function,
   connectDropTarget: Function,
   isOver: boolean,
-  canDrop: boolean
+  canDrop: boolean,
+  addMetadataField: Function,
+  setMetadataFieldKey: Function
 };
 
 const sectionSource = {
@@ -122,7 +124,9 @@ function SectionAdmin(props: Props) {
     connectDropTarget,
     connectDragPreview,
     isOver,
-    canDrop
+    canDrop,
+    addMetadataField,
+    setMetadataFieldKey
   } = props;
 
   const expanded = expandedSections.get(String(section.id)) !== undefined;
@@ -169,6 +173,8 @@ function SectionAdmin(props: Props) {
         setDisplayQuestionDependency={setDisplayQuestionDependency}
         setAndQuestionDependency={setAndQuestionDependency}
         setChoiceMetadata={setChoiceMetadata}
+        addMetadataField={addMetadataField}
+        setMetadataFieldKey={setMetadataFieldKey}
       />
     ));
 

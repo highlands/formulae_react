@@ -78,7 +78,9 @@ type Props = {
   isDragging: boolean,
   connectDropTarget: Function,
   isOver: boolean,
-  canDrop: boolean
+  canDrop: boolean,
+  addMetadataField: Function,
+  setMetadataFieldKey: Function
 };
 
 function renderQuestionType(props) {
@@ -159,7 +161,8 @@ function renderQuestionFields(props) {
     isOver,
     canDrop,
     connectDragSource,
-    connectDragPreview
+    connectDragPreview,
+    addMetadataField
   } = props;
 
   let editActive = expanded ? "fa-caret-down" : "fa-caret-up";
@@ -223,7 +226,9 @@ function renderQuestionAdminType(
     deleteQuestionDependency,
     setDisplayQuestionDependency,
     setAndQuestionDependency,
-    setChoiceMetadata
+    setChoiceMetadata,
+    addMetadataField,
+    setMetadataFieldKey
   } = props;
 
   const questionDependency = question.questionDependency;
@@ -380,6 +385,11 @@ function renderQuestionAdminType(
           setChoiceLabel={setChoiceLabel}
           deleteChoice={deleteChoice}
           setChoiceMetadata={setChoiceMetadata}
+          addMetadataField={() => {
+            addMetadataField(section.id, question.id);
+          }}
+          metadataFields={question.metadataFields}
+          setMetadataFieldKey={setMetadataFieldKey}
         />
       </div>
     );
@@ -403,6 +413,8 @@ function renderQuestionAdminType(
           deleteChoice={deleteChoice}
           setChoiceMetadata={setChoiceMetadata}
           addMetadataField={() => addMetadataField(section.id, question.id)}
+          metadataFields={question.metadataFields}
+          setMetadataFieldKey={setMetadataFieldKey}
         />
       </div>
     );

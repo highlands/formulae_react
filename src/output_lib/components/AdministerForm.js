@@ -39,7 +39,9 @@ type Props = {
   setDisplayQuestionDependency: Function,
   setAndQuestionDependency: Function,
   setChoiceMetadata: Function,
-  toggleExpandSection: Function
+  toggleExpandSection: Function,
+  addMetadataField: Function,
+  setMetadataFieldKey: Function
 };
 
 function AdministerForm(props: Props) {
@@ -75,7 +77,9 @@ function AdministerForm(props: Props) {
     setDisplayQuestionDependency,
     setAndQuestionDependency,
     setChoiceMetadata,
-    toggleExpandSection
+    toggleExpandSection,
+    addMetadataField,
+    setMetadataFieldKey
   } = props;
   const { apiKey } = model;
   const sectionsToRender = model.form.sections
@@ -118,6 +122,8 @@ function AdministerForm(props: Props) {
         setAndQuestionDependency={setAndQuestionDependency}
         setChoiceMetadata={setChoiceMetadata}
         toggleExpandSection={toggleExpandSection}
+        addMetadataField={addMetadataField}
+        setMetadataFieldKey={setMetadataFieldKey}
       />
     ));
   return (
