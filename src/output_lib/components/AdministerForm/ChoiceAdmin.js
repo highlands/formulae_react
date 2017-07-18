@@ -2,6 +2,7 @@
 
 import React from "react";
 import { ChoiceType } from "../../types";
+import { List } from "immutable";
 
 type Props = {
   choice: ChoiceType,
@@ -10,7 +11,8 @@ type Props = {
   setChoiceLabel: Function,
   moveChoice: Function,
   deleteChoice: Function,
-  setChoiceMetadata: Function
+  metadataFields: List<string>,
+  setMetadataFieldValue: Function
 };
 
 export default function ChoiceAdmin(props: Props) {
@@ -21,28 +23,29 @@ export default function ChoiceAdmin(props: Props) {
     setChoiceLabel,
     moveChoice,
     deleteChoice,
-    setChoiceMetadata
+    metadataFields,
+    setMetadataFieldValue
   } = props;
 
-  const metadata = (
-    <div>
-      <p>Metadata</p>
-      <textarea
-        name="metadata"
-        placeholder="Metadata"
-        onChange={e =>
-          setChoiceMetadata(sectionId, questionId, choice.id, e.target.value)}
-        value={choice.metadata.toString()}
+  const metadataInputs = metadataFields.map((fieldName, i) => (
+    <td key={i}>
+      <input
+        type="text"
+        value={choice.metadata.get(fieldName) || ""}
+        onInput={evt =>
+          setMetadataFieldValue(choice.id, fieldName, evt.target.value)}
       />
-    </div>
-  );
+    </td>
+  ));
+
   return (
-    <div>
-      <div className="section">
+    <tr>
+      <td>
         <button onClick={() => moveChoice(choice.id, -1)}>Up</button>
         <button onClick={() => moveChoice(choice.id, 1)}>Down</button>
+      </td>
+      <td>
         <label>
-          Option Name:
           <input
             type="text"
             value={choice.label}
@@ -51,13 +54,13 @@ export default function ChoiceAdmin(props: Props) {
               setChoiceLabel(sectionId, questionId, choice.id, e.target.value)}
           />
         </label>
-        <label>
-          {metadata}
-        </label>
+      </td>
+      {metadataInputs}
+      <td>
         <button onClick={() => deleteChoice(sectionId, questionId, choice.id)}>
           Delete
         </button>
-      </div>
-    </div>
+      </td>
+    </tr>
   );
 }

@@ -38,13 +38,15 @@ type Props = {
   deleteQuestionDependency: Function,
   setDisplayQuestionDependency: Function,
   setAndQuestionDependency: Function,
-  setChoiceMetadata: Function,
   toggleExpandSection: Function,
   connectDragSource: Function,
   connectDragPreview: Function,
   connectDropTarget: Function,
   isOver: boolean,
-  canDrop: boolean
+  canDrop: boolean,
+  addMetadataField: Function,
+  setMetadataFieldKey: Function,
+  setMetadataFieldValue: Function
 };
 
 const sectionSource = {
@@ -116,13 +118,15 @@ function SectionAdmin(props: Props) {
     deleteQuestionDependency,
     setDisplayQuestionDependency,
     setAndQuestionDependency,
-    setChoiceMetadata,
     toggleExpandSection,
     connectDragSource,
     connectDropTarget,
     connectDragPreview,
     isOver,
-    canDrop
+    canDrop,
+    addMetadataField,
+    setMetadataFieldKey,
+    setMetadataFieldValue
   } = props;
 
   const expanded = expandedSections.get(String(section.id)) !== undefined;
@@ -168,7 +172,9 @@ function SectionAdmin(props: Props) {
         deleteQuestionDependency={deleteQuestionDependency}
         setDisplayQuestionDependency={setDisplayQuestionDependency}
         setAndQuestionDependency={setAndQuestionDependency}
-        setChoiceMetadata={setChoiceMetadata}
+        addMetadataField={addMetadataField}
+        setMetadataFieldKey={setMetadataFieldKey}
+        setMetadataFieldValue={setMetadataFieldValue}
       />
     ));
 

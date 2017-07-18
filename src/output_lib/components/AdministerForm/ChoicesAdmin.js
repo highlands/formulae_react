@@ -3,6 +3,7 @@
 import React from "react";
 import { QuestionType } from "../../types";
 import ChoiceAdmin from "./ChoiceAdmin";
+import { List } from "immutable";
 
 type Props = {
   sectionId: number | string,
@@ -11,7 +12,10 @@ type Props = {
   moveChoice: Function,
   setChoiceLabel: Function,
   deleteChoice: Function,
-  setChoiceMetadata: Function
+  addMetadataField: Function,
+  metadataFields: List<string>,
+  setMetadataFieldKey: Function,
+  setMetadataFieldValue: Function
 };
 
 export default function ChoicesAdmin(props: Props) {
@@ -22,7 +26,10 @@ export default function ChoicesAdmin(props: Props) {
     moveChoice,
     setChoiceLabel,
     deleteChoice,
-    setChoiceMetadata
+    addMetadataField,
+    metadataFields,
+    setMetadataFieldKey,
+    setMetadataFieldValue
   } = props;
   const choicesToRender = question.choices
     .sortBy(c => c.order)
@@ -37,22 +44,51 @@ export default function ChoicesAdmin(props: Props) {
         deleteChoice={deleteChoice}
         moveChoice={(choiceId, direction) =>
           moveChoice(sectionId, question.id, choiceId, direction)}
-        setChoiceMetadata={setChoiceMetadata}
+        metadataFields={metadataFields}
+        setMetadataFieldValue={(choiceId, key, value) =>
+          setMetadataFieldValue(sectionId, question.id, choiceId, key, value)}
       />
     ));
 
+  const metadataFieldHeaders = metadataFields.map((fieldName, i) => (
+    <th key={i}>
+      <input
+        type="text"
+        value={fieldName}
+        onInput={evt => {
+          setMetadataFieldKey(i, evt.target.value);
+        }}
+      />
+    </th>
+  ));
+
   return (
     <div>
-      <div className="section">
-        <h6>Choice Name</h6>
-        <button
-          className="pure-button"
-          onClick={() => addChoice(sectionId, question.id)}
-        >
-          Add Choice
-        </button>
-        {choicesToRender}
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th />
+            <th>
+              Name
+            </th>
+            {metadataFieldHeaders}
+            <th>
+              <button onClick={addMetadataField}>
+                Add field
+              </button>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {choicesToRender}
+        </tbody>
+      </table>
+      <button
+        className="pure-button"
+        onClick={() => addChoice(sectionId, question.id)}
+      >
+        Add Choice
+      </button>
     </div>
   );
 }

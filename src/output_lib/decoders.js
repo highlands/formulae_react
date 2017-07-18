@@ -11,7 +11,7 @@ import {
   QuestionSubmissionType,
   FormSubmissionResponseType
 } from "./types";
-import { List } from "immutable";
+import { List, Map } from "immutable";
 
 type ApiApplication = {
   id: number,
@@ -112,25 +112,31 @@ function decodeSection(
   });
 }
 
-function decodeQuestion(question: ApiQuestion): QuestionType {
+function decodeQuestion(apiQuestion: ApiQuestion): QuestionType {
   const questionDependency = decodeQuestionDependency(
-    question.question_dependency
+    apiQuestion.question_dependency
   );
-  return new QuestionType({
-    id: question.id,
-    key: question.key,
-    label: question.label,
-    content: question.content,
-    type: question.question_type,
-    validateAs: question.validate_as,
-    order: question.order,
-    required: question.required,
-    placeholder: question.placeholder,
-    sectionId: question.section_id,
-    choices: decodeChoices(question.choices),
+  let question = new QuestionType({
+    id: apiQuestion.id,
+    key: apiQuestion.key,
+    label: apiQuestion.label,
+    content: apiQuestion.content,
+    type: apiQuestion.question_type,
+    validateAs: apiQuestion.validate_as,
+    order: apiQuestion.order,
+    required: apiQuestion.required,
+    placeholder: apiQuestion.placeholder,
+    sectionId: apiQuestion.section_id,
+    choices: decodeChoices(apiQuestion.choices),
     questionDependency: questionDependency,
     persisted: true
   });
+  // Add metadata fields by looking at all choice metadata
+  let metadataFields = question.choices
+    .flatMap(choice => choice.metadata.keys())
+    .toSet()
+    .toList();
+  return question.set("metadataFields", metadataFields);
 }
 
 function decodeQuestionDependency(
@@ -172,7 +178,7 @@ function decodeChoices(choices: Array<ApiChoice>): List<ChoiceType> {
         id: choice.id,
         question_id: choice.question_id,
         question_dependency_id: choice.question_dependency_id,
-        metadata: choice.metadata,
+        metadata: new Map(choice.metadata),
         maximum_chosen: choice.maximum_chosen,
         label: choice.label,
         persisted: true

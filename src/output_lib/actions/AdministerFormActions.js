@@ -55,6 +55,42 @@ function toggleExpandQuestion(id: string) {
   };
 }
 
+function setMetadataFieldKey(
+  sectionId: string,
+  questionId: string,
+  index: number,
+  value: string
+) {
+  return {
+    type: "SET_METADATA_FIELD_KEY",
+    payload: {
+      sectionId,
+      questionId,
+      index,
+      value
+    }
+  };
+}
+
+function setMetadataFieldValue(
+  sectionId: string,
+  questionId: string,
+  choiceId: string,
+  key: string,
+  value: string
+) {
+  return {
+    type: "SET_METADATA_FIELD_VALUE",
+    payload: {
+      sectionId,
+      questionId,
+      choiceId,
+      key,
+      value
+    }
+  };
+}
+
 function addSection(section: SectionType, form_id: number) {
   return {
     type: "ADD_SECTION"
@@ -357,19 +393,12 @@ function setDisplayQuestionDependency(
   };
 }
 
-function setChoiceMetadata(
-  sectionId: number,
-  questionId: number,
-  choiceId: number,
-  metadata: object
-) {
+function addMetadataField(sectionId: number, questionId: number) {
   return {
-    type: "SET_CHOICE_METADATA",
+    type: "ADD_METADATA_FIELD",
     payload: {
       sectionId,
-      questionId,
-      choiceId,
-      metadata
+      questionId
     }
   };
 }
@@ -413,6 +442,8 @@ export default {
   deleteQuestionDependency,
   setDisplayQuestionDependency,
   setAndQuestionDependency,
-  setChoiceMetadata,
-  toggleExpandSection
+  addMetadataField,
+  toggleExpandSection,
+  setMetadataFieldKey,
+  setMetadataFieldValue
 };

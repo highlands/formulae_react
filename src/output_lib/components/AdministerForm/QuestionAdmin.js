@@ -72,13 +72,15 @@ type Props = {
   deleteQuestionDependency: Function,
   setDisplayQuestionDependency: Function,
   setAndQuestionDependency: Function,
-  setChoiceMetadata: Function,
   connectDragSource: Function,
   connectDragPreview: Function,
   isDragging: boolean,
   connectDropTarget: Function,
   isOver: boolean,
-  canDrop: boolean
+  canDrop: boolean,
+  addMetadataField: Function,
+  setMetadataFieldKey: Function,
+  setMetadataFieldValue: Function
 };
 
 function renderQuestionType(props) {
@@ -159,7 +161,8 @@ function renderQuestionFields(props) {
     isOver,
     canDrop,
     connectDragSource,
-    connectDragPreview
+    connectDragPreview,
+    addMetadataField
   } = props;
 
   let editActive = expanded ? "fa-caret-down" : "fa-caret-up";
@@ -223,7 +226,9 @@ function renderQuestionAdminType(
     deleteQuestionDependency,
     setDisplayQuestionDependency,
     setAndQuestionDependency,
-    setChoiceMetadata
+    addMetadataField,
+    setMetadataFieldKey,
+    setMetadataFieldValue
   } = props;
 
   const questionDependency = question.questionDependency;
@@ -379,7 +384,13 @@ function renderQuestionAdminType(
           moveChoice={moveChoice}
           setChoiceLabel={setChoiceLabel}
           deleteChoice={deleteChoice}
-          setChoiceMetadata={setChoiceMetadata}
+          addMetadataField={() => {
+            addMetadataField(section.id, question.id);
+          }}
+          metadataFields={question.metadataFields}
+          setMetadataFieldKey={(index, value) =>
+            setMetadataFieldKey(section.id, question.id, index, value)}
+          setMetadataFieldValue={setMetadataFieldValue}
         />
       </div>
     );
@@ -401,7 +412,11 @@ function renderQuestionAdminType(
           moveChoice={moveChoice}
           setChoiceLabel={setChoiceLabel}
           deleteChoice={deleteChoice}
-          setChoiceMetadata={setChoiceMetadata}
+          addMetadataField={() => addMetadataField(section.id, question.id)}
+          metadataFields={question.metadataFields}
+          setMetadataFieldKey={(index, value) =>
+            setMetadataFieldKey(section.id, question.id, index, value)}
+          setMetadataFieldValue={setMetadataFieldValue}
         />
       </div>
     );
