@@ -25,6 +25,8 @@ export default function AdministerFormReducer(
       return moveQuestion(model, action.payload);
     case "REORDER_QUESTION":
       return reorderQuestion(model, action.payload);
+    case "REORDER_SECTION":
+      return reorderSection(model, action.payload);
     case "MOVE_SECTION":
       return moveSection(model, action.payload);
     case "TOGGLE_EXPAND_QUESTION":
@@ -204,6 +206,11 @@ function moveQuestion(model, payload) {
     questionId,
     direction
   );
+}
+
+function reorderSection(model, payload) {
+  const { sectionId, order } = payload;
+  return reorderThing(model, ["sections"], sectionId, order);
 }
 
 function reorderQuestion(model, payload) {

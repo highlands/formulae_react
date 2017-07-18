@@ -4,6 +4,8 @@ import React from "react";
 import { SectionType } from "../../types";
 import QuestionAdmin from "./QuestionAdmin";
 import { Set } from "immutable";
+import { DragTypes } from "./DragTypes";
+import { DragSource, DropTarget } from "react-dnd";
 
 type Props = {
   form: Object,
@@ -24,6 +26,7 @@ type Props = {
   toggleExpandQuestion: Function,
   moveQuestion: Function,
   reorderQuestion: Function,
+  reorderSection: Function,
   moveSection: Function,
   addChoice: Function,
   moveChoice: Function,
@@ -36,10 +39,48 @@ type Props = {
   setDisplayQuestionDependency: Function,
   setAndQuestionDependency: Function,
   setChoiceMetadata: Function,
-  toggleExpandSection: Function
+  toggleExpandSection: Function,
+  connectDragSource: Function
 };
 
-export default function SectionAdmin(props: Props) {
+const sectionSource = {
+  beginDrag(props) {
+    return {
+      sectionId: props.section.id
+    };
+  }
+};
+
+const sectionTarget = {
+  canDrop(props, monitor) {
+    return true;
+  },
+
+  drop(props, monitor) {
+    let { reorderSection, section } = props;
+    let { order } = section;
+    let item = monitor.getItem();
+    reorderSection(item.sectionId, order);
+  }
+};
+
+function dropCollect(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver(),
+    canDrop: monitor.canDrop()
+  };
+}
+
+function dragCollect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
+    isDragging: monitor.isDragging()
+  };
+}
+
+function SectionAdmin(props: Props) {
   const {
     form,
     section,
@@ -59,6 +100,7 @@ export default function SectionAdmin(props: Props) {
     toggleExpandQuestion,
     moveQuestion,
     reorderQuestion,
+    reorderSection,
     moveSection,
     addChoice,
     moveChoice,
@@ -71,12 +113,24 @@ export default function SectionAdmin(props: Props) {
     setDisplayQuestionDependency,
     setAndQuestionDependency,
     setChoiceMetadata,
-    toggleExpandSection
+    toggleExpandSection,
+    connectDragSource,
+    connectDropTarget,
+    connectDragPreview,
+    isOver,
+    canDrop
   } = props;
 
   const expanded = expandedSections.get(String(section.id)) !== undefined;
   const expandedClass = expanded ? "" : "hide";
   const caretClass = expanded ? "fa-caret-down" : "fa-caret-up";
+  let className = "admin-formsection";
+  if (isOver) {
+    className = className + " -is-over";
+  }
+  if (!canDrop) {
+    className = className + " -cannot-drop";
+  }
 
   const questionsToRender = section.questions
     .sortBy(q => q.order)
@@ -114,48 +168,57 @@ export default function SectionAdmin(props: Props) {
       />
     ));
 
-  return (
-    <section className="admin-formsection">
-      <textarea
-        type="text"
-        value={section.content}
-        name="content"
-        className="pure-u-1-2 section-content"
-        placeholder="Section content"
-        onChange={e => setSectionContent(section.id, e.target.value)}
-      />
-      <header className="section-header">
-        <i className="fa fa-bars grippy" />
-        <button onClick={() => moveSection(-1)}>Up</button>
-        <button onClick={() => moveSection(1)}>Down</button>
-        <label>
-          <input
-            type="text"
-            value={section.name}
-            name="name"
-            placeholder="Name"
-            className="section-name"
-            onChange={e => setSectionName(section.id, e.target.value)}
-          />
-        </label>
-        <div className="controls">
-          <i
-            id={`edit-${section.id}`}
-            onClick={() => toggleExpandSection(section.id)}
-            className={`expand fa ${caretClass}`}
-          />
-          <i
-            onClick={e => deleteSection(section.id)}
-            className="fa fa-times-circle-o delete"
-          />
+  return connectDropTarget(
+    connectDragPreview(
+      <section className={className}>
+        <textarea
+          type="text"
+          value={section.content}
+          name="content"
+          className="pure-u-1-2 section-content"
+          placeholder="Section content"
+          onChange={e => setSectionContent(section.id, e.target.value)}
+        />
+        <header className="section-header">
+          {connectDragSource(<i className="fa fa-bars grippy" />)}
+          <button onClick={() => moveSection(-1)}>Up</button>
+          <button onClick={() => moveSection(1)}>Down</button>
+          <label>
+            <input
+              type="text"
+              value={section.name}
+              name="name"
+              placeholder="Name"
+              className="section-name"
+              onChange={e => setSectionName(section.id, e.target.value)}
+            />
+          </label>
+          <div className="controls">
+            <i
+              id={`edit-${section.id}`}
+              onClick={() => toggleExpandSection(section.id)}
+              className={`expand fa ${caretClass}`}
+            />
+            <i
+              onClick={e => deleteSection(section.id)}
+              className="fa fa-times-circle-o delete"
+            />
+          </div>
+        </header>
+        <div className={`question-container ${expandedClass}`}>
+          {questionsToRender}
+          <button
+            className="pure-button"
+            onClick={() => addQuestion(section.id)}
+          >
+            Add Question
+          </button>
         </div>
-      </header>
-      <div className={`question-container ${expandedClass}`}>
-        {questionsToRender}
-        <button className="pure-button" onClick={() => addQuestion(section.id)}>
-          Add Question
-        </button>
-      </div>
-    </section>
+      </section>
+    )
   );
 }
+
+export default DropTarget(DragTypes.SECTION, sectionTarget, dropCollect)(
+  DragSource(DragTypes.SECTION, sectionSource, dragCollect)(SectionAdmin)
+);
