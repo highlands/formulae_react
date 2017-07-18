@@ -25,6 +25,7 @@ type Props = {
   toggleExpandQuestion: Function,
   moveQuestion: Function,
   reorderQuestion: Function,
+  reorderSection: Function,
   moveSection: Function,
   setFormCompletionContent: Function,
   addChoice: Function,
@@ -60,6 +61,7 @@ function AdministerForm(props: Props) {
     toggleExpandQuestion,
     moveQuestion,
     reorderQuestion,
+    reorderSection,
     moveSection,
     setFormCompletionContent,
     addChoice,
@@ -101,6 +103,7 @@ function AdministerForm(props: Props) {
           moveQuestion(s.id, questionId, direction)}
         reorderQuestion={(questionId, order) =>
           reorderQuestion(s.id, questionId, order)}
+        reorderSection={(sectionId, order) => reorderSection(sectionId, order)}
         moveSection={direction => moveSection(s.id, direction)}
         key={i}
         addChoice={addChoice}

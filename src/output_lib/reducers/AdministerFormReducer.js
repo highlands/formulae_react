@@ -25,6 +25,8 @@ export default function AdministerFormReducer(
       return moveQuestion(model, action.payload);
     case "REORDER_QUESTION":
       return reorderQuestion(model, action.payload);
+    case "REORDER_SECTION":
+      return reorderSection(model, action.payload);
     case "MOVE_SECTION":
       return moveSection(model, action.payload);
     case "TOGGLE_EXPAND_QUESTION":
@@ -206,6 +208,11 @@ function moveQuestion(model, payload) {
   );
 }
 
+function reorderSection(model, payload) {
+  const { sectionId, order } = payload;
+  return reorderThing(model, ["sections"], sectionId, order);
+}
+
 function reorderQuestion(model, payload) {
   const { questionId, sectionId, order } = payload;
   const sectionIndex = model.form.sections.findIndex(q => q.id === sectionId);
@@ -221,6 +228,10 @@ function reorderThing(model, key, thingId, order) {
   const things = model.getIn(["form"].concat(key));
   const maxOrder = things.map(s => s.order).sort().max();
   const section = things.find(s => `${s.id}` === `${thingId}`);
+  // Can't reorder something before the '1' index because we start there
+  if (order < 1) {
+    return model;
+  }
   if (section) {
     const nextOrder = order;
     const nextThings = things.map((value, index) => {
@@ -232,7 +243,7 @@ function reorderThing(model, key, thingId, order) {
         }
       } else {
         if (value.order >= nextOrder) {
-          return value.set("order", value.order - 1);
+          return value.set("order", value.order + 1);
         } else {
           return value;
         }

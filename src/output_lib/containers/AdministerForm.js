@@ -77,6 +77,8 @@ export const AdministerForm = connect(
         dispatch(
           AdministerFormActions.reorderQuestion(sectionId, questionId, order)
         ),
+      reorderSection: (sectionId, order) =>
+        dispatch(AdministerFormActions.reorderSection(sectionId, order)),
       moveSection: (sectionId, direction) =>
         dispatch(AdministerFormActions.moveSection(sectionId, direction)),
       setFormCompletionContent: completionContent =>
