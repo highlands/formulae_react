@@ -67,8 +67,8 @@ export default function AdministerFormReducer(
       return addMetadataField(model, action.payload);
     case "SET_METADATA_FIELD_KEY":
       return setMetadataFieldKey(model, action.payload);
-    case "SET_CHOICE_METADATA":
-      return setChoiceMetadata(model, action.payload);
+    case "SET_METADATA_FIELD_VALUE":
+      return setMetadataFieldValue(model, action.payload);
     case "MOVE_CHOICE":
       return moveChoice(model, action.payload);
     case "DELETE_CHOICE":
@@ -152,7 +152,6 @@ function addMetadataField(model, payload) {
   if (payload) {
     const { sectionId, questionId } = payload;
     const updater = metadataFields => {
-      console.log(metadataFields);
       return metadataFields.push("");
     };
     return updateQuestionField(
@@ -174,8 +173,23 @@ function setMetadataFieldKey(model, payload) {
       model,
       sectionId,
       questionId,
-      "metadataFields",
-      index,
+      ["metadataFields", index],
+      value
+    );
+  } else {
+    return model;
+  }
+}
+
+function setMetadataFieldValue(model, payload) {
+  if (payload) {
+    const { sectionId, questionId, choiceId, key, value } = payload;
+    return setChoiceField(
+      model,
+      sectionId,
+      questionId,
+      choiceId,
+      ["metadata", key],
       value
     );
   } else {
@@ -193,22 +207,6 @@ function setChoiceLabel(model, payload) {
       choiceId,
       "label",
       label
-    );
-  } else {
-    return model;
-  }
-}
-
-function setChoiceMetadata(model, payload) {
-  if (payload) {
-    const { sectionId, questionId, choiceId, metadata } = payload;
-    return setChoiceField(
-      model,
-      sectionId,
-      questionId,
-      choiceId,
-      "metadata",
-      metadata
     );
   } else {
     return model;
@@ -382,6 +380,9 @@ function setSectionName(model, payload) {
 }
 
 function setChoiceField(model, sectionId, questionId, choiceId, key, value) {
+  if (!Array.isArray(key)) {
+    key = [key];
+  }
   return model.updateIn(["form", "sections"], sections => {
     return sections.map(s => {
       if (s.id === sectionId) {
@@ -396,7 +397,7 @@ function setChoiceField(model, sectionId, questionId, choiceId, key, value) {
           .questions.get(questionIndex)
           .choices.findIndex(c => `${c.id}` === `${choiceId}`);
         return s.setIn(
-          ["questions", questionIndex, "choices", choiceIndex, key],
+          ["questions", questionIndex, "choices", choiceIndex].concat(key),
           value
         );
       } else {
@@ -675,11 +676,14 @@ function setQuestionPlaceholder(model, payload) {
 }
 
 function setQuestionField(model, sectionId, questionId, key, value) {
+  if (!Array.isArray(key)) {
+    key = [key];
+  }
   return model.updateIn(["form", "sections"], sections => {
     return sections.map(s => {
       if (s.id === sectionId) {
         let index = s.questions.findIndex(q => `${q.id}` === `${questionId}`);
-        return s.setIn(["questions", index, key], value);
+        return s.setIn(["questions", index].concat(key), value);
       } else {
         return s;
       }

@@ -147,15 +147,6 @@ export const AdministerForm = connect(
             and
           )
         ),
-      setChoiceMetadata: (sectionId, questionId, choiceId, metadata) =>
-        dispatch(
-          AdministerFormActions.setChoiceMetadata(
-            sectionId,
-            questionId,
-            choiceId,
-            metadata
-          )
-        ),
       toggleExpandSection: sectionId =>
         dispatch(AdministerFormActions.toggleExpandSection(sectionId)),
       addMetadataField: (sectionId, questionId) =>
@@ -166,6 +157,16 @@ export const AdministerForm = connect(
             sectionId,
             questionId,
             index,
+            value
+          )
+        ),
+      setMetadataFieldValue: (sectionId, questionId, choiceId, key, value) =>
+        dispatch(
+          AdministerFormActions.setMetadataFieldValue(
+            sectionId,
+            questionId,
+            choiceId,
+            key,
             value
           )
         )

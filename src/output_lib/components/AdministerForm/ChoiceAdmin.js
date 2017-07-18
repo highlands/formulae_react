@@ -11,8 +11,8 @@ type Props = {
   setChoiceLabel: Function,
   moveChoice: Function,
   deleteChoice: Function,
-  setChoiceMetadata: Function,
-  metadataFields: List<string>
+  metadataFields: List<string>,
+  setMetadataFieldValue: Function
 };
 
 export default function ChoiceAdmin(props: Props) {
@@ -23,27 +23,21 @@ export default function ChoiceAdmin(props: Props) {
     setChoiceLabel,
     moveChoice,
     deleteChoice,
-    setChoiceMetadata,
-    metadataFields
+    metadataFields,
+    setMetadataFieldValue
   } = props;
 
-  const metadata = <div />;
-  //   <div>
-  //     <p>Metadata</p>
-  //     <textarea
-  //       name="metadata"
-  //       placeholder="Metadata"
-  //       onChange={e =>
-  //         setChoiceMetadata(sectionId, questionId, choice.id, e.target.value)}
-  //       value={choice.metadata.toString()}
-  //     />
-  //   </div>
-  // );
   const metadataInputs = metadataFields.map((fieldName, i) => (
     <td key={i}>
-      <input type="text" />
+      <input
+        type="text"
+        value={choice.metadata.get(fieldName) || ""}
+        onInput={evt =>
+          setMetadataFieldValue(choice.id, fieldName, evt.target.value)}
+      />
     </td>
   ));
+
   return (
     <tr>
       <td>

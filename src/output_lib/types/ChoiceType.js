@@ -1,12 +1,12 @@
 // @flow
 
-import { Record } from "immutable";
+import { Record, Map } from "immutable";
 
 export default class ChoiceType
   extends Record({
     id: "",
     questionId: "",
-    metadata: {},
+    metadata: new Map(),
     order: 1,
     maximumChosen: 0,
     label: "",
@@ -15,7 +15,7 @@ export default class ChoiceType
   }) {
   id: string;
   questionId: string;
-  metadata: Object;
+  metadata: Map<string, string>;
   maximumChosen: number;
   label: string;
   disabled: boolean;
