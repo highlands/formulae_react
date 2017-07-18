@@ -40,7 +40,11 @@ type Props = {
   setAndQuestionDependency: Function,
   setChoiceMetadata: Function,
   toggleExpandSection: Function,
-  connectDragSource: Function
+  connectDragSource: Function,
+  connectDragPreview: Function,
+  connectDropTarget: Function,
+  isOver: boolean,
+  canDrop: boolean
 };
 
 const sectionSource = {
