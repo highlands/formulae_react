@@ -192,6 +192,7 @@ function decodeForm(data: ApiForm): FormType {
   const questions = List(data.questions.map(decodeQuestion));
   return new FormType({
     id: data.id,
+    applicationId: data.application.id,
     completionContent: data.completion_content,
     sections: List(
       data.sections.map(section => {
