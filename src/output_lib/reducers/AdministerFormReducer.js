@@ -85,9 +85,15 @@ export default function AdministerFormReducer(
       return setAndQuestionDependency(model, action.payload);
     case "SET_DISPLAY_QUESTION_DEPENDENCY":
       return setDisplayQuestionDependency(model, action.payload);
+    case "SET_AS_SUBMITTED":
+      return setAsSubmitted(model);
     default:
       return model;
   }
+}
+
+function setAsSubmitted(model) {
+  return model.set("submitted", true);
 }
 
 function addChoice(model, payload) {

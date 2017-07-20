@@ -239,6 +239,7 @@ function saveForm(apiKey: string) {
     const Form = createFormApi(apiKey);
     Form.findOrCreate(form).then(form => {
       dispatch(gotForm(form));
+      dispatch(setAsSubmitted());
     });
   };
 }
@@ -266,6 +267,12 @@ function addChoice(sectionId: string, questionId: string) {
       sectionId,
       questionId
     }
+  };
+}
+
+function setAsSubmitted() {
+  return {
+    type: "SET_AS_SUBMITTED"
   };
 }
 

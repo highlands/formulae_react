@@ -41,7 +41,8 @@ type Props = {
   toggleExpandSection: Function,
   addMetadataField: Function,
   setMetadataFieldKey: Function,
-  setMetadataFieldValue: Function
+  setMetadataFieldValue: Function,
+  submitted: boolean
 };
 
 function AdministerForm(props: Props) {
@@ -81,7 +82,7 @@ function AdministerForm(props: Props) {
     setMetadataFieldKey,
     setMetadataFieldValue
   } = props;
-  const { apiKey } = model;
+  const { apiKey, submitted } = model;
   const sectionsToRender = model.form.sections
     .sortBy(s => s.order)
     .filter(s => !s.deleted)
@@ -126,6 +127,7 @@ function AdministerForm(props: Props) {
         setMetadataFieldValue={setMetadataFieldValue}
       />
     ));
+  const showSubmittedMessage = submitted ? <h2>Submitted!</h2> : "";
   return (
     <form onSubmit={e => e.preventDefault()} className="pure-form">
       <h2>Administer Form</h2>
@@ -149,6 +151,7 @@ function AdministerForm(props: Props) {
           </button>
         </div>
       </div>
+      {showSubmittedMessage}
       <hr />
       <button className="pure-button" onClick={() => saveForm(apiKey)}>
         Save Form
