@@ -149,6 +149,8 @@ export default function RespondToFormReducer(
       ["errors"],
       model.get("errors").delete(action.payload.id)
     );
+  } else if (action.type === "SET_AS_SUBMITTED") {
+    return model.set("submitted", true);
   } else {
     return model;
   }

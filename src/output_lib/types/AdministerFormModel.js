@@ -8,10 +8,12 @@ export default class AdministerFormModel
     form: new FormType(),
     expandedQuestions: new Set(),
     expandedSections: new Set(),
-    apiKey: ""
+    apiKey: "",
+    submitted: false
   }) {
   form: FormType;
   expandedQuestions: Set<string>;
   expandedSections: Set<string>;
   apiKey: string;
+  submitted: boolean;
 }
