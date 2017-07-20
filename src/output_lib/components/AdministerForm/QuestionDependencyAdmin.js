@@ -60,7 +60,7 @@ function renderChosenQuestionDependencyChoices(
       .map((choice, i) => {
         return (
           <div key={i}>
-            {choice.choiceId}
+            {i} - {choice.label}
             <button
               className="pure-button"
               onClick={() => {
