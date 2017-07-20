@@ -17,7 +17,7 @@ const section1 = new SectionType({
   questions: List()
 });
 
-const sections = List([section2, section1]);
+const sections = List([section1, section2]);
 
 it("renders without crashing", () => {
   const div = document.createElement("div");
@@ -48,13 +48,29 @@ it("renders each section", () => {
 it("renders sections in order", () => {
   const div = document.createElement("div");
 
-  const subject = shallow(
+  let sectionsFirstFirst = List([section1, section2]);
+  const subject1 = shallow(
     <SectionsWithHeadings
-      sections={sections}
+      sections={sectionsFirstFirst}
       submissions={new Map()}
       setSubmissions={() => {}}
     />
   );
 
-  expect(subject.find(Section).at(0).props().section.get("name")).toBe("First");
+  expect(subject1.find(Section).at(0).props().section.get("name")).toBe(
+    "First"
+  );
+
+  let sectionsSecondFirst = List([section2, section1]);
+  const subject2 = shallow(
+    <SectionsWithHeadings
+      sections={sectionsSecondFirst}
+      submissions={new Map()}
+      setSubmissions={() => {}}
+    />
+  );
+
+  expect(subject2.find(Section).at(0).props().section.get("name")).toBe(
+    "First"
+  );
 });

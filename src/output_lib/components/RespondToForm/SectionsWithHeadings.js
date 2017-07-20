@@ -27,7 +27,7 @@ export default function SectionsWithHeadings(props: Props) {
   } = props;
 
   let renderingSections = sections
-    .sort(s => s.order)
+    .sortBy(s => s.order)
     .map((s, i) => {
       return (
         <Section
