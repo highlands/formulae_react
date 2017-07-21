@@ -107,8 +107,6 @@ function SectionAdmin(props: Props) {
     toggleExpandQuestion,
     moveQuestion,
     reorderQuestion,
-    reorderSection,
-    moveSection,
     addChoice,
     moveChoice,
     setChoiceLabel,
@@ -136,10 +134,10 @@ function SectionAdmin(props: Props) {
   const caretClass = expanded ? "fa-caret-down" : "fa-caret-up";
   let className = "admin-formsection";
   if (isOver) {
-    className = className + " -is-over";
+    className += " -is-over";
   }
   if (!canDrop) {
-    className = className + " -cannot-drop";
+    className += " -cannot-drop";
   }
 
   const questionsToRender = section.questions

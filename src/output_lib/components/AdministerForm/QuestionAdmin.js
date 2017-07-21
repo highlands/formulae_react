@@ -88,9 +88,7 @@ function renderQuestionType(props) {
   const {
     section,
     setQuestionType,
-    question,
-    connectDragSource,
-    connectDragPreview
+    question
   } = props;
   const makeString = () => setQuestionType(section.id, question.id, "string");
   const makeText = () => setQuestionType(section.id, question.id, "text");
@@ -158,21 +156,19 @@ function renderQuestionFields(props) {
     deleteQuestion,
     expanded,
     toggleExpandQuestion,
-    moveQuestion,
     isOver,
     canDrop,
     connectDragSource,
-    connectDragPreview,
-    addMetadataField
+    connectDragPreview
   } = props;
 
   let editActive = expanded ? "fa-caret-down" : "fa-caret-up";
   let className = "admin-question";
   if (isOver) {
-    className = className + " -is-over";
+    className += " -is-over";
   }
   if (!canDrop) {
-    className = className + " -cannot-drop";
+    className += " -cannot-drop";
   }
   return connectDragPreview(
     <fieldset className={className}>
@@ -432,7 +428,7 @@ function renderQuestionAdminType(
 }
 
 function QuestionAdmin(props: Props) {
-  const { isDragging, connectDropTarget, isOver } = props;
+  const { connectDropTarget } = props;
 
   return connectDropTarget(
     <div className="question">

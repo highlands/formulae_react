@@ -164,7 +164,7 @@ function deleteMetadataField(model, payload) {
     );
     const questionIndex = model.form.sections
       .get(sectionIndex)
-      .questions.findIndex(s => `${s.id}` === `${sectionId}`);
+      .questions.findIndex(q => `${q.id}` === `${questionId}`);
     const question = model.getIn([
       "form",
       "sections",
