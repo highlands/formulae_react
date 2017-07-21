@@ -23,10 +23,12 @@ export default function AdministerFormReducer(
       return model.set("form", action.payload);
     case "MOVE_QUESTION":
       return moveQuestion(model, action.payload);
-    case "REORDER_QUESTION":
-      return reorderQuestion(model, action.payload);
     case "REORDER_SECTION":
       return reorderSection(model, action.payload);
+    case "REORDER_QUESTION":
+      return reorderQuestion(model, action.payload);
+    case "REORDER_CHOICE":
+      return reorderChoice(model, action.payload);
     case "MOVE_SECTION":
       return moveSection(model, action.payload);
     case "TOGGLE_EXPAND_QUESTION":
@@ -290,6 +292,20 @@ function moveQuestion(model, payload) {
 function reorderSection(model, payload) {
   const { sectionId, order } = payload;
   return reorderThing(model, ["sections"], sectionId, order);
+}
+
+function reorderChoice(model, payload) {
+  const { sectionId, questionId, choiceId, order } = payload;
+  const sectionIndex = model.form.sections.findIndex(q => q.id === sectionId);
+  const questionIndex = model.form.sections
+    .get(sectionIndex)
+    .questions.findIndex(q => q.id === questionId);
+  return reorderThing(
+    model,
+    ["sections", sectionIndex, "questions", questionIndex, "choices"],
+    choiceId,
+    order
+  );
 }
 
 function reorderQuestion(model, payload) {

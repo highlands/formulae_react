@@ -63,6 +63,7 @@ type Props = {
   toggleExpandQuestion: Function,
   moveQuestion: Function,
   reorderQuestion: Function,
+  reorderChoice: Function,
   addChoice: Function,
   moveChoice: Function,
   setChoiceLabel: Function,
@@ -216,6 +217,7 @@ function renderQuestionAdminType(
     setQuestionValidateAs,
     addChoice,
     moveChoice,
+    reorderChoice,
     setChoiceLabel,
     deleteChoice,
     addQuestionDependency,
@@ -392,6 +394,7 @@ function renderQuestionAdminType(
           setMetadataFieldKey={(index, value) =>
             setMetadataFieldKey(section.id, question.id, index, value)}
           setMetadataFieldValue={setMetadataFieldValue}
+          reorderChoice={(choiceId, order) => reorderChoice(choiceId, order)}
         />
       </div>
     );
@@ -421,6 +424,7 @@ function renderQuestionAdminType(
           setMetadataFieldKey={(index, value) =>
             setMetadataFieldKey(section.id, question.id, index, value)}
           setMetadataFieldValue={setMetadataFieldValue}
+          reorderChoice={(choiceId, order) => reorderChoice(choiceId, order)}
         />
       </div>
     );

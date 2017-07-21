@@ -10,6 +10,7 @@ type Props = {
   question: QuestionType,
   addChoice: Function,
   moveChoice: Function,
+  reorderChoice: Function,
   setChoiceLabel: Function,
   deleteChoice: Function,
   addMetadataField: Function,
@@ -25,6 +26,7 @@ export default function ChoicesAdmin(props: Props) {
     question,
     addChoice,
     moveChoice,
+    reorderChoice,
     setChoiceLabel,
     deleteChoice,
     addMetadataField,
@@ -49,6 +51,7 @@ export default function ChoicesAdmin(props: Props) {
         metadataFields={metadataFields}
         setMetadataFieldValue={(choiceId, key, value) =>
           setMetadataFieldValue(sectionId, question.id, choiceId, key, value)}
+        reorderChoice={(choiceId, order) => reorderChoice(choiceId, order)}
       />
     ));
 

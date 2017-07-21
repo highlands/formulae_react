@@ -21,6 +21,23 @@ function reorderQuestion(sectionId: string, questionId: string, order: number) {
   };
 }
 
+function reorderChoice(
+  sectionId: string,
+  questionId: string,
+  choiceId: string,
+  order: number
+) {
+  return {
+    type: "REORDER_CHOICE",
+    payload: {
+      sectionId,
+      questionId,
+      choiceId,
+      order
+    }
+  };
+}
+
 function moveQuestion(
   sectionId: string,
   questionId: string,
@@ -452,6 +469,7 @@ export default {
   moveQuestion,
   reorderQuestion,
   reorderSection,
+  reorderChoice,
   moveSection,
   setFormCompletionContent,
   addChoice,
