@@ -410,6 +410,21 @@ function addMetadataField(sectionId: number, questionId: number) {
   };
 }
 
+function deleteMetadataField(
+  sectionId: number,
+  questionId: number,
+  metadataIndex: number
+) {
+  return {
+    type: "DELETE_METADATA_FIELD",
+    payload: {
+      sectionId,
+      questionId,
+      metadataIndex
+    }
+  };
+}
+
 function toggleExpandSection(sectionId: string) {
   return {
     type: "TOGGLE_EXPAND_SECTION",
@@ -450,6 +465,7 @@ export default {
   setDisplayQuestionDependency,
   setAndQuestionDependency,
   addMetadataField,
+  deleteMetadataField,
   toggleExpandSection,
   setMetadataFieldKey,
   setMetadataFieldValue

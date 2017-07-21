@@ -151,6 +151,14 @@ export const AdministerForm = connect(
         dispatch(AdministerFormActions.toggleExpandSection(sectionId)),
       addMetadataField: (sectionId, questionId) =>
         dispatch(AdministerFormActions.addMetadataField(sectionId, questionId)),
+      deleteMetadataField: (sectionId, questionId, metadataIndex) =>
+        dispatch(
+          AdministerFormActions.deleteMetadataField(
+            sectionId,
+            questionId,
+            metadataIndex
+          )
+        ),
       setMetadataFieldKey: (sectionId, questionId, index, value) =>
         dispatch(
           AdministerFormActions.setMetadataFieldKey(

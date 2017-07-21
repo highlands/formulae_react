@@ -79,6 +79,7 @@ function AdministerForm(props: Props) {
     setAndQuestionDependency,
     toggleExpandSection,
     addMetadataField,
+    deleteMetadataField,
     setMetadataFieldKey,
     setMetadataFieldValue
   } = props;
@@ -123,6 +124,7 @@ function AdministerForm(props: Props) {
         setAndQuestionDependency={setAndQuestionDependency}
         toggleExpandSection={toggleExpandSection}
         addMetadataField={addMetadataField}
+        deleteMetadataField={deleteMetadataField}
         setMetadataFieldKey={setMetadataFieldKey}
         setMetadataFieldValue={setMetadataFieldValue}
       />

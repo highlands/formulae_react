@@ -27,6 +27,7 @@ export default function ChoicesAdmin(props: Props) {
     setChoiceLabel,
     deleteChoice,
     addMetadataField,
+    deleteMetadataField,
     metadataFields,
     setMetadataFieldKey,
     setMetadataFieldValue
@@ -59,23 +60,28 @@ export default function ChoicesAdmin(props: Props) {
           setMetadataFieldKey(i, evt.target.value);
         }}
       />
+      <i
+        onClick={() => deleteMetadataField(i)}
+        className="fa fa-minus-circle delete-metadata-btn"
+      />
     </th>
   ));
 
   return (
-    <div>
-      <table>
+    <div className="choices-container">
+      <h3> Choices </h3>
+      <table className="pure-table">
         <thead>
           <tr>
-            <th />
             <th>
               Name
             </th>
             {metadataFieldHeaders}
-            <th>
-              <button onClick={addMetadataField}>
-                Add field
-              </button>
+            <th className="add-field">
+              <i
+                onClick={addMetadataField}
+                className="fa fa-plus-circle add-metadata-btn"
+              />
             </th>
           </tr>
         </thead>
@@ -84,7 +90,7 @@ export default function ChoicesAdmin(props: Props) {
         </tbody>
       </table>
       <button
-        className="pure-button"
+        className="pure-button add-choice-btn"
         onClick={() => addChoice(sectionId, question.id)}
       >
         Add Choice

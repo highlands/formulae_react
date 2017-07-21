@@ -65,6 +65,8 @@ export default function AdministerFormReducer(
       return setChoiceLabel(model, action.payload);
     case "ADD_METADATA_FIELD":
       return addMetadataField(model, action.payload);
+    case "DELETE_METADATA_FIELD":
+      return deleteMetadataField(model, action.payload);
     case "SET_METADATA_FIELD_KEY":
       return setMetadataFieldKey(model, action.payload);
     case "SET_METADATA_FIELD_VALUE":
@@ -149,6 +151,40 @@ function deleteChoice(model, payload) {
         }
       });
     });
+  } else {
+    return model;
+  }
+}
+
+function deleteMetadataField(model, payload) {
+  if (payload) {
+    const { sectionId, questionId, metadataIndex } = payload;
+    const sectionIndex = model.form.sections.findIndex(
+      s => `${s.id}` === `${sectionId}`
+    );
+    const questionIndex = model.form.sections
+      .get(sectionIndex)
+      .questions.findIndex(s => `${s.id}` === `${sectionId}`);
+    const question = model.getIn([
+      "form",
+      "sections",
+      sectionIndex,
+      "questions",
+      questionIndex
+    ]);
+    const updatedMetadataFields = question.metadataFields.remove(metadataIndex);
+    const updatedModel = model.setIn(
+      [
+        "form",
+        "sections",
+        sectionIndex,
+        "questions",
+        questionIndex,
+        "metadataFields"
+      ],
+      updatedMetadataFields
+    );
+    return updatedModel;
   } else {
     return model;
   }

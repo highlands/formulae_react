@@ -79,6 +79,7 @@ type Props = {
   isOver: boolean,
   canDrop: boolean,
   addMetadataField: Function,
+  deleteMetadataField: Function,
   setMetadataFieldKey: Function,
   setMetadataFieldValue: Function
 };
@@ -227,6 +228,7 @@ function renderQuestionAdminType(
     setDisplayQuestionDependency,
     setAndQuestionDependency,
     addMetadataField,
+    deleteMetadataField,
     setMetadataFieldKey,
     setMetadataFieldValue
   } = props;
@@ -386,6 +388,9 @@ function renderQuestionAdminType(
           deleteChoice={deleteChoice}
           addMetadataField={() => {
             addMetadataField(section.id, question.id);
+          }}
+          deleteMetadataField={index => {
+            deleteMetadataField(section.id, question.id, index);
           }}
           metadataFields={question.metadataFields}
           setMetadataFieldKey={(index, value) =>

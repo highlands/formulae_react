@@ -57,9 +57,10 @@ export default function ChoiceAdmin(props: Props) {
       </td>
       {metadataInputs}
       <td>
-        <button onClick={() => deleteChoice(sectionId, questionId, choice.id)}>
-          Delete
-        </button>
+        <i
+          onClick={e => deleteChoice(sectionId, questionId, choice.id)}
+          className="fa fa-times-circle-o delete"
+        />
       </td>
     </tr>
   );

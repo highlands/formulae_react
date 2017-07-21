@@ -23,6 +23,33 @@ fieldset.admin-question {
       min-height: 10rem;
     }
   }
+  .choices-container {
+    background: $concrete;
+    padding: $margin-xl;
+    > .add-choice-btn {
+      margin: $margin-lg;
+    }
+    .add-metadata-btn {
+      margin-left: $margin-lg;
+    }
+
+    .delete-metadata-btn {
+      margin-left: $margin-lg;
+      color: red;
+    }
+
+    .add-field {
+      text-align: center;
+    }
+
+    .delete {
+      color: red;
+    }
+
+    .controls {
+      color: red;
+    }
+  }
 }
 
 .hide {
