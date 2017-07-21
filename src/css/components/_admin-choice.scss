@@ -1,0 +1,8 @@
+.admin-formchoice {
+  &.-is-over {
+    background: yellow;
+    &.-cannot-drop {
+      background: red;
+    }
+  }
+}
