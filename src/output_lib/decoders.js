@@ -178,13 +178,21 @@ function decodeChoices(choices: Array<ApiChoice>): List<ChoiceType> {
         id: choice.id,
         question_id: choice.question_id,
         question_dependency_id: choice.question_dependency_id,
-        metadata: new Map(JSON.parse(`${choice.metadata}`.toString())),
+        metadata: new Map(maybeParse(choice.metadata)),
         maximum_chosen: choice.maximum_chosen,
         label: choice.label,
         persisted: true
       });
     })
   );
+}
+
+function maybeParse(stringOrObject) {
+  if (typeof stringOrObject === "string") {
+    return JSON.parse(stringOrObject);
+  } else {
+    return stringOrObject;
+  }
 }
 
 function decodeForm(data: ApiForm): FormType {
