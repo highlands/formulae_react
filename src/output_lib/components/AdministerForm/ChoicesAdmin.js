@@ -27,6 +27,7 @@ export default function ChoicesAdmin(props: Props) {
     setChoiceLabel,
     deleteChoice,
     addMetadataField,
+    deleteMetadataField,
     metadataFields,
     setMetadataFieldKey,
     setMetadataFieldValue
@@ -58,6 +59,10 @@ export default function ChoicesAdmin(props: Props) {
         onInput={evt => {
           setMetadataFieldKey(i, evt.target.value);
         }}
+      />
+      <i
+        onClick={() => deleteMetadataField(i)}
+        className="fa fa-minus-circle delete-metadata-btn"
       />
     </th>
   ));

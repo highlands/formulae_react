@@ -125,6 +125,7 @@ function SectionAdmin(props: Props) {
     isOver,
     canDrop,
     addMetadataField,
+    deleteMetadataField,
     setMetadataFieldKey,
     setMetadataFieldValue
   } = props;
@@ -173,6 +174,7 @@ function SectionAdmin(props: Props) {
         setDisplayQuestionDependency={setDisplayQuestionDependency}
         setAndQuestionDependency={setAndQuestionDependency}
         addMetadataField={addMetadataField}
+        deleteMetadataField={deleteMetadataField}
         setMetadataFieldKey={setMetadataFieldKey}
         setMetadataFieldValue={setMetadataFieldValue}
       />
