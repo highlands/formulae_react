@@ -178,7 +178,7 @@ function decodeChoices(choices: Array<ApiChoice>): List<ChoiceType> {
         id: choice.id,
         question_id: choice.question_id,
         question_dependency_id: choice.question_dependency_id,
-        metadata: new Map(JSON.parse(choice.metadata)),
+        metadata: new Map(JSON.parse(`${choice.metadata}`.toString())),
         maximum_chosen: choice.maximum_chosen,
         label: choice.label,
         persisted: true
