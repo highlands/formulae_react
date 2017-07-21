@@ -1,6 +1,6 @@
 {
   "name": "@dailydrip/formulae_react",
-  "version": "0.2.9",
+  "version": "0.2.9.1",
   "private": false,
   "main": "lib/index.js",
   "files": [
