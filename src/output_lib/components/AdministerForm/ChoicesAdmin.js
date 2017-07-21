@@ -13,6 +13,7 @@ type Props = {
   setChoiceLabel: Function,
   deleteChoice: Function,
   addMetadataField: Function,
+  deleteMetadataField: Function,
   metadataFields: List<string>,
   setMetadataFieldKey: Function,
   setMetadataFieldValue: Function
