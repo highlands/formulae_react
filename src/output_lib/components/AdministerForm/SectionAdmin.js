@@ -45,6 +45,7 @@ type Props = {
   isOver: boolean,
   canDrop: boolean,
   addMetadataField: Function,
+  deleteMetadataField: Function,
   setMetadataFieldKey: Function,
   setMetadataFieldValue: Function
 };

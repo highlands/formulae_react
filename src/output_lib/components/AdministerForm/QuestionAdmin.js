@@ -418,6 +418,9 @@ function renderQuestionAdminType(
           setChoiceLabel={setChoiceLabel}
           deleteChoice={deleteChoice}
           addMetadataField={() => addMetadataField(section.id, question.id)}
+          deleteMetadataField={index => {
+            deleteMetadataField(section.id, question.id, index);
+          }}
           metadataFields={question.metadataFields}
           setMetadataFieldKey={(index, value) =>
             setMetadataFieldKey(section.id, question.id, index, value)}

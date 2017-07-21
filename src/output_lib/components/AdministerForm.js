@@ -40,6 +40,7 @@ type Props = {
   setAndQuestionDependency: Function,
   toggleExpandSection: Function,
   addMetadataField: Function,
+  deleteMetadataField: Function,
   setMetadataFieldKey: Function,
   setMetadataFieldValue: Function,
   submitted: boolean
