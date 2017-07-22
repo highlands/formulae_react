@@ -77,6 +77,7 @@ export default function ChoicesAdmin(props: Props) {
       <table className="pure-table">
         <thead>
           <tr>
+            <th />
             <th>
               Name
             </th>
