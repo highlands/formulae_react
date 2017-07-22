@@ -15,7 +15,12 @@ type Props = {
   reorderChoice: Function,
   deleteChoice: Function,
   metadataFields: List<string>,
-  setMetadataFieldValue: Function
+  setMetadataFieldValue: Function,
+  connectDropTarget: Function,
+  connectDragPreview: Function,
+  connectDragSource: Function,
+  isOver: boolean,
+  canDrop: boolean
 };
 
 const choiceSource = {
