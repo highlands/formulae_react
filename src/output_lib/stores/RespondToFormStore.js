@@ -9,15 +9,21 @@ const init = new Model({
   apiKey: "810cb082-1beb-4cb4-9f78-baeb330a42c5"
 });
 
+function composeWithApplyMiddlewares() {
+  if (window.__REDUX_DEVTOOLS_EXTENSION__) {
+    return compose(
+      applyMiddleware(thunk),
+      window.__REDUX_DEVTOOLS_EXTENSION__()
+    );
+  }
+  return compose(applyMiddleware(thunk));
+}
+
 const createRespondToFormStore = (model: Model = init) => {
   return createStore(
     RespondToFormReducer,
     model,
-    compose(
-      applyMiddleware(thunk),
-      window.__REDUX_DEVTOOLS_EXTENSION__ &&
-        window.__REDUX_DEVTOOLS_EXTENSION__()
-    )
+    composeWithApplyMiddlewares()
   );
 };
 
