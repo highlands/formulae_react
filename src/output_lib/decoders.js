@@ -34,6 +34,7 @@ type ApiChoice = {
   question_id: number,
   question_dependency_id: number,
   metadata: string,
+  order: number,
   maximum_chosen: number,
   label: string
 };

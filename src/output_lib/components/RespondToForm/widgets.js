@@ -9,6 +9,7 @@ import Radio from "./widgets/Radio";
 import Checkboxes from "./widgets/Checkboxes";
 import Content from "./widgets/Content";
 import Buttons from "./widgets/Buttons";
+import Address from "./widgets/Address";
 
 export {
   String,
@@ -19,5 +20,6 @@ export {
   Radio,
   Checkboxes,
   Content,
-  Buttons
+  Buttons,
+  Address
 };
