@@ -291,7 +291,7 @@ export default function Address(props: Props) {
           id={id + "-city"}
           name={id + "-city"}
           type="text"
-          placeholder={placeholder}
+          placeholder="City"
           value={value.city}
           className="pure-u-23-24"
           onChange={e => {
@@ -324,7 +324,7 @@ export default function Address(props: Props) {
           id={id + "-zip"}
           name={id + "-zip"}
           type="text"
-          placeholder={placeholder}
+          placeholder="Your Zip code"
           value={value.zip}
           className="pure-u-1"
           onChange={e => {
