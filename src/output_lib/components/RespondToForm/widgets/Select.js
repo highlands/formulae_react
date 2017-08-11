@@ -32,8 +32,8 @@ export default function Select(props: Props) {
   });
   return (
     <div>
-      <select id={id} onChange={onChange}>{options}</select>
       <p>{content}</p>
+      <select id={id} onChange={onChange}>{options}</select>
     </div>
   );
 }
