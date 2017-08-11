@@ -17,7 +17,7 @@ export default function Select(props: Props) {
   let newChoices = choices.unshift(
     new ChoiceType({ label: "Select", value: "", disabled: true })
   );
-  const options = newChoices.map((choice, i) => {
+  const options = newChoices.sortBy(c => c.order).map((choice, i) => {
     return (
       <option
         key={i}

@@ -28,6 +28,7 @@ type ApiFormSubmission = {
 type ApiChoice = {
   id: ?string,
   label: string,
+  order: number,
   //metadata: ?Object,
   maximum_chosen: ?number,
   uuid: ?string
@@ -171,6 +172,7 @@ function encodeChoice(choice: ChoiceType): ApiChoice {
     _destroy: choice.deleted,
     metadata: choice.metadata.toJS(),
     maximum_chosen: choice.maximumChosen,
+    order: choice.order,
     uuid: choice.persisted ? undefined : choice.id
   };
 }

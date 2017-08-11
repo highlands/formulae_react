@@ -22,7 +22,7 @@ export default function MultiSelect(props: Props) {
         .map(opt => opt.value)
     );
   };
-  const options = choices.map((choice, i) => {
+  const options = choices.sortBy(c => c.order).map((choice, i) => {
     return (
       <option
         key={i}
