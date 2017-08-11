@@ -15,6 +15,7 @@ export default function Text(props: Props) {
 
   return (
     <div>
+      <p>{content}</p>
       <textarea
         id={id}
         placeholder={placeholder}
@@ -22,7 +23,6 @@ export default function Text(props: Props) {
         className="pure-input-1"
         onChange={onChange}
       />
-      <p>{content}</p>
     </div>
   );
 }

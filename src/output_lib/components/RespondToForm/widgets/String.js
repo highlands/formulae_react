@@ -35,6 +35,7 @@ export default function String(props: Props) {
   const className = `pure-input-1-2 ${errorClassName}`;
   return (
     <div className="question-widget question-string">
+      <p className="content">{content}</p>
       <input
         id={id}
         type="text"
@@ -45,7 +46,6 @@ export default function String(props: Props) {
         required={required}
       />
       {errorElement}
-      <p className="content">{content}</p>
     </div>
   );
 }

@@ -22,7 +22,7 @@ export default function MultiSelect(props: Props) {
         .map(opt => opt.value)
     );
   };
-  const options = choices.map((choice, i) => {
+  const options = choices.sortBy(c => c.order).map((choice, i) => {
     return (
       <option
         key={i}
@@ -36,6 +36,7 @@ export default function MultiSelect(props: Props) {
   });
   return (
     <div className="multiselect">
+      <p>{content}</p>
       <select
         ref={input => {
           selectInput = input;
@@ -46,7 +47,6 @@ export default function MultiSelect(props: Props) {
       >
         {options}
       </select>
-      <p>{content}</p>
     </div>
   );
 }

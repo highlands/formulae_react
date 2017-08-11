@@ -34,6 +34,7 @@ type ApiChoice = {
   question_id: number,
   question_dependency_id: number,
   metadata: string,
+  order: number,
   maximum_chosen: number,
   label: string
 };
@@ -180,6 +181,7 @@ function decodeChoices(choices: Array<ApiChoice>): List<ChoiceType> {
         question_dependency_id: choice.question_dependency_id,
         metadata: new Map(maybeParse(choice.metadata)),
         maximum_chosen: choice.maximum_chosen,
+        order: choice.order,
         label: choice.label,
         persisted: true
       });
