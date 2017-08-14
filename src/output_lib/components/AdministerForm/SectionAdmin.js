@@ -133,7 +133,7 @@ function SectionAdmin(props: Props) {
 
   const expanded = expandedSections.get(String(section.id)) !== undefined;
   const expandedClass = expanded ? "" : "hide";
-  const caretClass = expanded ? "fa-caret-down" : "fa-caret-up";
+  const caretClass = expanded ? "fa-compress" : "fa-expand";
   let className = "admin-formsection";
   if (isOver) {
     className += " -is-over";
