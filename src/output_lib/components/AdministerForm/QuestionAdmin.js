@@ -180,7 +180,7 @@ function renderQuestionFields(props) {
     connectDragPreview
   } = props;
 
-  let editActive = expanded ? "fa-caret-down" : "fa-caret-up";
+  let editActive = expanded ? "fa-compress" : "fa-expand";
   let className = "admin-question";
   if (isOver) {
     className += " -is-over";
