@@ -7,10 +7,12 @@ export default class AddressType
     street: "",
     city: "",
     state: "",
+    country: "",
     zip: ""
   }) {
   street: string;
   city: string;
   state: string;
+  country: string;
   zip: string;
 }

@@ -1,28 +1,13 @@
 // @flow
 
 import React from "react";
-import {
-  QuestionDependencyType,
-  SectionType,
-  QuestionType,
-  AddressType
-} from "../../types";
+import { QuestionDependencyType, SectionType, QuestionType } from "../../types";
 import ChoicesAdmin from "./ChoicesAdmin";
 import QuestionDependencyAdmin from "./QuestionDependencyAdmin";
 import { DragTypes } from "./DragTypes";
 import { DragSource, DropTarget } from "react-dnd";
-import {
-  Text,
-  String,
-  Boolean,
-  Address,
-  Content,
-  Select,
-  MultiSelect,
-  Checkboxes,
-  Radio
-} from "../RespondToForm/widgets";
-import { List } from "immutable";
+import getFriendlyQuestionType from "./FriendlyQuestionTypes";
+import Confirm from "./Confirm";
 
 const questionSource = {
   beginDrag(props) {
@@ -114,8 +99,6 @@ function renderQuestionType(props) {
   const makeAddress = () => setQuestionType(section.id, question.id, "address");
   const makeContent = () => setQuestionType(section.id, question.id, "content");
   const makeSelect = () => setQuestionType(section.id, question.id, "select");
-  const makeMultiSelect = () =>
-    setQuestionType(section.id, question.id, "multiselect");
   const makeCheckboxes = () =>
     setQuestionType(section.id, question.id, "checkboxes");
   const makeRadio = () => setQuestionType(section.id, question.id, "radio");
@@ -125,39 +108,35 @@ function renderQuestionType(props) {
       <div>
         <button className="pure-button" onClick={makeString}>
           <i className="fa fa-cog" />
-          String
+          {getFriendlyQuestionType("string")}
         </button>
         <button className="pure-button" onClick={makeText}>
           <i className="fa fa-cog" />
-          Text
+          {getFriendlyQuestionType("text")}
         </button>
         <button className="pure-button" onClick={makeBoolean}>
           <i className="fa fa-cog" />
-          Boolean
+          {getFriendlyQuestionType("boolean")}
         </button>
         <button className="pure-button" onClick={makeAddress}>
           <i className="fa fa-cog" />
-          Address
+          {getFriendlyQuestionType("address")}
         </button>
         <button className="pure-button" onClick={makeContent}>
           <i className="fa fa-cog" />
-          Content
+          {getFriendlyQuestionType("content")}
         </button>
         <button className="pure-button" onClick={makeSelect}>
           <i className="fa fa-cog" />
-          Select
-        </button>
-        <button className="pure-button" onClick={makeMultiSelect}>
-          <i className="fa fa-cog" />
-          Multi-Select
+          {getFriendlyQuestionType("select")}
         </button>
         <button className="pure-button" onClick={makeCheckboxes}>
           <i className="fa fa-cog" />
-          Checkboxes
+          {getFriendlyQuestionType("checkboxes")}
         </button>
         <button className="pure-button" onClick={makeRadio}>
           <i className="fa fa-cog" />
-          Radio
+          {getFriendlyQuestionType("radio")}
         </button>
       </div>
     );
@@ -192,7 +171,7 @@ function renderQuestionFields(props) {
     <fieldset className={className}>
       <header>
         {connectDragSource(<i className="fa fa-bars grippy" />)}
-        <small>{question.type}</small>
+        <small>{getFriendlyQuestionType(question.type)}</small>
         <input
           type="text"
           className="labelinput"
@@ -209,7 +188,12 @@ function renderQuestionFields(props) {
             className={`expand fa ${editActive}`}
           />
           <i
-            onClick={e => deleteQuestion(section.id, question.id)}
+            onClick={e =>
+              Confirm(
+                "Are you sure?",
+                () => deleteQuestion(section.id, question.id),
+                () => {}
+              )}
             className="fa fa-times-circle-o delete"
           />
         </div>
@@ -350,18 +334,6 @@ function renderQuestionAdminType(
         {validateAs}
         {requiredField}
         {questionDependencies}
-        <div>
-          <h3>Preview</h3>
-          <String
-            id={question.id}
-            content={question.content}
-            placeholder={question.placeholder}
-            onChange={() => {}}
-            errorMessage=""
-            required={false}
-            value=""
-          />
-        </div>
       </div>
     );
   }
@@ -372,16 +344,6 @@ function renderQuestionAdminType(
         {descriptionTextArea}
         {placeholder}
         {requiredField}
-        <div>
-          <h3>Preview</h3>
-          <Text
-            id={question.id}
-            content={question.content}
-            placeholder={question.placeholder}
-            onChange={() => {}}
-            value=""
-          />
-        </div>
       </div>
     );
   }
@@ -391,17 +353,6 @@ function renderQuestionAdminType(
       <div>
         {descriptionTextArea}
         {requiredField}
-        <div>
-          <h3>Preview</h3>
-          <Boolean
-            id={question.id}
-            content={question.content}
-            placeholder={question.placeholder}
-            onChange={() => {}}
-            value=""
-            label={question.label}
-          />
-        </div>
       </div>
     );
   }
@@ -411,16 +362,6 @@ function renderQuestionAdminType(
       <div>
         {descriptionTextArea}
         {requiredField}
-        <div>
-          <h3>Preview</h3>
-          <Address
-            id={question.id}
-            content={question.content}
-            placeholder={question.placeholder}
-            value={new AddressType()}
-            onChange={() => {}}
-          />
-        </div>
       </div>
     );
   }
@@ -429,10 +370,6 @@ function renderQuestionAdminType(
     return (
       <div>
         {descriptionTextArea}
-        <div>
-          <h3>Preview</h3>
-          <Content content={question.content} />
-        </div>
       </div>
     );
   }
@@ -460,16 +397,6 @@ function renderQuestionAdminType(
           setMetadataFieldValue={setMetadataFieldValue}
           reorderChoice={(choiceId, order) => reorderChoice(choiceId, order)}
         />
-        <div>
-          <h4>Preview</h4>
-          <Select
-            content={question.content}
-            value=""
-            id={question.id}
-            onChange={() => {}}
-            choices={question.choices}
-          />
-        </div>
       </div>
     );
   }
@@ -495,17 +422,6 @@ function renderQuestionAdminType(
           setMetadataFieldValue={setMetadataFieldValue}
           reorderChoice={(choiceId, order) => reorderChoice(choiceId, order)}
         />
-        <div>
-          <h4>Preview</h4>
-          <MultiSelect
-            content={question.content}
-            id={question.id}
-            value=""
-            onChange={() => {}}
-            choices={question.choices}
-            values={new List([])}
-          />
-        </div>
       </div>
     );
   }
@@ -530,17 +446,6 @@ function renderQuestionAdminType(
           setMetadataFieldValue={setMetadataFieldValue}
           reorderChoice={(choiceId, order) => reorderChoice(choiceId, order)}
         />
-        <div>
-          <h4>Preview</h4>
-          <Checkboxes
-            content={question.content}
-            id={question.id}
-            value=""
-            label=""
-            onChange={() => {}}
-            choices={question.choices}
-          />
-        </div>
       </div>
     );
   }
@@ -565,16 +470,6 @@ function renderQuestionAdminType(
           setMetadataFieldValue={setMetadataFieldValue}
           reorderChoice={(choiceId, order) => reorderChoice(choiceId, order)}
         />
-        <div>
-          <h4>Preview</h4>
-          <Radio
-            name={`radio-${question.id}`}
-            content={question.content}
-            value={""}
-            onChange={() => {}}
-            choices={question.choices}
-          />
-        </div>
       </div>
     );
   }

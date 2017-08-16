@@ -6,6 +6,7 @@ import QuestionAdmin from "./QuestionAdmin";
 import { Set } from "immutable";
 import { DragTypes } from "./DragTypes";
 import { DragSource, DropTarget } from "react-dnd";
+import Confirm from "./Confirm";
 
 type Props = {
   form: Object,
@@ -205,7 +206,12 @@ function SectionAdmin(props: Props) {
               className={`expand fa ${caretClass}`}
             />
             <i
-              onClick={e => deleteSection(section.id)}
+              onClick={e =>
+                Confirm(
+                  "Are you sure?",
+                  () => deleteSection(section.id),
+                  () => {}
+                )}
               className="fa fa-times-circle-o delete"
             />
           </div>

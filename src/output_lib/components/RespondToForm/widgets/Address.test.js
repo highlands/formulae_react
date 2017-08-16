@@ -9,6 +9,7 @@ const address = new AddressType({
   street: "Street",
   city: "Birmighan",
   state: "Alabama",
+  country: "USA",
   zip: "5555"
 });
 

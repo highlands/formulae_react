@@ -264,6 +264,9 @@ export default function Address(props: Props) {
   const changeState = state => {
     onChange(value.set("state", state));
   };
+  const changeCountry = country => {
+    onChange(value.set("country", country));
+  };
   const changeZip = zip => {
     onChange(value.set("zip", zip));
   };
@@ -285,7 +288,7 @@ export default function Address(props: Props) {
           }}
         />
       </div>
-      <div className="pure-u-1-3">
+      <div className="pure-u-1-4">
         <label htmlFor={id + "-city"}>City:</label>
         <input
           id={id + "-city"}
@@ -299,7 +302,7 @@ export default function Address(props: Props) {
           }}
         />
       </div>
-      <div className="pure-u-1-3">
+      <div className="pure-u-1-4">
         <label htmlFor={id + "-state"}>State:</label>
         <select
           id={id + "-state"}
@@ -318,7 +321,21 @@ export default function Address(props: Props) {
             .toJS()}
         </select>
       </div>
-      <div className="pure-u-1-3">
+      <div className="pure-u-1-4">
+        <label htmlFor={id + "-state"}>Country:</label>
+        <input
+          id={id + "-country"}
+          name={id + "-country"}
+          type="text"
+          placeholder="Country"
+          value={value.country}
+          className="pure-u-23-24"
+          onChange={e => {
+            changeCountry(e.target.value);
+          }}
+        />
+      </div>
+      <div className="pure-u-1-4">
         <label htmlFor={id + "-state"}>Zip:</label>
         <input
           id={id + "-zip"}
