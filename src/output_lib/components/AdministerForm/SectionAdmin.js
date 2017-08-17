@@ -189,6 +189,11 @@ function SectionAdmin(props: Props) {
       <section className={className}>
         <header className="section-header">
           {connectDragSource(<i className="fa fa-bars grippy" />)}
+          <i
+            id={`edit-${section.id}`}
+            onClick={() => toggleExpandSection(section.id)}
+            className={`expand fa ${caretClass}`}
+          />
           <label>
             <input
               type="text"
@@ -200,11 +205,6 @@ function SectionAdmin(props: Props) {
             />
           </label>
           <div className="controls">
-            <i
-              id={`edit-${section.id}`}
-              onClick={() => toggleExpandSection(section.id)}
-              className={`expand fa ${caretClass}`}
-            />
             <i
               onClick={e =>
                 Confirm(
