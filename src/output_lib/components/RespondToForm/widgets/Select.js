@@ -15,7 +15,7 @@ type Props = {
 export default function Select(props: Props) {
   const { id, value, content, choices, onChange } = props;
   let newChoices = choices.unshift(
-    new ChoiceType({ label: "Select", value: "", disabled: true })
+    new ChoiceType({ label: "Select", value: "" })
   );
   const options = newChoices.sortBy(c => c.order).map((choice, i) => {
     return (
