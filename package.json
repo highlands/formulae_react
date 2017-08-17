@@ -1,6 +1,6 @@
 {
   "name": "@dailydrip/formulae_react",
-  "version": "0.3.4",
+  "version": "0.3.6",
   "private": false,
   "main": "lib/index.js",
   "files": [
@@ -64,7 +64,7 @@
     "jest": "18.1.0",
     "json-loader": "0.5.4",
     "node-sass": "^4.5.3",
-    "node-sass-chokidar": "0.0.2",
+    "node-sass-chokidar": "^0.0.3",
     "normalize-scss": "^7.0.0",
     "object-assign": "4.1.1",
     "postcss-loader": "1.2.2",

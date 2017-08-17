@@ -574,13 +574,17 @@ function deleteQuestionDependency(model, payload) {
               c => c.id === choiceId
             );
 
-          return s.deleteIn([
-            "questions",
-            indexQuestion,
-            "questionDependency",
-            "questionDependencyChoices",
-            indexChoice
-          ]);
+          return s.setIn(
+            [
+              "questions",
+              indexQuestion,
+              "questionDependency",
+              "questionDependencyChoices",
+              indexChoice,
+              "deleted"
+            ],
+            true
+          );
         } else {
           return s;
         }
