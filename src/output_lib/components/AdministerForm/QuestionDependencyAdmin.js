@@ -57,6 +57,7 @@ function renderChosenQuestionDependencyChoices(
 ) {
   if (questionDependency.questionDependencyChoices !== null) {
     return questionDependency.questionDependencyChoices
+      .filter(c => !c.deleted)
       .map((choice, i) => {
         return (
           <div key={i}>

@@ -37,6 +37,7 @@ export default function ChoicesAdmin(props: Props) {
   } = props;
   const choicesToRender = question.choices
     .sortBy(c => c.order)
+    .filter(c => !c.deleted)
     .map((c, i) => (
       <ChoiceAdmin
         key={i}

@@ -171,6 +171,11 @@ function renderQuestionFields(props) {
     <fieldset className={className}>
       <header>
         {connectDragSource(<i className="fa fa-bars grippy" />)}
+        <i
+          id={`edit-${question.id}`}
+          onClick={toggleExpandQuestion}
+          className={`expand fa ${editActive}`}
+        />
         <small>{getFriendlyQuestionType(question.type)}</small>
         <input
           type="text"
@@ -182,11 +187,6 @@ function renderQuestionFields(props) {
             setQuestionLabel(section.id, question.id, e.target.value)}
         />
         <div className="controls">
-          <i
-            id={`edit-${question.id}`}
-            onClick={toggleExpandQuestion}
-            className={`expand fa ${editActive}`}
-          />
           <i
             onClick={e =>
               Confirm(

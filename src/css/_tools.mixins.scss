@@ -1,6 +1,10 @@
 @mixin admin-header {
   padding: $padding-md;
   display: flex;
+  align-items: center;
+  > .fa {
+    font-size: $font-lg;
+  }
   > .grippy {
     padding: $padding-lg;
     cursor: move;
@@ -10,7 +14,7 @@
     flex-grow: 1;
   }
   > small {
-    padding: $padding-lg 0 0 $padding-lg;
+    padding: 0 0 0 $padding-lg;
     text-transform: capitalize;
   }
   > .controls {
