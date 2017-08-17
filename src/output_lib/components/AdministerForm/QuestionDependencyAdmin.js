@@ -2,6 +2,7 @@
 
 import React from "react";
 import { QuestionType, QuestionDependencyType } from "../../types";
+import { List, Map } from "immutable";
 
 type Props = {
   form: Object,
@@ -53,14 +54,24 @@ function renderChosenQuestionDependencyChoices(
   currentSection,
   currentQuestion,
   questionDependency,
-  deleteQuestionDependency
+  deleteQuestionDependency,
+  form
 ) {
+  let questionAndChoices = new List();
+  const allChoices = form.sections.map(s =>
+    s.questions.map(
+      q =>
+        questionAndChoices = questionAndChoices.push(
+          new Map({ question: q, choices: new List(q.choices) })
+        )
+    ));
+  debugger;
   if (questionDependency.questionDependencyChoices !== null) {
     return questionDependency.questionDependencyChoices
       .map((choice, i) => {
         return (
           <div key={i}>
-            {i} - {choice.label}
+            {currentQuestion.label} - {choice.label}
             <button
               className="pure-button"
               onClick={() => {
@@ -154,7 +165,8 @@ export default function QuestionDependencyAdmin(props: Props) {
             section,
             question,
             questionDependency,
-            deleteQuestionDependency
+            deleteQuestionDependency,
+            form
           )}
         </p>
         All Choices:
