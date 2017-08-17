@@ -536,7 +536,7 @@ function createQuestionDependency(model, payload) {
           return s.updateIn(["questions"], questions => {
             return questions.map(q => {
               if (q.id === questionId) {
-                return q.setIn(
+                let partialState = q.setIn(
                   ["questionDependency", "questionDependencyChoices"],
                   q.questionDependency.questionDependencyChoices.push(
                     new QuestionDependencyChoiceType({
@@ -545,6 +545,15 @@ function createQuestionDependency(model, payload) {
                       questionId: q.id
                     })
                   )
+                );
+
+                let chosenQuestionDependencies = partialState.chosenQuestionDependencies.push(
+                  choiceId
+                );
+                debugger;
+                return partialState.setIn(
+                  ["chosenQuestionDependencies"],
+                  chosenQuestionDependencies
                 );
               } else {
                 return q;

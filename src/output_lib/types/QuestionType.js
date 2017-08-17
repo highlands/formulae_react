@@ -20,6 +20,7 @@ export default class QuestionType
     choices: List(),
     metadataFields: List(),
     questionDependency: new QuestionDependencyType(),
+    chosenQuestionDependencies: List(),
     deleted: false,
     persisted: false
   }) {
@@ -37,6 +38,7 @@ export default class QuestionType
   choices: List<ChoiceType>;
   metadataFields: List<string>;
   questionDependency: ?QuestionDependencyType;
+  chosenQuestionDependencies: List<string>;
   deleted: boolean;
   persisted: boolean;
 }

@@ -21,33 +21,35 @@ function renderAllChoices(
   currentQuestion,
   createQuestionDependency
 ) {
-  let renderedChoices = form.sections.map(section => {
+  let options;
+  form.sections.map(section => {
     return section.questions
       .map(question => {
-        return question.choices.map((choice, i) => {
+        options = question.choices.map((choice, i) => {
           return (
-            <div key={i}>
-              {question.label} - {choice.label}
-              <button
-                className="pure-button"
-                onClick={() => {
-                  createQuestionDependency(
-                    currentSection.id,
-                    currentQuestion.id,
-                    choice.id
-                  );
-                }}
-              >
-                Add
-              </button>
-            </div>
+            <option key={i} name={choice.get("label")} value={choice.get("id")}>
+              {choice.get("label")}
+            </option>
           );
         });
       })
       .toJS();
   });
 
-  return <div>{renderedChoices}</div>;
+  return (
+    <select
+      id="question-dependencies"
+      onChange={e => {
+        createQuestionDependency(
+          currentSection.id,
+          currentQuestion.id,
+          e.target.value
+        );
+      }}
+    >
+      {options}
+    </select>
+  );
 }
 
 function renderChosenQuestionDependencyChoices(
@@ -65,7 +67,6 @@ function renderChosenQuestionDependencyChoices(
           new Map({ question: q, choices: new List(q.choices) })
         )
     ));
-  debugger;
   if (questionDependency.questionDependencyChoices !== null) {
     return questionDependency.questionDependencyChoices
       .filter(c => !c.deleted)
