@@ -1,7 +1,8 @@
 // @flow
 
 import React from "react";
-import { QuestionType, QuestionDependencyType } from "../../types";
+import { ChoiceType, QuestionType, QuestionDependencyType } from "../../types";
+import { List, Map } from "immutable";
 
 type Props = {
   form: Object,
@@ -14,54 +15,97 @@ type Props = {
   setAndQuestionDependency: Function
 };
 
+function selectOption() {
+  return (
+    <option key={Math.floor(Math.random() * 10000)}>
+      Select
+    </option>
+  );
+}
+
 function renderAllChoices(
   form,
   currentSection,
   currentQuestion,
   createQuestionDependency
 ) {
-  let renderedChoices = form.sections.map(section => {
-    return section.questions
+  let options = new List();
+  let optionsGlobal = new List();
+  form.sections.map(section => {
+    section.questions
       .map(question => {
-        return question.choices.map((choice, i) => {
-          return (
-            <div key={i}>
-              {question.label} - {choice.label}
-              <button
-                className="pure-button"
-                onClick={() => {
-                  createQuestionDependency(
-                    currentSection.id,
-                    currentQuestion.id,
-                    choice.id
-                  );
-                }}
+        options = question.choices.map((choice, i) => {
+          if (!currentQuestion.chosenQuestionDependencies.includes(choice.id)) {
+            return (
+              <option
+                key={Math.floor(Math.random() * 10000)}
+                name={choice.get("label")}
+                value={choice.get("id")}
               >
-                Add
-              </button>
-            </div>
-          );
+                {question.label} - {choice.get("label")}
+              </option>
+            );
+          }
         });
+
+        if (optionsGlobal.count() === 0) {
+          optionsGlobal = optionsGlobal
+            .concat(options)
+            .concat(new List([selectOption()]));
+        }
+
+        optionsGlobal = optionsGlobal.concat(options);
       })
       .toJS();
   });
-
-  return <div>{renderedChoices}</div>;
+  return (
+    <select
+      id="question-dependencies"
+      onChange={e => {
+        createQuestionDependency(
+          currentSection.id,
+          currentQuestion.id,
+          e.target.value
+        );
+      }}
+    >
+      {optionsGlobal}
+    </select>
+  );
 }
 
 function renderChosenQuestionDependencyChoices(
   currentSection,
   currentQuestion,
   questionDependency,
-  deleteQuestionDependency
+  deleteQuestionDependency,
+  form
 ) {
+  let questionAndChoices = new List();
+  const allChoices = form.sections.map(s =>
+    s.questions.map(
+      q =>
+        questionAndChoices = questionAndChoices.push(
+          new Map({ question: q, choices: new List(q.choices) })
+        )
+    ));
   if (questionDependency.questionDependencyChoices !== null) {
     return questionDependency.questionDependencyChoices
       .filter(c => !c.deleted)
       .map((choice, i) => {
+        let choiceLabel;
+        let questionLabel;
+        questionAndChoices.map(qc => {
+          qc.get("question").choices.map(c => {
+            if (c.id === choice.choiceId) {
+              choiceLabel = c.label;
+              questionLabel = qc.get("question").label;
+            }
+          });
+        });
         return (
           <div key={i}>
-            {i} - {choice.label}
+            {questionLabel} - {choiceLabel}
             <button
               className="pure-button"
               onClick={() => {
@@ -155,10 +199,11 @@ export default function QuestionDependencyAdmin(props: Props) {
             section,
             question,
             questionDependency,
-            deleteQuestionDependency
+            deleteQuestionDependency,
+            form
           )}
         </p>
-        All Choices:
+        Other Choices:
         <div>
           {renderAllChoices(form, section, question, createQuestionDependency)}
         </div>
