@@ -550,7 +550,6 @@ function createQuestionDependency(model, payload) {
                 let chosenQuestionDependencies = partialState.chosenQuestionDependencies.push(
                   choiceId
                 );
-                debugger;
                 return partialState.setIn(
                   ["chosenQuestionDependencies"],
                   chosenQuestionDependencies
@@ -572,28 +571,41 @@ function createQuestionDependency(model, payload) {
 
 function deleteQuestionDependency(model, payload) {
   if (payload) {
-    let { sectionId, questionId, choiceId } = payload;
+    const { sectionId, questionId, choiceId } = payload;
     return model.updateIn(["form", "sections"], sections => {
       return sections.map(s => {
         if (s.id === sectionId) {
-          const indexQuestion = s.questions.findIndex(q => q.id === questionId);
-          const indexChoice = s.questions
-            .get(indexQuestion)
-            .questionDependency.questionDependencyChoices.findIndex(
-              c => c.id === choiceId
-            );
+          return s.updateIn(["questions"], questions => {
+            return questions.map(q => {
+              if (q.id === questionId) {
+                const indexChoice = q.questionDependency.questionDependencyChoices.findIndex(
+                  c => c.id === choiceId
+                );
+                let partialState = q.setIn(
+                  [
+                    "questionDependency",
+                    "questionDependencyChoices",
+                    indexChoice,
+                    "deleted"
+                  ],
+                  true
+                );
+                let choiceIdIndex = partialState.chosenQuestionDependencies.findIndex(
+                  qd => `${qd.id}` === `${choiceId}`
+                );
+                let chosenQuestionDependencies = partialState.chosenQuestionDependencies.remove(
+                  choiceIdIndex
+                );
 
-          return s.setIn(
-            [
-              "questions",
-              indexQuestion,
-              "questionDependency",
-              "questionDependencyChoices",
-              indexChoice,
-              "deleted"
-            ],
-            true
-          );
+                return partialState.setIn(
+                  ["chosenQuestionDependencies"],
+                  chosenQuestionDependencies
+                );
+              } else {
+                return q;
+              }
+            });
+          });
         } else {
           return s;
         }
