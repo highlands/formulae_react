@@ -9,11 +9,12 @@ type Props = {
   values: List<string>,
   content: string,
   choices: List<ChoiceType>,
-  onChange: Function
+  onChange: Function,
+  required: boolean
 };
 
 export default function MultiSelect(props: Props) {
-  const { id, values, content, choices, onChange } = props;
+  const { id, values, content, choices, onChange, required } = props;
   let selectInput = { options: [] };
   const onChangeMulti = () => {
     onChange(
@@ -44,6 +45,7 @@ export default function MultiSelect(props: Props) {
         multiple
         id={id}
         onChange={onChangeMulti}
+        required={required}
       >
         {options}
       </select>

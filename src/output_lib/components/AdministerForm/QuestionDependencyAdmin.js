@@ -3,6 +3,7 @@
 import React from "react";
 import { ChoiceType, QuestionType, QuestionDependencyType } from "../../types";
 import { List, Map } from "immutable";
+import Confirm from "./Confirm";
 
 type Props = {
   form: Object,
@@ -109,10 +110,15 @@ function renderChosenQuestionDependencyChoices(
             <button
               className="pure-button"
               onClick={() => {
-                deleteQuestionDependency(
-                  currentSection.id,
-                  currentQuestion.id,
-                  choice.id
+                Confirm(
+                  "Are you sure?",
+                  () =>
+                    deleteQuestionDependency(
+                      currentSection.id,
+                      currentQuestion.id,
+                      choice.id
+                    ),
+                  () => {}
                 );
               }}
             >

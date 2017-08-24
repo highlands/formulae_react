@@ -7,11 +7,12 @@ type Props = {
   value: string,
   content: string,
   onChange: Function,
-  label: string
+  label: string,
+  required: boolean
 };
 
 export default function Boolean(props: Props) {
-  const { id, value, onChange, content, label } = props;
+  const { id, value, onChange, content, label, required } = props;
   if (label !== "" && content !== "") {
     return (
       <div className="boolean">
@@ -19,7 +20,13 @@ export default function Boolean(props: Props) {
           {label}
         </div>
         <label className="labelinput">
-          <input id={id} type="checkbox" value={value} onChange={onChange} />
+          <input
+            id={id}
+            type="checkbox"
+            value={value}
+            onChange={onChange}
+            required={required}
+          />
           {content}
         </label>
       </div>
@@ -28,7 +35,13 @@ export default function Boolean(props: Props) {
     return (
       <div className="boolean">
         <label className="labelinput">
-          <input id={id} type="checkbox" value={value} onChange={onChange} />
+          <input
+            id={id}
+            type="checkbox"
+            value={value}
+            onChange={onChange}
+            required={required}
+          />
           {content}
         </label>
       </div>

@@ -7,11 +7,12 @@ type Props = {
   value: string,
   content: string,
   placeholder: string,
-  onChange: Function
+  onChange: Function,
+  required: boolean
 };
 
 export default function Text(props: Props) {
-  const { id, value, onChange, placeholder, content } = props;
+  const { id, value, onChange, placeholder, content, required } = props;
 
   return (
     <div>
@@ -22,6 +23,7 @@ export default function Text(props: Props) {
         value={value}
         className="pure-input-1"
         onChange={onChange}
+        required={required}
       />
     </div>
   );
