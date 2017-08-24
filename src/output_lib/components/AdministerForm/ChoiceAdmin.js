@@ -5,6 +5,7 @@ import { ChoiceType } from "../../types";
 import { List } from "immutable";
 import { DragTypes } from "./DragTypes";
 import { DragSource, DropTarget } from "react-dnd";
+import Confirm from "./Confirm";
 
 type Props = {
   choice: ChoiceType,
@@ -120,7 +121,12 @@ function ChoiceAdmin(props: Props) {
         {metadataInputs}
         <td>
           <i
-            onClick={e => deleteChoice(sectionId, questionId, choice.id)}
+            onClick={e =>
+              Confirm(
+                "Are you sure?",
+                () => deleteChoice(sectionId, questionId, choice.id),
+                () => {}
+              )}
             className="fa fa-times-circle-o delete"
           />
         </td>
