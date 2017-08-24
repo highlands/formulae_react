@@ -185,6 +185,7 @@ function getQuestionWidget(
           placeholder={placeholder}
           value={submission.get(0) ? submission.get(0).get("value") : ""}
           onChange={onChange}
+          required={required}
         />
       );
     case "address":
@@ -199,6 +200,7 @@ function getQuestionWidget(
               : new AddressType()
           }
           onChange={onAddressChange}
+          required={required}
         />
       );
     case "boolean":
@@ -209,6 +211,7 @@ function getQuestionWidget(
           content={content}
           value={submission.get(0) ? submission.get(0).get("value") : ""}
           onChange={onChangeCheckBox}
+          required={required}
         />
       );
     case "select":
@@ -219,6 +222,7 @@ function getQuestionWidget(
           value={submission.get(0) ? submission.get(0).get("value") : ""}
           onChange={onChange}
           choices={choices}
+          required={required}
         />
       );
     case "multiselect":
@@ -229,6 +233,7 @@ function getQuestionWidget(
           values={submission.map(x => x.get("value"))}
           onChange={onChangeMultiSelect}
           choices={choices}
+          required={required}
         />
       );
     case "checkboxes":
@@ -237,6 +242,7 @@ function getQuestionWidget(
           choices={choices}
           label={label}
           onChange={onChangeMultiSelect}
+          required={required}
         />
       );
     case "buttons":
@@ -249,7 +255,9 @@ function getQuestionWidget(
           id={id}
           value={submission.get(0) ? submission.get(0).get("value") : ""}
           onChange={onChangeRadio}
+          errorMessage={errorMessage}
           choices={choices}
+          required={required}
         />
       );
     default:

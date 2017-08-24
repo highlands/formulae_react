@@ -9,11 +9,12 @@ type Props = {
   value: string,
   content: string,
   choices: List<ChoiceType>,
-  onChange: Function
+  onChange: Function,
+  required: boolean
 };
 
 export default function Select(props: Props) {
-  const { id, value, content, choices, onChange } = props;
+  const { id, value, content, choices, onChange, required } = props;
   let newChoices = choices.unshift(
     new ChoiceType({ label: "Select", value: "" })
   );
@@ -33,7 +34,7 @@ export default function Select(props: Props) {
   return (
     <div>
       <p>{content}</p>
-      <select id={id} onChange={onChange}>{options}</select>
+      <select id={id} onChange={onChange} required={required}>{options}</select>
     </div>
   );
 }

@@ -9,7 +9,8 @@ type Props = {
   value: AddressType,
   content: string,
   placeholder: string,
-  onChange: Function
+  onChange: Function,
+  required: boolean
 };
 
 // Found at https://gist.github.com/mshafrir/2646763
@@ -253,7 +254,7 @@ const states = [
 ];
 
 export default function Address(props: Props) {
-  const { id, value, onChange, placeholder, content } = props;
+  const { id, value, onChange, placeholder, content, required } = props;
 
   const changeStreet = street => {
     onChange(value.set("street", street));
@@ -286,6 +287,7 @@ export default function Address(props: Props) {
           onChange={e => {
             changeStreet(e.target.value);
           }}
+          required={required}
         />
       </div>
       <div className="pure-u-1-4">
@@ -300,6 +302,7 @@ export default function Address(props: Props) {
           onChange={e => {
             changeCity(e.target.value);
           }}
+          required={required}
         />
       </div>
       <div className="pure-u-1-4">
@@ -316,7 +319,9 @@ export default function Address(props: Props) {
         >
           {List(states)
             .map((state, i) => (
-              <option key={i} value={state.name}>{state.abbreviation}</option>
+              <option key={i} value={state.name} required={required}>
+                {state.abbreviation}
+              </option>
             ))
             .toJS()}
         </select>
@@ -333,6 +338,7 @@ export default function Address(props: Props) {
           onChange={e => {
             changeCountry(e.target.value);
           }}
+          required={required}
         />
       </div>
       <div className="pure-u-1-4">
@@ -347,6 +353,7 @@ export default function Address(props: Props) {
           onChange={e => {
             changeZip(e.target.value);
           }}
+          required={required}
         />
       </div>
     </div>

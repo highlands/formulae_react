@@ -373,6 +373,7 @@ function renderQuestionAdminType(
     return (
       <div>
         {descriptionTextArea}
+        {requiredField}
         {questionDependencies}
       </div>
     );
@@ -382,6 +383,7 @@ function renderQuestionAdminType(
     return (
       <div>
         {descriptionTextArea}
+        {requiredField}
         {questionDependencies}
         <ChoicesAdmin
           sectionId={section.id}
@@ -410,6 +412,7 @@ function renderQuestionAdminType(
     return (
       <div>
         {descriptionTextArea}
+        {requiredField}
         {questionDependencies}
         <ChoicesAdmin
           sectionId={section.id}
@@ -435,6 +438,7 @@ function renderQuestionAdminType(
     return (
       <div>
         {descriptionTextArea}
+        {requiredField}
         {questionDependencies}
         <ChoicesAdmin
           sectionId={section.id}
@@ -460,6 +464,7 @@ function renderQuestionAdminType(
     return (
       <div>
         {descriptionTextArea}
+        {requiredField}
         {questionDependencies}
         <ChoicesAdmin
           sectionId={section.id}
@@ -486,6 +491,7 @@ function renderQuestionAdminType(
     return (
       <div>
         {descriptionTextArea}
+        {requiredField}
         {questionDependencies}
         <ChoicesAdmin
           sectionId={section.id}
