@@ -1,6 +1,6 @@
 // @flow
 
-import React from "react";
+import React, { Component } from "react";
 import { QuestionDependencyType, SectionType, QuestionType } from "../../types";
 import ChoicesAdmin from "./ChoicesAdmin";
 import QuestionDependencyAdmin from "./QuestionDependencyAdmin";
@@ -8,6 +8,7 @@ import { DragTypes } from "./DragTypes";
 import { DragSource, DropTarget } from "react-dnd";
 import getFriendlyQuestionType from "./FriendlyQuestionTypes";
 import Confirm from "./Confirm";
+import { is } from "immutable";
 
 const questionSource = {
   beginDrag(props) {
@@ -50,7 +51,7 @@ function dragCollect(connect, monitor) {
 }
 
 type Props = {
-  form: Object,
+  allChoices: Object,
   section: Object,
   question: QuestionType,
   setQuestionType: Function,
@@ -88,11 +89,7 @@ type Props = {
 };
 
 function renderQuestionType(props) {
-  const {
-    section,
-    setQuestionType,
-    question
-  } = props;
+  const { section, setQuestionType, question } = props;
   const makeString = () => setQuestionType(section.id, question.id, "string");
   const makeText = () => setQuestionType(section.id, question.id, "text");
   const makeBoolean = () => setQuestionType(section.id, question.id, "boolean");
@@ -211,7 +208,7 @@ function renderQuestionAdminType(
   props: Props
 ) {
   const {
-    form,
+    allChoices,
     setQuestionRequired,
     setQuestionPlaceholder,
     setQuestionContent,
@@ -252,7 +249,7 @@ function renderQuestionAdminType(
       <div>
         {buttonQuestionDependency}
         <QuestionDependencyAdmin
-          form={form}
+          allChoices={allChoices}
           section={section}
           question={question}
           questionDependency={new QuestionDependencyType(questionDependency)}
@@ -515,14 +512,16 @@ function renderQuestionAdminType(
   }
 }
 
-function QuestionAdmin(props: Props) {
-  const { connectDropTarget } = props;
+class QuestionAdmin extends Component {
+  render() {
+    const { connectDropTarget } = this.props;
 
-  return connectDropTarget(
-    <div className="question">
-      {renderQuestionType(props)}
-    </div>
-  );
+    return connectDropTarget(
+      <div className="question">
+        {renderQuestionType(this.props)}
+      </div>
+    );
+  }
 }
 
 export default DropTarget(DragTypes.QUESTION, questionTarget, dropCollect)(

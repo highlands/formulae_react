@@ -9,7 +9,7 @@ import { DragSource, DropTarget } from "react-dnd";
 import Confirm from "./Confirm";
 
 type Props = {
-  form: Object,
+  allChoices: Object,
   section: SectionType,
   setSectionName: Function,
   setSectionContent: Function,
@@ -91,7 +91,7 @@ function dragCollect(connect, monitor) {
 
 function SectionAdmin(props: Props) {
   const {
-    form,
+    allChoices,
     section,
     setSectionName,
     setSectionContent,
@@ -148,7 +148,7 @@ function SectionAdmin(props: Props) {
     .filter(q => !q.deleted)
     .map((q, i) => (
       <QuestionAdmin
-        form={form}
+        allChoices={allChoices}
         addQuestion={addQuestion}
         setQuestionType={setQuestionType}
         setQuestionKey={setQuestionKey}

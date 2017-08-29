@@ -5,6 +5,7 @@ import SectionAdmin from "./AdministerForm/SectionAdmin";
 import { AdministerFormModel } from "../types";
 import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
+import { List, Map } from "immutable";
 
 type Props = {
   model: AdministerFormModel,
@@ -87,12 +88,26 @@ function AdministerForm(props: Props) {
     setMetadataFieldValue
   } = props;
   const { apiKey, submitted } = model;
+
+  let allChoices = new List();
+  model.form.sections.map(s =>
+    s.questions.map(
+      q =>
+        (allChoices = allChoices.push(
+          new Map({
+            question: new Map({ id: q.get("id"), label: q.get("label") }),
+            choices: new List(q.choices)
+          })
+        ))
+    )
+  );
+
   const sectionsToRender = model.form.sections
     .sortBy(s => s.order)
     .filter(s => !s.deleted)
     .map((s, i) => (
       <SectionAdmin
-        form={model.form}
+        allChoices={allChoices}
         setSectionName={setSectionName}
         setSectionContent={setSectionContent}
         addQuestion={addQuestion}

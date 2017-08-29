@@ -6,7 +6,7 @@ import { List, Map } from "immutable";
 import Confirm from "./Confirm";
 
 type Props = {
-  form: Object,
+  allChoices: Object,
   section: Object,
   question: QuestionType,
   questionDependency: QuestionDependencyType,
@@ -18,47 +18,46 @@ type Props = {
 
 function selectOption() {
   return (
-    <option key={Math.floor(Math.random() * 10000)}>
+    <option key={-1}>
       Select
     </option>
   );
 }
 
 function renderAllChoices(
-  form,
+  allChoices,
   currentSection,
   currentQuestion,
   createQuestionDependency
 ) {
   let options = new List();
   let optionsGlobal = new List();
-  form.sections.map(section => {
-    section.questions
-      .map(question => {
-        options = question.choices.map((choice, i) => {
-          if (!currentQuestion.chosenQuestionDependencies.includes(choice.id)) {
-            return (
-              <option
-                key={Math.floor(Math.random() * 10000)}
-                name={choice.get("label")}
-                value={choice.get("id")}
-              >
-                {question.label} - {choice.get("label")}
-              </option>
-            );
-          }
-        });
+  allChoices.map((questionAndChoices, i) => {
+    const question = questionAndChoices.get("question");
+    const choices = questionAndChoices.get("choices");
+    options = choices.map((choice, j) => {
+      if (!currentQuestion.chosenQuestionDependencies.includes(choice.id)) {
+        return (
+          <option
+            key={`${i}-${j}`}
+            name={choice.get("label")}
+            value={choice.get("id")}
+          >
+            {question.get("label")} - {choice.get("label")}
+          </option>
+        );
+      }
+    });
 
-        if (optionsGlobal.count() === 0) {
-          optionsGlobal = optionsGlobal
-            .concat(options)
-            .concat(new List([selectOption()]));
-        }
+    if (optionsGlobal.count() === 0) {
+      optionsGlobal = optionsGlobal
+        .concat(options)
+        .concat(new List([selectOption()]));
+    }
 
-        optionsGlobal = optionsGlobal.concat(options);
-      })
-      .toJS();
+    optionsGlobal = optionsGlobal.concat(options);
   });
+
   return (
     <select
       id="question-dependencies"
@@ -80,24 +79,16 @@ function renderChosenQuestionDependencyChoices(
   currentQuestion,
   questionDependency,
   deleteQuestionDependency,
-  form
+  allChoices
 ) {
-  let questionAndChoices = new List();
-  const allChoices = form.sections.map(s =>
-    s.questions.map(
-      q =>
-        questionAndChoices = questionAndChoices.push(
-          new Map({ question: q, choices: new List(q.choices) })
-        )
-    ));
   if (questionDependency.questionDependencyChoices !== null) {
     return questionDependency.questionDependencyChoices
       .filter(c => !c.deleted)
       .map((choice, i) => {
         let choiceLabel;
         let questionLabel;
-        questionAndChoices.map(qc => {
-          qc.get("question").choices.map(c => {
+        allChoices.map(qc => {
+          qc.get("choices").map(c => {
             if (c.id === choice.choiceId) {
               choiceLabel = c.label;
               questionLabel = qc.get("question").label;
@@ -169,7 +160,7 @@ function renderDisplayQuestionDependency(
 export default function QuestionDependencyAdmin(props: Props) {
   const {
     questionDependency,
-    form,
+    allChoices,
     section,
     question,
     createQuestionDependency,
@@ -206,12 +197,17 @@ export default function QuestionDependencyAdmin(props: Props) {
             question,
             questionDependency,
             deleteQuestionDependency,
-            form
+            allChoices
           )}
         </p>
         Other Choices:
         <div>
-          {renderAllChoices(form, section, question, createQuestionDependency)}
+          {renderAllChoices(
+            allChoices,
+            section,
+            question,
+            createQuestionDependency
+          )}
         </div>
       </div>
     );
