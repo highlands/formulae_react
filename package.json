@@ -1,5 +1,5 @@
 {
-  "name": "@dailydrip/formulae_react",
+  "name": "@highlands/formulae_react",
   "version": "0.3.8",
   "private": false,
   "main": "lib/index.js",
@@ -7,8 +7,16 @@
   "files": [
     "lib/"
   ],
-  "author": "Josh Adams <josh@dailydrip.com",
+  "author": "Highlands Digital <webadmin@churchofthehighlands.com",
   "contributors": [
+    {
+      "name": "Josh Adams",
+      "email": "josh@dailydrip.com"
+    },
+    {
+      "name": "Adam Dill",
+      "email": "adam@dailydrip.com"
+    },
     {
       "name": "Franze Magalhaes",
       "email": "franzejr@dailydrip.com"
