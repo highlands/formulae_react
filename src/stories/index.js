@@ -9,17 +9,17 @@ import {
   MultiSelect,
   Checkboxes,
   Radio
-} from "../components/RespondToForm/widgets";
-import Question from "../components/RespondToForm/Question";
-import Section from "../components/RespondToForm/Section";
-import RespondToForm from "../components/RespondToForm";
+} from "../output_lib/components/RespondToForm/widgets";
+import Question from "../output_lib/components/RespondToForm/Question";
+import Section from "../output_lib/components/RespondToForm/Section";
+import RespondToForm from "../output_lib/components/RespondToForm";
 import {
   FormType,
   SectionType,
   QuestionType,
   QuestionSubmissionType,
   ChoiceType
-} from "../types";
+} from "../output_lib/types";
 import { List, Map } from "immutable";
 
 storiesOf("Welcome", module).add("to Storybook", () => (
