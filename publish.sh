@@ -10,8 +10,8 @@ read -p "Did you run yarn lib? Please, make sure you did it before publishing...
 
 if [[  $REPLY =~ [Yy]$ ]]
 then
-  git tag -a v$1 -m "Tagging $1" &&
-  git push origin --tags &&
+#  git tag -a v$1 -m "Tagging $1" &&
+#  git push origin --tags &&
   npm publish
 fi
 
