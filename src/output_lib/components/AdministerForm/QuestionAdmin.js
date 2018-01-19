@@ -102,37 +102,37 @@ function renderQuestionType(props) {
 
   if (question.type === "") {
     return (
-      <div>
-        <button className="pure-button" onClick={makeString}>
-          <i className="fa fa-cog" />
+      <div className="btn-group">
+        <button className="btn btn-default" onClick={makeString}>
+          <i className="fa fa-fw fa-cog" />
           {getFriendlyQuestionType("string")}
         </button>
-        <button className="pure-button" onClick={makeText}>
-          <i className="fa fa-cog" />
+        <button className="btn btn-default" onClick={makeText}>
+          <i className="fa fa-fw fa-cog" />
           {getFriendlyQuestionType("text")}
         </button>
-        <button className="pure-button" onClick={makeBoolean}>
-          <i className="fa fa-cog" />
+        <button className="btn btn-default" onClick={makeBoolean}>
+          <i className="fa fa-fw fa-cog" />
           {getFriendlyQuestionType("boolean")}
         </button>
-        <button className="pure-button" onClick={makeAddress}>
-          <i className="fa fa-cog" />
+        <button className="btn btn-default" onClick={makeAddress}>
+          <i className="fa fa-fw fa-cog" />
           {getFriendlyQuestionType("address")}
         </button>
-        <button className="pure-button" onClick={makeContent}>
-          <i className="fa fa-cog" />
+        <button className="btn btn-default" onClick={makeContent}>
+          <i className="fa fa-fw fa-cog" />
           {getFriendlyQuestionType("content")}
         </button>
-        <button className="pure-button" onClick={makeSelect}>
-          <i className="fa fa-cog" />
+        <button className="btn btn-default" onClick={makeSelect}>
+          <i className="fa fa-fw fa-cog" />
           {getFriendlyQuestionType("select")}
         </button>
-        <button className="pure-button" onClick={makeCheckboxes}>
-          <i className="fa fa-cog" />
+        <button className="btn btn-default" onClick={makeCheckboxes}>
+          <i className="fa fa-fw fa-cog" />
           {getFriendlyQuestionType("checkboxes")}
         </button>
-        <button className="pure-button" onClick={makeRadio}>
-          <i className="fa fa-cog" />
+        <button className="btn btn-default" onClick={makeRadio}>
+          <i className="fa fa-fw fa-cog" />
           {getFriendlyQuestionType("radio")}
         </button>
       </div>
@@ -156,8 +156,9 @@ function renderQuestionFields(props) {
     connectDragPreview
   } = props;
 
+  let expandedClass = expanded ? "" : "hide";
   let editActive = expanded ? "fa-compress" : "fa-expand";
-  let className = "admin-question";
+  let className = "panel panel-default";
   if (isOver) {
     className += " -is-over";
   }
@@ -166,36 +167,51 @@ function renderQuestionFields(props) {
   }
   return connectDragPreview(
     <fieldset className={className}>
-      <header>
-        {connectDragSource(<i className="fa fa-bars grippy" />)}
-        <i
-          id={`edit-${question.id}`}
-          onClick={toggleExpandQuestion}
-          className={`expand fa ${editActive}`}
-        />
-        <small>{getFriendlyQuestionType(question.type)}</small>
-        <input
-          type="text"
-          className="labelinput"
-          value={question.label}
-          name="label"
-          placeholder="Question"
-          onChange={e =>
-            setQuestionLabel(section.id, question.id, e.target.value)}
-        />
-        <div className="controls">
-          <i
-            onClick={e =>
-              Confirm(
-                "Are you sure?",
-                () => deleteQuestion(section.id, question.id),
-                () => {}
-              )}
-            className="fa fa-times-circle-o delete"
-          />
+      <header className="panel-heading">
+        <div className="row">
+          <div className="col-md-4">
+            <h4>
+              {connectDragSource(<i className="fa fa-fw fa-bars grippy" />)}
+              <i
+                id={`edit-${question.id}`}
+                onClick={toggleExpandQuestion}
+                className={`expand fa fa-fw ${editActive}`}
+              />
+              <small className="pull-right">
+                {getFriendlyQuestionType(question.type)}
+              </small>
+            </h4>
+          </div>
+          <div className="col-md-4">
+            <input
+              type="text"
+              className="form-control"
+              value={question.label}
+              name="label"
+              placeholder="Question"
+              onChange={e =>
+                setQuestionLabel(section.id, question.id, e.target.value)}
+            />
+          </div>
+          <div className="col-md-4">
+            <div className="controls pull-right">
+              <h4>
+                <i
+                  onClick={e =>
+                    Confirm(
+                      "Are you sure?",
+                      () => deleteQuestion(section.id, question.id),
+                      () => {}
+                    )}
+                  className="fa fa-fw fa-times-circle-o delete"
+                  style={{color:'red'}}
+                />
+              </h4>
+            </div>
+          </div>
         </div>
       </header>
-      <div className={expanded ? "" : "hide"}>
+      <div className={`panel-body ${expandedClass}`}>
         {renderQuestionAdminType(section, question, props)}
       </div>
     </fieldset>
@@ -235,7 +251,7 @@ function renderQuestionAdminType(
   if (questionDependency != null) {
     buttonQuestionDependency = questionDependency.id === ""
       ? <button
-          className="pure-button"
+          className="btn btn-default"
           onClick={() => addQuestionDependency(section.id, question.id)}
         >
           Add Question Dependency

@@ -6,6 +6,7 @@ import { AdministerFormModel } from "../types";
 import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import { List, Map } from "immutable";
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 type Props = {
   model: AdministerFormModel,
@@ -151,34 +152,41 @@ function AdministerForm(props: Props) {
     ));
   const showSubmittedMessage = submitted ? <h2>Submitted!</h2> : "";
   return (
-    <form onSubmit={e => e.preventDefault()} className="pure-form">
-      <h2>Administer Form</h2>
-      <hr />
-      <div className="admin-formcompletioncontent">
-        <label><h3>Form Completion Content</h3></label>
-        <textarea
-          type="text"
-          className="pure-input-1-2"
-          placeholder="Text that shows when the form is submitted"
-          value={model.get("form").get("completionContent")}
-          onChange={e => setFormCompletionContent(e.target.value)}
-        />
-      </div>
-      <div className="admin-formcontainer">
-        <h3>Sections</h3>
-        {sectionsToRender}
-        <div className="add-button">
-          <button className="pure-button" onClick={() => addSection()}>
-            Add Section
-          </button>
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-lg-12">
+          <form onSubmit={e => e.preventDefault()}>
+            <h2>Administer Form</h2>
+            <hr />
+            <h3>Form Completion Content</h3>
+            <div className="form-group">
+              <textarea
+                type="text"
+                className="form-control"
+                placeholder="Text that shows when the form is submitted"
+                rows="3"
+                value={model.get("form").get("completionContent")}
+                onChange={e => setFormCompletionContent(e.target.value)}
+              />
+            </div>
+            <h3>Sections</h3>
+            {sectionsToRender}
+            <div className="add-button form-group">
+              <button className="btn btn-success" onClick={() => addSection()}>
+                Add Section
+              </button>
+            </div>
+            {showSubmittedMessage}
+            <hr />
+            <div className="form-group">
+              <button className="btn btn-primary" onClick={() => saveForm(apiKey)}>
+                Save Form
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-      {showSubmittedMessage}
-      <hr />
-      <button className="pure-button" onClick={() => saveForm(apiKey)}>
-        Save Form
-      </button>
-    </form>
+    </div>
   );
 }
 

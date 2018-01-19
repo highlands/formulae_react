@@ -135,7 +135,7 @@ function SectionAdmin(props: Props) {
   const expanded = expandedSections.get(String(section.id)) !== undefined;
   const expandedClass = expanded ? "" : "hide";
   const caretClass = expanded ? "fa-compress" : "fa-expand";
-  let className = "admin-formsection";
+  let className = "panel panel-default";
   if (isOver) {
     className += " -is-over";
   }
@@ -187,52 +187,69 @@ function SectionAdmin(props: Props) {
   return connectDropTarget(
     connectDragPreview(
       <section className={className}>
-        <header className="section-header">
-          {connectDragSource(<i className="fa fa-bars grippy" />)}
-          <i
-            id={`edit-${section.id}`}
-            onClick={() => toggleExpandSection(section.id)}
-            className={`expand fa ${caretClass}`}
-          />
-          <label>
-            <input
-              type="text"
-              value={section.name}
-              name="name"
-              placeholder="Name"
-              className="section-name"
-              onChange={e => setSectionName(section.id, e.target.value)}
-            />
-          </label>
-          <div className="controls">
-            <i
-              onClick={e =>
-                Confirm(
-                  "Are you sure?",
-                  () => deleteSection(section.id),
-                  () => {}
-                )}
-              className="fa fa-times-circle-o delete"
-            />
+        <header className="panel-heading">
+          <div className="row">
+            <div className="col-md-4">
+              <h4>
+                {connectDragSource(<i className="fa fa-fw fa-bars grippy" />)}
+                <i
+                  id={`edit-${section.id}`}
+                  onClick={() => toggleExpandSection(section.id)}
+                  className={`expand fa fa-fw ${caretClass}`}
+                />
+              </h4>
+            </div>
+            <div className="col-md-4">
+              <input
+                type="text"
+                value={section.name}
+                name="name"
+                placeholder="Name"
+                className="section-name form-control"
+                onChange={e => setSectionName(section.id, e.target.value)}
+              />
+            </div>
+            <div className="col-md-4">
+              <div className="controls pull-right">
+                <h4>
+                  <i
+                    onClick={e =>
+                      Confirm(
+                        "Are you sure?",
+                        () => deleteSection(section.id),
+                        () => {}
+                      )}
+                    className="fa fa-fw fa-times-circle-o delete"
+                    style={{color:'red'}}
+                  />
+                </h4>
+              </div>
+            </div>
           </div>
         </header>
-        <div className={`question-container ${expandedClass}`}>
-          <textarea
-            type="text"
-            value={section.content}
-            name="content"
-            className="pure-u-1-2 section-content"
-            placeholder="Section content"
-            onChange={e => setSectionContent(section.id, e.target.value)}
-          />
-          {questionsToRender}
-          <br />
-          <button
-            className="pure-button"
-            onClick={() => addQuestion(section.id)}
-          >
-            Add Question
-          </button>
+        <div className={`question-container panel-body ${expandedClass}`}>
+          <div className="form-group">
+            <textarea
+              type="text"
+              value={section.content}
+              name="content"
+              className="form-control section-content"
+              placeholder="Section content"
+              rows="3"
+              onChange={e => setSectionContent(section.id, e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            {questionsToRender}
+          </div>
+          <div className="form-group">
+            <button
+              className="btn btn-success"
+              onClick={() => addQuestion(section.id)}
+            >
+              Add Question
+            </button>
+          </div>
         </div>
       </section>
     )

@@ -1,7 +1,3 @@
-.pure-button > i {
-  margin-right: .25rem;
-}
-
 // This should only have imports :)
 //
 // Inverted triangle for the import order
@@ -18,7 +14,7 @@
 @import "tools.mixins";
 
 // == GENERIC ==
-@import "generic.purecss";
+// @import "generic.purecss";
 
 @import "typography";
 
@@ -36,11 +32,6 @@
 @import "components/question-widget";
 @import "components/boolean-question";
 @import "components/form-section";
-
-// FIXME: Temp
-#administer-form {
-  margin: 1rem;
-}
 
 @import "utilities/has-error";
 // @import "trumps.clearfix";

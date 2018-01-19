@@ -11,6 +11,7 @@ import {
 import type {
   QuestionSubmissionsMapType
 } from "../types/QuestionSubmissionsMapType";
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 type Props = {
   form: FormType,
@@ -171,36 +172,27 @@ export default function RespondToForm(props: Props) {
   return (
     <div>
       <form
-        className="pure-form pure-form-stacked"
         onSubmit={e => e.preventDefault()}
       >
         {displaySections}
         <hr />
         <p>{showCompletionContent}</p>
-        <button
-          className="pure-button pure-button-primary"
-          onClick={() =>
-            submitFormWithValidation(
-              submitForm,
-              form,
-              submissions,
-              errors,
-              apiKey
-            )}
-        >
-          Submit
-        </button>
+        <div className="form-group">
+          <button
+            className="btn btn-primary"
+            onClick={() =>
+              submitFormWithValidation(
+                submitForm,
+                form,
+                submissions,
+                errors,
+                apiKey
+              )}
+          >
+            Submit
+          </button>
+        </div>
       </form>
-      <hr />
-      <button onClick={loadExampleForm}>Load Example Form</button>
-      <input type="text" onChange={e => getForm(apiKey, e.target.value)} />
-      <button
-        onClick={() => {
-          getForm(apiKey, 1);
-        }}
-      >
-        Get API Form 1
-      </button>
     </div>
   );
 }

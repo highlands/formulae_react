@@ -44,17 +44,17 @@
   }
 
   .checkboxes {
-    @extend .pure-g;
+//    @extend .pure-g;
 
     > .headinglabel {
       @include question-label();
-      @extend .pure-u-1;
+//      @extend .pure-u-1;
     }
 
     span {
       // FIXME : The medium size should be uncommented, but it is not working
       // currently
-      @extend .pure-u-1;
+//      @extend .pure-u-1;
       //@extend .pure-u-md-1-2;
     }
 
