@@ -142,12 +142,10 @@ function deleteChoice(model, payload) {
             .get(indexQuestion)
             .choices.findIndex(c => c.id === choiceId);
 
-          return s.deleteIn([
-            "questions",
-            indexQuestion,
-            "choices",
-            indexChoice
-          ]);
+          return s.setIn(
+            ["questions", indexQuestion, "choices", indexChoice, "deleted"],
+            true
+          );
         } else {
           return s;
         }

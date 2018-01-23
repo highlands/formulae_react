@@ -11,6 +11,7 @@ export default class ChoiceType
     maximumChosen: 0,
     label: "",
     disabled: false,
+    deleted: false,
     persisted: false
   }) {
   id: string;
@@ -19,5 +20,6 @@ export default class ChoiceType
   maximumChosen: number;
   label: string;
   disabled: boolean;
+  deleted: boolean;
   persisted: boolean;
 }
